@@ -27,7 +27,7 @@
                         <td>{{$cobro->ajuste_costos}}</td>
                         <td>{{$cobro->act_indirectos}}</td>
                         <td>
-                            <a href="{{ route('cobros.edit', $cobro->id) }}" class="btn btn-warning btn-sm">Actualizar</a>
+                            <a href="{{ route('cobros.edit', $cobro->id) }}" class="btn btn-warning btn-sm mt-2">Actualizar</a>
                             <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$cobro->id}})">
                             Eliminar
                             </button>

@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-6 text-end">
 
-                            <a href=""><button type="button" class="btn btn-danger">Cancelar</button></a>
+                            <a href="{{route('cobros.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
 
                     </div>
                 </form>
