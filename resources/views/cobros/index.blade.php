@@ -4,7 +4,10 @@
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Show
+            <h6 class="mb-0">
+                <h3>
+                    TABLA DE COBROS
+                </h3>
             </h6>
             <a class="btn btn-primary" href="{{route('cobros.create')}}">Nuevo Registro</a>
         </div>
