@@ -21,10 +21,10 @@ return new class extends Migration
             $table->decimal('imp_contrato', 10, 5);
             $table->string('periodo_eject', 255);
             $table->text('descripcion');
-            $table->text('convenios');
-            $table->text('int_coord');
-            $table->decimal('int_monto', 10, 5);
-            $table->string('logo', 255);
+            $table->text('convenios')->nullable();
+            $table->text('int_coord')->nullable();
+            $table->decimal('int_monto', 10, 5)->nullable();
+            $table->string('logo', 255)->nullable();
             $table->timestamps();
         });
     }

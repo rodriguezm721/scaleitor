@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('graphics', function (Blueprint $table) {
             $table->id();
+            $table->string('num_contrato_g', 255);
+            $table->text('fotografias');
+            $table->text('croquis');
+            $table->text('larguillo');
+            $table->text('pp_generales');
+            $table->text('secciones');
             $table->timestamps();
+
+            $table->unsignedBigInteger('contractual_id');
+            $table->foreign('contractual_id')->references('id')->on('contractuals')
+            ->onDelete('cascade') // Eliminación en cascada
+            ->onUpdate('cascade'); // Actualización en cascada
         });
     }
 

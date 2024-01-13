@@ -15,8 +15,14 @@ return new class extends Migration
             $table->id();
             $table->text('nom_corto');
             $table->text('alcance');
+            $table->string('num_contrato_s', 255);
             $table->string('lider', 250);
             $table->timestamps();
+
+            $table->unsignedBigInteger('contractual_id');
+            $table->foreign('contractual_id')->references('id')->on('contractuals')
+            ->onDelete('cascade') // Eliminación en cascada
+            ->onUpdate('cascade'); // Actualización en cascada
         });
     }
 

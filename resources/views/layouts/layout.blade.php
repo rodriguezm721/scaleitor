@@ -66,12 +66,13 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="{{ route('cobros.index')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Cobros</a>
+                    <a href="{{ route('contratos.index')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Contratos</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Ajustes</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Buttons</a>
-                            <a href="typography.html" class="dropdown-item">Typography</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
+                            <a href="button.html" class="dropdown-item">Opcion 1</a>
+                            <a href="typography.html" class="dropdown-item">Opcion 2</a>
+                            <a href="element.html" class="dropdown-item">Opcion 3</a>
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>

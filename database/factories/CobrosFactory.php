@@ -20,6 +20,8 @@ class CobrosFactory extends Factory
             'estatus_est' => $this->faker->numberBetween(1, 3),
             'ajuste_costos' => $this->faker->firstName(),
             'act_indirectos' =>$this->faker->lastName(),
+            'num_contrato_c' =>$this->faker->lastName(),
+            'contractual_id' => $this->faker->numberBetween(1, 3),
             ];
     }
 }

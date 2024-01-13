@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contractual extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function times() {
         return $this->hasMany(Time::class);
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cobros extends Model
 {
-     protected $guarded = [];
+    protected $guarded = [];
     use HasFactory;
     public function statuscobros(){
         return $this->hasMany(StatusCobros::class);
