@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Contractual;
+use App\Models\Time;
 use Illuminate\Http\Request;
+use DateTime;
 
 class ContractualController extends Controller
 {
@@ -29,17 +32,85 @@ class ContractualController extends Controller
      */
     public function store(Request $request)
     {
-        $cobro = new Contractual;
-        $cobro->nom_proyecto = $request->input('nom_proyecto');
-        $cobro->no_contrato = $request->input('no_contrato');
-        $cobro->empresa_cont = $request->input('empresa_cont');
-        $cobro->consorcio = $request->input('consorcio');
-        $cobro->emp_contratante = $request->input('emp_contratante');
-        $cobro->imp_contrato = $request->input('imp_contrato');
-        $cobro->periodo_eject = $request->input('periodo_eject');
-        $cobro->descripcion = $request->input('descripcion');
-        $cobro->save();
-        return redirect()->route('contratos.index');
+        // Inicia la transacción
+        DB::beginTransaction();
+
+        try {
+
+            $inicio = new DateTime($request->input('fecha_inicio'));
+            $fin = new DateTime($request->input('fecha_fin'));
+            $interval = $inicio->diff($fin);
+            $dias_diferencia = $interval->days;
+            $dias_diferencia += 1;
+
+            $cobro = new Contractual;
+            $cobro->nom_proyecto = $request->input('nom_proyecto');
+            $cobro->no_contrato = $request->input('no_contrato');
+            $cobro->empresa_cont = $request->input('empresa_cont');
+            $cobro->consorcio = $request->input('consorcio');
+            $cobro->fecha_inicio = $request->input('fecha_inicio');
+            $cobro->fecha_fin = $request->input('fecha_fin');
+            $cobro->coordinacion = $request->input('coordinacion');
+            $cobro->total_dias = $dias_diferencia;
+            $cobro->emp_contratante = $request->input('emp_contratante');
+            $cobro->imp_contrato = $request->input('imp_contrato');
+            $cobro->descripcion = $request->input('descripcion');
+            $cobro->save();
+            
+            // Después de guardar, puedes acceder al ID así:
+            $registroId = $cobro->id;
+            $cobro = Contractual::find($registroId);
+
+            // Verifica si el registro existe
+            if (!$cobro) {
+                abort(404, 'Registro no encontrado');
+            }
+
+            $datos = $request->input('datos');
+
+            if ($request->filled('datos')) {
+                foreach ($datos as $dato) {
+                    // Crea objetos DateTime a partir de las fechas
+                    $datetime_inicio = new DateTime($dato['campo1']);
+                    $datetime_fin = new DateTime($dato['campo2']);
+                    // Calcula la diferencia entre las fechas
+                    $interval = $datetime_inicio->diff($datetime_fin);
+        
+                    // Obtén la diferencia en días
+                    $dias_diferencia = $interval->days;
+                    $dias_diferencia += 1;
+                    // Crear una nueva instancia de Time
+                    $time = new Time;
+                    // Asignar valores desde el formulario
+                    $time->fecha_inicio = $dato['campo1'];
+                    $time->fecha_fin = $dato['campo2'];
+                    $time->dias = $dias_diferencia;
+                    // Asociar con Contractual y guardar en la base de datos
+                    $cobro->times()->save($time);
+                    //Dias acumulados
+                    $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
+                    $cobro->save();
+                }
+            }
+
+
+            // Si llegamos aquí sin excepciones, confirmamos la transacción
+            DB::commit();
+            return redirect()->route('contratos.index');
+
+            // Puedes devolver una respuesta de éxito o hacer cualquier otra cosa que necesites
+            //return response()->json(['mensaje' => 'Contrato guardado con éxito']);
+        } catch (\Exception $e) {
+            // Si ocurre alguna excepción, realiza el rollback para deshacer todas las operaciones
+            DB::rollback();
+
+            // Puedes registrar el error o manejarlo de alguna manera específica
+            //Log::error('Error en la transacción: ' . $e->getMessage());
+
+            // Devuelve una respuesta de error, lanza una excepción, o maneja el error según tus necesidades
+            return redirect()->route('contratos.index')->withErrors(['error' => 'Error al guardar el contrato']);
+            //return response()->json(['error' => 'Error en la transacción'], 500);
+        }
     }
 
     /**

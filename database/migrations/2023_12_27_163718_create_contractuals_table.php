@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('contractuals', function (Blueprint $table) {
             $table->id();
             $table->text('nom_proyecto');
-            $table->string('no_contrato', 255);
+            $table->string('no_contrato', 255)->unique();
             $table->string('empresa_cont', 255);
-            $table->text('consorcio');
+            $table->text('consorcio')->nullable();
             $table->string('emp_contratante', 255);
-            $table->decimal('imp_contrato', 10, 5);
-            $table->string('periodo_eject', 255);
-            $table->text('descripcion');
+            $table->string('coordinacion', 255);
+            $table->decimal('imp_contrato', 10, 2);
+            $table->text('descripcion')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->bigInteger('total_dias')->nullable();
             $table->text('convenios')->nullable();
             $table->text('int_coord')->nullable();
             $table->decimal('int_monto', 10, 5)->nullable();

@@ -51,8 +51,8 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                <a href="#" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SCALA</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -251,32 +251,8 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-        $('#example').DataTable( {
-            dom: 'Bfrtipl',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            "language": {
-                    "search": "Buscar...",
-                    "lengthMenu": "Mostrando _MENU_ por página",
-                    "zeroRecords": "No se encontro información",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay registros disponibles",
-                    "infoFiltered": "(filtración total de _MAX_ registros)",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-                }
-        } );
-    } );
-    </script>
+    <script src="{{asset('js/functions.js')}}"></script>
+
 </body>
 
 </html>

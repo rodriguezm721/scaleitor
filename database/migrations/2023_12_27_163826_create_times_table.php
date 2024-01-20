@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->id();
-            $table->text('convenio');
-            $table->date('fecha_fin');
-            $table->dateTime('fecha_creacion');
+            $table->date('fecha_fin')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->bigInteger('dias')->nullable();
+            $table->decimal('monto', 10, 2)->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('contractual_id');

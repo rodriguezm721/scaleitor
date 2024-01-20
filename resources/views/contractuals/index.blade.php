@@ -3,27 +3,32 @@
 
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
+      @if($errors->has('error'))
+      <div class="alert alert-danger">
+          {{ $errors->first('error') }}
+      </div>
+      @endif
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">
                 <h3>
-                    TABLA DE CONTRATOS
+                    INFORMACIÓN CONTRACTUAL
                 </h3>
             </h6>
-            <a class="btn btn-primary" href="{{route('contratos.create')}}">Nuevo Registro</a>
+            <a class="btn btn-primary" href="{{route('contratos.create')}}">Nuevo Contrato</a>
         </div>
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0" id="example">
                 <thead>
                     <tr class="text-dark">
                         <th scope="col">ID</th>
-                        <th scope="col">Contrato</th>
-                        <th scope="col">No. contrato</th>
+                        <th scope="col">Nombre contrato</th>
+                        <th scope="col" style="display: none">No. contrato</th>
                         <th scope="col">Emp contratada</th>
-                        <th scope="col">Consorcio</th>
+                        <th scope="col" style="display: none">Consorcio</th>
                         <th scope="col">Emp contratante</th>
                         <th scope="col">Imp contrato</th>
-                        <th scope="col">Periodo ejec</th>
-                        <th scope="col">Descripcion</th>
+                        <th scope="col" style="display: none">Descripcion</th>
+                        <th scope="col">Total Días</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -32,20 +37,53 @@
                     <tr>
                         <td>{{$contrato->id}}</td>
                         <td>{{$contrato->nom_proyecto}}</td>
-                        <td>{{$contrato->no_contrato}}</td>
+                        <td style="display: none">{{$contrato->no_contrato}}</td>
                         <td>{{$contrato->empresa_cont}}</td>
-                        <td>{{$contrato->consorcio}}</td>
+                        <td style="display: none">{{$contrato->consorcio}}</td>
                         <td>{{$contrato->emp_contratante}}</td>
-                        <td>{{$contrato->imp_contrato}}</td>
-                        <td>{{$contrato->periodo_eject}}</td>
-                        <td>{{$contrato->descripcion}}</td>
+                        <td>${{$contrato->imp_contrato}}</td>
+                        <td style="display: none">{{$contrato->descripcion}}</td>
+                        <td>{{$contrato->total_dias}}</td>
                         <td>
                             <a href="{{ route('contratos.edit', $contrato->id)}}" class="btn btn-warning btn-sm mt-2">Actualizar</a>
                             <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
                             Eliminar
                             </button>
+                            <a href="{{ route('convenios.show', $contrato->id)}}" class="btn btn-success btn-sm mt-2">Convenios</a>
+                            <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id}}" class="btn btn-primary btn-sm mt-2">Ver más</a>
                         </td>
                     </tr>
+                    <div class="modal fade" id="modal-{{$contrato->id}}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Más información</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="row">
+                                <div class="col-6 text-center">
+                                  <h6>Folio</h6>
+                                  <span>{{$contrato->nom_proyecto}}</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                  <h6>Corte</h6>
+                                  <span>{{$contrato->no_contrato}}</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                  <h6>Coodinación</h6>
+                                  <span>{{$contrato->coordinacion}}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Cerrar
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     @endforeach
                 </tbody>
             </table>
@@ -82,57 +120,5 @@
 
         }
      </script>
-
-    <div class="modal" id="modalEliminar">
-        <div class="modal-contenido">
-          <span class="cerrar-modal" id="cerrarModal">&times;</span>
-          <h2>¿Estás seguro de que quieres eliminar este registro?</h2>
-          <p>Esta acción no se puede deshacer.</p>
-          <div class="botones">
-            <button class="btn-eliminar" id="confirmarEliminar">Eliminar</button>
-            <button class="btn-cancelar" id="cancelarEliminar">Cancelar</button>
-          </div>
-        </div>
-    </div>
-    <script>
-        function delete(elemento) {
-        var dato = elemento.getAttribute('data-dato');
-        // Ahora 'dato' contiene el valor que pasaste desde la vista Blade
-        console.log('El dato es:', elemento);
-        // Puedes hacer lo que necesites con 'dato', como enviarlo a tu backend o realizar alguna operación
-        }
-    </script>
-    <!--<script>
-        // Obtener elementos del DOM
-        const btnAbrirModal = document.getElementById('eliminarRegistro');
-        const modal = document.getElementById('modalEliminar');
-        const btnCerrarModal = document.getElementById('cerrarModal');
-        const btnCancelarEliminar = document.getElementById('cancelarEliminar');
-        const btnConfirmarEliminar = document.getElementById('confirmarEliminar');
-
-        // Abrir modal al hacer clic en el botón
-        btnAbrirModal.addEventListener('click', () => {
-        modal.style.display = 'flex';
-        });
-
-        // Cerrar modal al hacer clic en la "X"
-        btnCerrarModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-        });
-
-        // Cerrar modal al hacer clic en Cancelar
-        btnCancelarEliminar.addEventListener('click', () => {
-        modal.style.display = 'none';
-        });
-
-        // Aquí debes agregar la lógica para eliminar el registro al confirmar
-        btnConfirmarEliminar.addEventListener('click', () => {
-        // Agrega tu lógica de eliminación aquí
-        // Por ejemplo, puedes usar AJAX para enviar una solicitud de eliminación al servidor
-        // Una vez eliminado, cierra el modal:
-        modal.style.display = 'none';
-        });
-
-    </script>---->
 </div>
 @endsection

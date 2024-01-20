@@ -2,6 +2,7 @@
 use App\Http\Controllers\CobrosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContractualController;
+use App\Http\Controllers\TimeController;
 
 
 /*
@@ -16,7 +17,7 @@ use App\Http\Controllers\ContractualController;
 */
 
 Route::get('/', function () {
-    return view('layouts/layout');
+    return view('layouts/dashboard');
 });
 
 Route::get('/cobros', [CobrosController::class, 'index'])->name('cobros.index');
@@ -41,3 +42,17 @@ Route::resource('/contratos', ContractualController::class)->names([
     'edit' => 'contratos.edit',
     'update' => 'contratos.update',
 ]);
+
+//Rutas para CRUD de contratos
+Route::resource('/convenios', TimeController::class)->names([
+    'store' => 'convenios.store',
+    'index' => 'convenios.index',
+    'create' => 'convenios.create',
+    'edit' => 'convenios.edit',
+    'update' => 'convenios.update',
+    'show' => 'convenios.show',
+]);
+//Route::post('/convenios/insert', [TimeController::class, 'insert'])->name('convenios.insert');
+Route::get('/convenios/insert/{id}', [TimeController::class, 'insert'])->name('convenios.insert');
+Route::delete('/convenios/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
+
