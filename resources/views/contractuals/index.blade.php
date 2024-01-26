@@ -63,16 +63,66 @@
                             <div class="modal-body">
                               <div class="row">
                                 <div class="col-6 text-center">
-                                  <h6>Folio</h6>
+                                  <h6>Nombre del Contrato</h6>
                                   <span>{{$contrato->nom_proyecto}}</span>
                                 </div>
                                 <div class="col-6 text-center">
-                                  <h6>Corte</h6>
+                                  <h6>Número de Contrato</h6>
                                   <span>{{$contrato->no_contrato}}</span>
                                 </div>
+                              </div>
+                              <div class="row mt-3">
                                 <div class="col-6 text-center">
-                                  <h6>Coodinación</h6>
+                                  <h6>Empresa contratada</h6>
+                                  <span>{{$contrato->empresa_cont}}</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                  <h6>Consorcio</h6>
+                                  @if(isset($contrato->consorcio))
+                                  <span>{{$contrato->consorcio}}</span>
+                                  @else
+                                  <span>Sin información de consorcio</span>
+                                  @endif
+                                </div>
+                              </div>
+                              <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                  <h6>Empresa contratante</h6>
+                                  <span>{{$contrato->emp_contratante}}</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                  <h6>Coordinación</h6>
                                   <span>{{$contrato->coordinacion}}</span>
+                                </div>
+                              </div>
+                              <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                  <h6>Importe de Contrato</h6>
+                                  <span>{{$contrato->imp_contrato}}</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                  <h6>Total de días</h6>
+                                  <span>{{$contrato->total_dias}}</span>
+                                </div>
+                              </div>
+                              <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                  <h6>Fecha de Inicio</h6>
+                                  <span>{{$contrato->fecha_inicio}}</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                  <h6>Fecha de Fin</h6>
+                                  <span>{{$contrato->fecha_fin}}</span>
+                                </div>
+                              </div>
+                              <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                  <h6>Descripción</h6>
+                                  @if(isset($contrato->descripcion))
+                                  <span>{{$contrato->descripcion}}</span>
+                                  @else
+                                  <span>Sin descripción</span>
+                                  @endif
                                 </div>
                               </div>
                             </div>

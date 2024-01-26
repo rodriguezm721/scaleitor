@@ -2,6 +2,7 @@
 use App\Http\Controllers\CobrosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContractualController;
+use App\Http\Controllers\QueriesController;
 use App\Http\Controllers\TimeController;
 
 
@@ -56,3 +57,9 @@ Route::resource('/convenios', TimeController::class)->names([
 Route::get('/convenios/insert/{id}', [TimeController::class, 'insert'])->name('convenios.insert');
 Route::delete('/convenios/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
 
+
+Route::prefix('scala')->group(function () {
+    // Ruta para mostrar la lista de usuarios
+    Route::get('/inicio', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');
+    Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries');
+});

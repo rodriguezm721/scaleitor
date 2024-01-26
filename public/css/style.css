@@ -372,3 +372,10 @@
   #eliminarRegistro:hover {
     background-color: #ff6666;
   }
+
+
+  /* Estilo para el alert */
+  .small-alert {
+    padding: 0.5rem; /* Ajusta el espacio interno según tus preferencias */
+    font-size: 0.9rem; /* Ajusta el tamaño de fuente según tus preferencias */
+}

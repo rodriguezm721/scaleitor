@@ -7,6 +7,7 @@ use App\Models\Contractual;
 use App\Models\Time;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Validation\Rule;
 
 class ContractualController extends Controller
 {
@@ -15,7 +16,14 @@ class ContractualController extends Controller
      */
     public function index()
     {
-        $contratos = Contractual::all();
+        DB::beginTransaction();
+        try{
+            $contratos = Contractual::all();
+            DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
         return view('contractuals.index', compact('contratos'));
     }
 
@@ -32,6 +40,13 @@ class ContractualController extends Controller
      */
     public function store(Request $request)
     {
+        //Hace una validacion de los input en la vista 
+        $credentials = $request->validate([
+            'nom_proyecto' => ['required'],
+            'no_contrato' => ['required', 'unique:contractuals'],
+        ]);
+        //Inserta en el modelo lo que le llego del request
+        //$dependencias = Dependence::create($request->input());
         // Inicia la transacción
         DB::beginTransaction();
 
@@ -108,7 +123,7 @@ class ContractualController extends Controller
             //Log::error('Error en la transacción: ' . $e->getMessage());
 
             // Devuelve una respuesta de error, lanza una excepción, o maneja el error según tus necesidades
-            return redirect()->route('contratos.index')->withErrors(['error' => 'Error al guardar el contrato']);
+            return redirect()->route('contratos.index')->withErrors(['error' => 'Ocurrio un error al guardar el contrato']);
             //return response()->json(['error' => 'Error en la transacción'], 500);
         }
     }
@@ -126,8 +141,15 @@ class ContractualController extends Controller
      */
     public function edit($contractual)
     {
-        //Hace un select al modelo de estado por medio de un id que llega como parametro
-        $contrato = Contractual::find($contractual);
+        DB::beginTransaction();
+        try{
+            //Hace un select al modelo de estado por medio de un id que llega como parametro
+            $contrato = Contractual::find($contractual);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
         //Retorna una vista con la consulta que hizo al modelo
         return view('contractuals.edit', compact('contrato'));
     }
@@ -137,9 +159,22 @@ class ContractualController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $contratos = Contractual::find($id);
-        //Hace un update al registro con lo datos que llegaron del request
-        $contratos->fill($request->input())->saveOrFail();
+        $credentials = $request->validate([
+            'nom_proyecto' => ['required'],
+            'no_contrato' => ['required', Rule::unique('contractuals')->ignore($id)],
+        ]);
+
+        DB::beginTransaction();
+
+        try{
+            $contratos = Contractual::find($id);
+            //Hace un update al registro con lo datos que llegaron del request
+            $contratos->fill($request->input())->saveOrFail();
+            DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
         return redirect()->route('contratos.index');
     }
 
@@ -148,10 +183,17 @@ class ContractualController extends Controller
      */
     public function destroy($contractual)
     {
-        $contractual = Contractual::find($contractual);
-        //Ejecuta el metodo delete al registro con el id que llego como parametro
-        $contractual->delete();
-        // Hace una redirecion a la ruta que devuelve una vista index
+        DB::beginTransaction();
+        try{
+            $contractual = Contractual::find($contractual);
+            //Ejecuta el metodo delete al registro con el id que llego como parametro
+            $contractual->delete();
+            // Hace una redirecion a la ruta que devuelve una vista index
+            DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
         return redirect()->route('contratos.index');
     }
 }

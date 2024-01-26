@@ -24,6 +24,22 @@
                             <label for="floatingPassword">No. de contrato</label>
                         </div>
                     </div>
+                    <div class="row mt-3 justify-content-around">
+                        @error('nom_proyecto')
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                        @enderror
+                        @error('no_contrato')
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                        @enderror
+                    </div>
                     <!----------------------ROW 2-------------------------->
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
