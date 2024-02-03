@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->text('nom_corto');
             $table->text('alcance');
-            $table->string('num_contrato_s', 255);
             $table->string('lider', 250);
             $table->timestamps();
 

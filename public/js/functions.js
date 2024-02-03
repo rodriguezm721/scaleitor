@@ -1,4 +1,5 @@
 let contadorFilas = 1;
+
 function agregarFila() {
     const filasContainer = document.getElementById('filas-container');
     filasContainer.style ='';
@@ -7,30 +8,61 @@ function agregarFila() {
     nuevaFila.classList.add('row', 'g-3', 'fila');
 
     nuevaFila.innerHTML = `
-    <div class="col-md-5">
-    <div class="form-floating mb-3">
-    <input name="datos[${contadorFilas}][campo1]" type="date" class="form-control" id="floatingPassword"
-    placeholder="Ajuste Costos">
-    <label for="floatingPassword">Fecha de Inicio</label>
-    </div>
-    </div>
-    <div class="col-md-5">
-    <div class="form-floating mb-3">
-    <input name="datos[${contadorFilas}][campo2]" type="date" class="form-control" id="floatingPassword"
-    placeholder="Ajuste Costos">
-    <label for="floatingPassword">Fecha de Fin</label>
-    </div>
-    </div>
-    <div class="col-md-2 text-center">
-    <button type="button" class="btn btn-danger mt-2 mb-2" onclick="eliminarFila(this)">Eliminar</button>
-    </div>
+        <div class="col-md-12 mb-3">
+            <h5>Cliente ${contadorFilas}</h5>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating mb-3">
+                <input name="datos[${contadorFilas}][campo1]" type="text" class="form-control" placeholder="Nombre de cliente">
+                <label for="floatingPassword">Nombre de cliente</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating mb-3">
+                <input name="datos[${contadorFilas}][campo2]" type="text" class="form-control" placeholder="Cargo">
+                <label for="floatingPassword">Cargo</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating mb-3">
+                <input name="datos[${contadorFilas}][campo3]" type="text" class="form-control" placeholder="Empresa">
+                <label for="floatingPassword">Empresa</label>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-floating mb-3">
+                <input name="datos[${contadorFilas}][campo4]" type="email" class="form-control" placeholder="Correo">
+                <label for="floatingPassword">Correo</label>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-floating mb-3">
+                <input name="datos[${contadorFilas}][campo5]" type="number" class="form-control" placeholder="Tel/Cel">
+                <label for="floatingPassword">Tel/Cel</label>
+            </div>
+        </div>
+        <div class="col-md-2 text-center">
+            <button type="button" class="btn btn-danger mt-2 mb-2" onclick="eliminarFila(this)">Eliminar</button>
+        </div>
     `;
+
     filasContainer.appendChild(nuevaFila);
+
+    // Agrega una línea horizontal con estilos notorios después de cada fila
+    const lineaHorizontal = document.createElement('hr');
+    lineaHorizontal.style.borderTop = '4px solid #d9534f';  // Cambia el color y grosor según tus preferencias
+    filasContainer.appendChild(lineaHorizontal);
+
     contadorFilas++;
 }
+
 function eliminarFila(botonEliminar) {
     const fila = botonEliminar.parentNode.parentNode;
+    const linea = fila.nextElementSibling; // Obtiene la línea horizontal después de la fila
     fila.parentNode.removeChild(fila);
+    if (linea) {
+        linea.parentNode.removeChild(linea);
+    }
 }
 
 

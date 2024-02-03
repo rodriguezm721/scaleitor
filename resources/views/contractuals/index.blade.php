@@ -45,16 +45,11 @@
                         <td style="display: none">{{$contrato->descripcion}}</td>
                         <td>{{$contrato->total_dias}}</td>
                         <td>
-                            <a href="{{ route('contratos.edit', $contrato->id)}}" class="btn btn-warning btn-sm mt-2">Actualizar</a>
-                            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
-                            Eliminar
-                            </button>
-                            <a href="{{ route('convenios.show', $contrato->id)}}" class="btn btn-success btn-sm mt-2">Convenios</a>
-                            <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id}}" class="btn btn-primary btn-sm mt-2">Ver más</a>
+                          <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id +1}}" class="btn btn-primary btn-sm mt-2">Acciones</a>
                         </td>
                     </tr>
                     <div class="modal fade" id="modal-{{$contrato->id}}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title">Más información</h5>
@@ -130,6 +125,26 @@
                               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                 Cerrar
                               </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="modal-{{$contrato->id +1}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Acciones</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <a href="{{ route('contratos.edit', $contrato->id)}}" class="btn btn-warning btn-sm mt-2">Actualizar</a>
+                              <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
+                              Eliminar
+                              </button>
+                              <a href="{{ route('convenios.show', $contrato->id)}}" class="btn btn-success btn-sm mt-2">Convenios</a>
+                              <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id}}" class="btn btn-primary btn-sm mt-2">Ver más</a>
+                              <a href="{{ route('servicios.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2">Operaciones</a>
                             </div>
                           </div>
                         </div>

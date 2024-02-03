@@ -68,12 +68,13 @@
                     <a href="{{ route('layouts.dashboard')}}" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Dashboard</a>
                     <a href="{{ route('contratos.index')}}" class="nav-item nav-link active"><i class="fa fa-folder-open me-2"></i>Contratos</a>
                     <a href="{{ route('cobros.index')}}" class="nav-item nav-link active"><i class="fa fa-bars me-2"></i>Cobros</a>
+                    <a href="" class="nav-item nav-link active"><i class="fa fa-bars me-2"></i>Operaciones</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Operaciones</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Opcion 1</a>
-                            <a href="typography.html" class="dropdown-item">Opcion 2</a>
-                            <a href="element.html" class="dropdown-item">Opcion 3</a>
+                            <a href="" class="dropdown-item">Opcion 1</a>
+                            <a href="" class="dropdown-item">Opcion 2</a>
+                            <a href="" class="dropdown-item">Opcion 3</a>
                         </div>
                     </div>
                 </div>

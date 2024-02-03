@@ -106,14 +106,14 @@
                         </div>
                     </div>
                     <!----------------------ROW 6-------------------------->
-                    <div class="d-flex justify-content-between">
+                    <!---<div class="d-flex justify-content-between">
                         <h3>CONVENIOS</h3>
                         <div class="">
                             <button type="button" class="btn btn-success" onclick="agregarFila()">Agregar Convenio</button>
                         </div>
                     </div>
                     <div id="filas-container">
-                    </div>
+                    </div>--->
                     <!-------------------------------------------------------------------------->
                     <div class="col-6">
                         <button type="submit" class="btn btn-primary">Guardar</button>

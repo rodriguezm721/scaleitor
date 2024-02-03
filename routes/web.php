@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContractualController;
 use App\Http\Controllers\QueriesController;
 use App\Http\Controllers\TimeController;
-
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,6 @@ use App\Http\Controllers\TimeController;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts/dashboard');
-});
 
 Route::get('/cobros', [CobrosController::class, 'index'])->name('cobros.index');
 Route::get('/insert', [CobrosController::class, 'create'])->name('cobros.create');
@@ -33,6 +32,36 @@ Route::resource('/cobros', CobrosController::class)->names([
     'create' => 'cobros.create',
     'edit' => 'cobros.edit',
     'update' => 'cobros.update',
+]);
+
+//Rutas para CRUD de servicios
+Route::resource('/servicios', ServiceController::class)->names([
+    'store' => 'servicios.store',
+    'index' => 'servicios.index',
+    'create' => 'servicios.create',
+    'edit' => 'servicios.edit',
+    'update' => 'servicios.update',
+    'show' => 'servicios.show',
+]);
+
+//Rutas para CRUD de clientes
+Route::resource('/clientes', CustomerController::class)->names([
+    'store' => 'clientes.store',
+    'index' => 'clientes.index',
+    'create' => 'clientes.create',
+    'show' => 'clientes.show',
+    'edit' => 'clientes.edit',
+    'update' => 'clientes.update',
+]);
+
+//Rutas para CRUD de comentarios
+Route::resource('/comentarios', CommentController::class)->names([
+    'store' => 'comentarios.store',
+    'index' => 'comentarios.index',
+    'create' => 'comentarios.create',
+    'show' => 'comentarios.show',
+    'edit' => 'comentarios.edit',
+    'update' => 'comentarios.update',
 ]);
 
 //Rutas para CRUD de contratos
@@ -55,11 +84,13 @@ Route::resource('/convenios', TimeController::class)->names([
 ]);
 //Route::post('/convenios/insert', [TimeController::class, 'insert'])->name('convenios.insert');
 Route::get('/convenios/insert/{id}', [TimeController::class, 'insert'])->name('convenios.insert');
+Route::get('/clientes/insert/{id}', [CustomerController::class, 'insert'])->name('clientes.insert');
+Route::get('/comentarios/insert/{id}', [CommentController::class, 'insert'])->name('comentarios.insert');
 Route::delete('/convenios/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
+Route::delete('/clientes/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
+Route::delete('/servicios/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
+Route::delete('/comentarios/{comment_id}/service/{id}', [CommentController::class, 'destroy']);
 
 
-Route::prefix('scala')->group(function () {
-    // Ruta para mostrar la lista de usuarios
-    Route::get('/inicio', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');
-    Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries');
-});
+Route::get('/', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');
+Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries');

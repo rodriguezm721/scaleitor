@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
-    public function histories(){
-        return $this->hasMany(History::class);
+    public function customers(){
+        return $this->hasMany(Customer::class);
     }
-    public function risks(){
-        return $this->hasMany(Risk::class);
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

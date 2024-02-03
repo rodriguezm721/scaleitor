@@ -11,36 +11,30 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">
                 <h3>
-                    Información de Operaciones
+                    Información de Comentarios
                 </h3>
             </h6>
-            <a class="btn btn-primary" href="{{route('servicios.create')}}">Nueva Operación</a>
+            <a class="btn btn-primary" href="{{route('comentarios.insert', $id)}}">Nuevo Comentario</a>
         </div>
         <div class="table-responsive">
-            <table class="table text-start align-middle table-bordered table-hover mb-0" id="example">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr class="text-dark">
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre Operación</th>
-                        <th scope="col">Alcance</th>
-                        <th scope="col">Lider</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($operaciones as $operacion)
+                    @foreach($comentarios as $comentario)
                     <tr>
-                        <td>{{$operacion->id}}</td>
-                        <td>{{$operacion->nom_corto}}</td>
-                        <td>{{$operacion->alcance}}</td>
-                        <td>{{$operacion->lider}}</td>
+                        <td>{{$comentario->comment}}</td>
+                        <td>{{$comentario->tipo}}</td>
                         <td>
-                            <a href="{{ route('servicios.edit', $operacion->id)}}" class="btn btn-warning btn-sm mt-2">Actualizar</a>
-                            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{ json_encode(['id' => $operacion->id, 'contractual_id' => $id]) }})">
+                            <a href="" class="btn btn-warning btn-sm mt-2" style="display: none">Actualizar</a>
+                            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{ json_encode(['id' => $comentario->id, 'service_id' => $id]) }})">
                             Eliminar
                             </button>
-                            <a href="{{ route('clientes.show', $operacion->id)}}" class="btn btn-success btn-sm mt-2">Contactos</a>
-                            <a href="{{ route('comentarios.show', $operacion->id)}}" class="btn btn-info btn-sm mt-2">Comentarios</a>
                         </td>
                     </tr>
                     @endforeach
@@ -72,10 +66,12 @@
      </div>
      <script>
         function eliminar(datos) {
-          $("#staticBackdrop").modal("show");
-          var deleteForm = document.querySelector('#deleteForm');
-          var string = datos.id+'/contractual/'+datos.contractual_id;
-          deleteForm.setAttribute("action", string);
+            //alert(datos.id);
+            //alert(datos.service_id);
+            $("#staticBackdrop").modal("show");
+            var deleteForm = document.querySelector('#deleteForm');
+            var string = datos.id+'/service/'+datos.service_id;
+            deleteForm.setAttribute("action", string);
 
         }
      </script>

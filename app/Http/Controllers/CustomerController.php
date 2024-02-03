@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CommentController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +21,12 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.insert');
     }
 
     public function insert($id)
     {
-        return view('comments.insert', compact('id'));
+        return view('customers.insert', compact('id'));
     }
 
     /**
@@ -35,13 +35,16 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $id = $request->input('id');
-        $comentario = new Comment;
-        $comentario->comment = $request->input('comment');
-        $comentario->tipo = $request->input('tipo');
-        $comentario->service_id = $id;
-        $comentario->save();
+        $customer = new Customer;
+        $customer->nom_cliente = $request->input('nom_cliente');
+        $customer->cargo = $request->input('cargo');
+        $customer->empresa = $request->input('empresa');
+        $customer->email = $request->input('email');
+        $customer->num_tel = $request->input('num_tel');
+        $customer->service_id = $id;
+        $customer->save();
 
-        return redirect()->route('comentarios.show', ['comentario' => $id]); 
+        return redirect()->route('clientes.show', ['cliente' => $id]);
     }
 
     /**
@@ -49,14 +52,14 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comentarios = Comment::where('service_id', $id)->get();
-        return view('comments.index', compact('comentarios', 'id'));
+        $clientes = Customer::where('service_id', $id)->get();
+        return view('customers.index', compact('clientes', 'id'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Comment $comment)
+    public function edit(Customer $customer)
     {
         //
     }
@@ -64,7 +67,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Customer $customer)
     {
         //
     }
@@ -72,11 +75,11 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($comment_id, $id)
+    public function destroy($customer_id, $id)
     {
         DB::beginTransaction();
         try{
-            $customer = Comment::find($comment_id);
+            $customer = Customer::find($customer_id);
             //Ejecuta el metodo delete al registro con el id que llego como parametro
             $customer->delete();
             // Hace una redirecion a la ruta que devuelve una vista index
@@ -85,6 +88,6 @@ class CommentController extends Controller
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return redirect()->route('comentarios.show', ['comentario' => $id]);
+        return redirect()->route('clientes.show', ['cliente' => $id]);
     }
 }

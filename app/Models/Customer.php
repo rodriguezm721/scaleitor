@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Risk extends Model
+class Customer extends Model
 {
     use HasFactory;
-    public function services(){
+    protected $guarded = [];
+    public function services() {
         return $this->belongsTo(Service::class);
     }
 }

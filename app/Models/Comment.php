@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function services() {
+        return $this->belongsTo(Service::class);
+    }
 }

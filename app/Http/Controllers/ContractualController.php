@@ -58,20 +58,21 @@ class ContractualController extends Controller
             $dias_diferencia = $interval->days;
             $dias_diferencia += 1;
 
-            $cobro = new Contractual;
-            $cobro->nom_proyecto = $request->input('nom_proyecto');
-            $cobro->no_contrato = $request->input('no_contrato');
-            $cobro->empresa_cont = $request->input('empresa_cont');
-            $cobro->consorcio = $request->input('consorcio');
-            $cobro->fecha_inicio = $request->input('fecha_inicio');
-            $cobro->fecha_fin = $request->input('fecha_fin');
-            $cobro->coordinacion = $request->input('coordinacion');
-            $cobro->total_dias = $dias_diferencia;
-            $cobro->emp_contratante = $request->input('emp_contratante');
-            $cobro->imp_contrato = $request->input('imp_contrato');
-            $cobro->descripcion = $request->input('descripcion');
-            $cobro->save();
+            $contrato = new Contractual;
+            $contrato->nom_proyecto = $request->input('nom_proyecto');
+            $contrato->no_contrato = $request->input('no_contrato');
+            $contrato->empresa_cont = $request->input('empresa_cont');
+            $contrato->consorcio = $request->input('consorcio');
+            $contrato->fecha_inicio = $request->input('fecha_inicio');
+            $contrato->fecha_fin = $request->input('fecha_fin');
+            $contrato->coordinacion = $request->input('coordinacion');
+            $contrato->total_dias = $dias_diferencia;
+            $contrato->emp_contratante = $request->input('emp_contratante');
+            $contrato->imp_contrato = $request->input('imp_contrato');
+            $contrato->descripcion = $request->input('descripcion');
+            $contrato->save();
             
+            /*
             // Después de guardar, puedes acceder al ID así:
             $registroId = $cobro->id;
             $cobro = Contractual::find($registroId);
@@ -106,7 +107,7 @@ class ContractualController extends Controller
                     $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
                     $cobro->save();
                 }
-            }
+            }*/
 
 
             // Si llegamos aquí sin excepciones, confirmamos la transacción

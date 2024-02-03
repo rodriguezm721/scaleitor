@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('histories', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->text('con_cliente');
-            $table->text('sol_adic_cliente');
-            $table->text('inf_reun_cliente');
-            $table->text('inf_comen_direc');
-            $table->dateTime('fecha_creacion');
+            $table->string('nom_cliente', 255);
+            $table->string('cargo', 255);
+            $table->string('empresa', 255);
+            $table->string('email');
+            $table->string('num_tel');
             $table->timestamps();
 
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            ->onDelete('cascade') // Eliminación en cascada
+            ->onUpdate('cascade'); // Actualización en cascada
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('histories');
+        Schema::dropIfExists('customers');
     }
 };
