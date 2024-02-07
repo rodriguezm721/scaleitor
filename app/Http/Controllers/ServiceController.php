@@ -28,6 +28,11 @@ class ServiceController extends Controller
         return view('servicios.insert', compact('contratos'));
     }
 
+    public function insert($id)
+    {
+        return view('servicios.insert', compact('id'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -37,7 +42,7 @@ class ServiceController extends Controller
         $service->nom_corto = $request->input('nom_corto');
         $service->alcance = $request->input('alcance');
         $service->lider = $request->input('lider');
-        $service->contractual_id = $request->input('contrato_id');
+        $service->contractual_id = $request->input('id');
         $service->save();
         
         // Después de guardar, puedes acceder al ID así:
@@ -63,7 +68,8 @@ class ServiceController extends Controller
                 $s_id->customers()->save($customer);
                 }
             }
-        return redirect()->route('servicios.show', ['servicio' => $request->input('contrato_id')]);
+        
+            return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
 
     }
 
@@ -116,7 +122,7 @@ class ServiceController extends Controller
             return view('layouts.errorpage');
             
         }
-        return redirect()->route('servicios.show', ['servicio' => $request->input('contractual_id')]);
+        return redirect()->route('contratos.show', ['contrato' => $request->input('contractual_id')]);
     }
 
     /**
@@ -135,6 +141,6 @@ class ServiceController extends Controller
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return redirect()->route('servicios.show', ['servicio' => $id]);
+        return redirect()->route('contratos.show', ['contrato' => $id]);
     }
 }

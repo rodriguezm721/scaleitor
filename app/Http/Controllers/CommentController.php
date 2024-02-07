@@ -40,8 +40,8 @@ class CommentController extends Controller
         $comentario->tipo = $request->input('tipo');
         $comentario->service_id = $id;
         $comentario->save();
-
-        return redirect()->route('comentarios.show', ['comentario' => $id]); 
+        
+        return redirect()->route('contratos.show', ['contrato' => $id]);
     }
 
     /**
@@ -85,6 +85,6 @@ class CommentController extends Controller
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return redirect()->route('comentarios.show', ['comentario' => $id]);
+        return redirect()->route('contratos.show', ['contrato' => $id]);
     }
 }

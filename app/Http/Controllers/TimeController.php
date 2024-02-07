@@ -64,7 +64,7 @@ class TimeController extends Controller
             $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
             $cobro->save();
 
-            return redirect()->route('contratos.index');
+            return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
         }else{
             $dias_diferencia += 1;
             // Crear una nueva instancia de Time
@@ -87,8 +87,7 @@ class TimeController extends Controller
             $cobro->imp_contrato = $cobro->imp_contrato + $monto;
             $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
             $cobro->save();
-
-            return redirect()->route('contratos.index');
+            return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
         }
 
 
@@ -136,6 +135,6 @@ class TimeController extends Controller
         //Ejecuta el metodo delete al registro con el id que llego como parametro
         $time->delete();
         // Hace una redirecion a la ruta que devuelve una vista index
-        return redirect()->route('contratos.index');
+        return redirect()->route('contratos.show', ['contrato' => $contractual_id]);
     }
 }

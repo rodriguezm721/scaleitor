@@ -71,6 +71,7 @@ Route::resource('/contratos', ContractualController::class)->names([
     'create' => 'contratos.create',
     'edit' => 'contratos.edit',
     'update' => 'contratos.update',
+    'show' => 'contratos.show',
 ]);
 
 //Rutas para CRUD de contratos
@@ -86,10 +87,12 @@ Route::resource('/convenios', TimeController::class)->names([
 Route::get('/convenios/insert/{id}', [TimeController::class, 'insert'])->name('convenios.insert');
 Route::get('/clientes/insert/{id}', [CustomerController::class, 'insert'])->name('clientes.insert');
 Route::get('/comentarios/insert/{id}', [CommentController::class, 'insert'])->name('comentarios.insert');
-Route::delete('/convenios/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
-Route::delete('/clientes/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
-Route::delete('/servicios/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
-Route::delete('/comentarios/{comment_id}/service/{id}', [CommentController::class, 'destroy']);
+Route::get('/servicios/insert/{id}', [ServiceController::class, 'insert'])->name('servicios.insert');
+
+Route::delete('/contratos/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
+Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
+Route::delete('/contratos/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
+Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy']);
 
 
 Route::get('/', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');

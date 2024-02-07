@@ -44,7 +44,7 @@ class CustomerController extends Controller
         $customer->service_id = $id;
         $customer->save();
 
-        return redirect()->route('clientes.show', ['cliente' => $id]);
+        return redirect()->route('contratos.show', ['contrato' => $id]);
     }
 
     /**
@@ -88,6 +88,6 @@ class CustomerController extends Controller
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return redirect()->route('clientes.show', ['cliente' => $id]);
+        return redirect()->route('contratos.show', ['contrato' => $id]);
     }
 }

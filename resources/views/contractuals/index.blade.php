@@ -145,6 +145,7 @@
                               <a href="{{ route('convenios.show', $contrato->id)}}" class="btn btn-success btn-sm mt-2">Convenios</a>
                               <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id}}" class="btn btn-primary btn-sm mt-2">Ver más</a>
                               <a href="{{ route('servicios.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2">Operaciones</a>
+                              <a href="{{ route('contratos.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2">Ver Todo</a>
                             </div>
                           </div>
                         </div>

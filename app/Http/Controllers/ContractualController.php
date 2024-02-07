@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Contractual;
 use App\Models\Time;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use DateTime;
 use Illuminate\Validation\Rule;
@@ -132,9 +133,23 @@ class ContractualController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contractual $contractual)
+    public function show($contrato)
     {
-        //
+        $operaciones = Service::with(['customers', 'comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->get();
+
+        //$operaciones = Service::with(['customers', 'comments'])->get();
+
+        $contratos = Contractual::where('id', $contrato)->get();
+        $convenios = Time::where('contractual_id', $contrato)->get();
+        //$operaciones = Service::where('contractual_id', $contrato)->get();
+        $id = $contrato;
+        return view('contractuals.index2')
+        ->with(compact('contratos'))
+        ->with(compact('convenios'))
+        ->with(compact('operaciones'))
+        ->with(compact('id'));
     }
 
     /**

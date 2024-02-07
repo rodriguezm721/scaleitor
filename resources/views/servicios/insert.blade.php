@@ -9,16 +9,11 @@
                 <form class="row g-3" method="POST" action="{{ route('servicios.store')}}">
                     @csrf
                     <!----------------------ROW 1-------------------------->
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="display: none">
                         <div class="form-floating mb-3">
-                            <select class="form-select" name="contrato_id" id="floatingSelect"
-                                aria-label="Floating label select example">
-                                <option value="">Selecciona...</option>
-                                @foreach($contratos as $contrato)
-                                <option value="{{$contrato->id}}">{{ $contrato->no_contrato}}</option>
-                                @endforeach
-                            </select>
-                            <label for="floatingSelect">Contrato</label>
+                            <input name="id" type="text" value="{{$id}}" class="form-control" id="floatingPassword"
+                                placeholder="">
+                            <label for="floatingPassword">Lider de Proyecto</label>
                         </div>
                     </div>
                     <div class="col-md-12">
