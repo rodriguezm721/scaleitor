@@ -24,9 +24,9 @@ class CommentController extends Controller
         //
     }
 
-    public function insert($id)
+    public function insert($service_id,$id)
     {
-        return view('comments.insert', compact('id'));
+        return view('comments.insert', compact('service_id','id'));
     }
 
     /**
@@ -35,10 +35,11 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $id = $request->input('id');
+        $service_id = $request->input('service_id');
         $comentario = new Comment;
         $comentario->comment = $request->input('comment');
         $comentario->tipo = $request->input('tipo');
-        $comentario->service_id = $id;
+        $comentario->service_id = $service_id;
         $comentario->save();
         
         return redirect()->route('contratos.show', ['contrato' => $id]);
@@ -76,9 +77,9 @@ class CommentController extends Controller
     {
         DB::beginTransaction();
         try{
-            $customer = Comment::find($comment_id);
+            $comment = Comment::find($comment_id);
             //Ejecuta el metodo delete al registro con el id que llego como parametro
-            $customer->delete();
+            $comment->delete();
             // Hace una redirecion a la ruta que devuelve una vista index
             DB::commit();
         } catch(\Exception $e){

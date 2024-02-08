@@ -51,6 +51,13 @@
                             <label for="floatingPassword">Fecha Fin</label>
                         </div>
                     </div>
+                    <div class="col-md-6" style="display: none">
+                        <div class="form-floating mb-3">
+                            <input name="service_id" value="{{$service_id}}" type="text" class="form-control" id="floatingPassword"
+                                placeholder="">
+                            <label for="floatingPassword">Fecha Fin</label>
+                        </div>
+                    </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>

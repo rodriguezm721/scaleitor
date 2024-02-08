@@ -7,7 +7,7 @@ use App\Http\Controllers\TimeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\AdvanceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,16 +83,28 @@ Route::resource('/convenios', TimeController::class)->names([
     'update' => 'convenios.update',
     'show' => 'convenios.show',
 ]);
+
+//Rutas para CRUD de avances
+Route::resource('/avances', AdvanceController::class)->names([
+    'store' => 'avances.store',
+    'index' => 'avances.index',
+    'create' => 'avances.create',
+    'edit' => 'avances.edit',
+    'update' => 'avances.update',
+    'show' => 'avances.show',
+]);
 //Route::post('/convenios/insert', [TimeController::class, 'insert'])->name('convenios.insert');
 Route::get('/convenios/insert/{id}', [TimeController::class, 'insert'])->name('convenios.insert');
-Route::get('/clientes/insert/{id}', [CustomerController::class, 'insert'])->name('clientes.insert');
-Route::get('/comentarios/insert/{id}', [CommentController::class, 'insert'])->name('comentarios.insert');
+Route::get('/clientes/insert/{service_id}/{id}', [CustomerController::class, 'insert'])->name('clientes.insert');
+Route::get('/comentarios/insert/{service_id}/{id}', [CommentController::class, 'insert'])->name('comentarios.insert');
 Route::get('/servicios/insert/{id}', [ServiceController::class, 'insert'])->name('servicios.insert');
+Route::get('/avances/insert/{id}', [AdvanceController::class, 'insert'])->name('avances.insert');
 
 Route::delete('/contratos/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
 Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
 Route::delete('/contratos/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
 Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy']);
+Route::delete('/contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy']);
 
 
 Route::get('/', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');

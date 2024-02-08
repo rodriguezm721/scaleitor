@@ -15,4 +15,7 @@ class Contractual extends Model
     public function amounts() {
         return $this->hasMany(Amount::class);
     }
+    public function advances() {
+        return $this->hasMany(Advance::class);
+    }
 }

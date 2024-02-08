@@ -106,9 +106,7 @@
                     <div class="col-md-12">
                         <div class="form-floating">
                             <textarea class="form-control" name="descripcion" placeholder="Agrega comentarios aquí..."
-                                id="floatingTextarea" style="height: 150px;">
-                                {{ $contrato->descripcion}}
-                            </textarea>
+                                id="floatingTextarea" style="height: 150px;">{{ $contrato->descripcion}}</textarea>
                             <label for="floatingTextarea">Descripción</label>
                         </div>
                     </div>

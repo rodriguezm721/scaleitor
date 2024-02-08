@@ -24,9 +24,9 @@ class CustomerController extends Controller
         return view('customers.insert');
     }
 
-    public function insert($id)
+    public function insert($service_id,$id)
     {
-        return view('customers.insert', compact('id'));
+        return view('customers.insert', compact('service_id','id'));
     }
 
     /**
@@ -35,13 +35,14 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $id = $request->input('id');
+        $service_id = $request->input('service_id');
         $customer = new Customer;
         $customer->nom_cliente = $request->input('nom_cliente');
         $customer->cargo = $request->input('cargo');
         $customer->empresa = $request->input('empresa');
         $customer->email = $request->input('email');
         $customer->num_tel = $request->input('num_tel');
-        $customer->service_id = $id;
+        $customer->service_id = $service_id;
         $customer->save();
 
         return redirect()->route('contratos.show', ['contrato' => $id]);

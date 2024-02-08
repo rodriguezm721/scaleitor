@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('advances', function (Blueprint $table) {
             $table->id();
-            $table->string('partidas', 255);
-            $table->string('num_contrato_a', 255);
-            $table->string('fisico', 5);
+            $table->string('partidas', 255)->nullable();
+            $table->string('num_contrato_a', 255)->nullable();
+            $table->text('fisico_obs');
             $table->decimal('pro_fisico', 10, 2);
             $table->decimal('real_fisico', 10, 2);
-            $table->decimal('des_fisica', 10, 2);
-            $table->string('financiero', 5);
+            $table->decimal('des_fisico', 10, 2);
+            $table->text('financiero_obs');
             $table->decimal('pro_fina', 10, 2);
             $table->decimal('real_fina', 10, 2);
             $table->decimal('des_fina', 10, 2);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Contractual;
 use App\Models\Time;
+use App\Models\Advance;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use DateTime;
@@ -143,12 +144,14 @@ class ContractualController extends Controller
 
         $contratos = Contractual::where('id', $contrato)->get();
         $convenios = Time::where('contractual_id', $contrato)->get();
+        $avances = Advance::where('contractual_id', $contrato)->get();
         //$operaciones = Service::where('contractual_id', $contrato)->get();
         $id = $contrato;
         return view('contractuals.index2')
         ->with(compact('contratos'))
         ->with(compact('convenios'))
         ->with(compact('operaciones'))
+        ->with(compact('avances'))
         ->with(compact('id'));
     }
 

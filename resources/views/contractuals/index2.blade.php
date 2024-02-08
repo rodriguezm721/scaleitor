@@ -237,7 +237,7 @@
                            <div class="col-md-6">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h4>Contactos</h4>
-                                <a class="btn btn-primary" href="{{route('clientes.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-primary" href="{{route('clientes.insert', ['service_id' => $operacion->id, 'id' => $id])}}"><i class="fa fa-plus"></i></a>
                             </div>
                               <div class="scrollable-container">
                                  <ul class="list-group list-group-flush">
@@ -248,7 +248,7 @@
                                        <strong>Empresa:</strong> {{ $contacto->empresa }}<br>
                                        <strong>Correo:</strong> {{ $contacto->email }}<br>
                                        <strong>Tel/Cel:</strong> {{ $contacto->num_tel }}<br>
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'service_id' => $id]) }})">
+                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $id]) }})">
                                         <i class="fa fa-trash"></i>
                                         </button>
                                        <!-- Agrega más campos según sea necesario -->
@@ -260,7 +260,7 @@
                            <div class="col-md-6">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h4>Comentarios</h4>
-                                <a class="btn btn-primary" href="{{route('comentarios.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-primary" href="{{route('comentarios.insert', ['service_id' => $operacion->id, 'id' => $id])}}"><i class="fa fa-plus"></i></a>
                             </div>
                               <div class="scrollable-container">
                                  <ul class="list-group list-group-flush">
@@ -269,7 +269,7 @@
                                        <strong>Comentario:</strong> {{ $comment->comment }}<br>
                                        <strong>Tipo:</strong> {{ $comment->tipo }}<br>
                                        <strong>Fecha:</strong> {{ $comment->created_at->format('Y-m-d') }}<br>
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'service_id' => $id]) }})">
+                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'contrato_id' => $id]) }})">
                                         <i class="fa fa-trash"></i>
                                         </button>
                                        <!-- Agrega más campos según sea necesario -->
@@ -286,13 +286,97 @@
             </div>
          </div>
       </div>
+      <div class="container mt-5">
+         <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0">
+                        Avances
+                    </h4>
+                    <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+               @foreach($avances as $avance)
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-heading{{$avance->id}}">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flushad-{{$avance->id}}" aria-expanded="false" aria-controls="flush-collapse{{$avance->id}}">
+                        <h6 class="mb-0">Avance {{ $avance->id }}</h6>
+                     </button>
+                  </h2>
+                  <div id="flushad-{{$avance->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$avance->id}}" data-bs-parent="#accordionFlushExample">
+                     <div class="accordion-body">
+                        <div class="table-responsive">
+                           <table class="table table-borderless text-start align-middle table-hover mb-0">
+                              <thead>
+                                 <tr class="text-dark">
+                                    <th scope="col">Programado Físico</th>
+                                    <th scope="col">Real Físico</th>
+                                    <th scope="col">Desviación Física</th>
+                                    <th scope="col">Observaciones</th>
+                                    
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>%{{$avance->pro_fisico}}</td>
+                                    <td>%{{$avance->real_fisico}}</td>
+                                    <td>%{{$avance->des_fisico}}</td>
+                                    <td>{{$avance->fisico_obs}}</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                        <div class="table-responsive mt-5">
+                           <table class="table table-borderless text-start align-middle table-hover mb-0">
+                              <thead>
+                                 <tr class="text-dark">
+                                    <th scope="col">Programado Financiero</th>
+                                    <th scope="col">Real Financiero</th>
+                                    <th scope="col">Desviación Financiera</th>
+                                    <th scope="col">Observaciones</th>
+                                    <th scope="col"></th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>${{$avance->pro_fina}}</td>
+                                    <td>${{$avance->real_fina}}</td>
+                                    <td>${{$avance->des_fina}}</td>
+                                    <td>{{$avance->financiero_obs}}</td>
+                                    <td>
+                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
+                                          <i class="fa fa-trash"></i>
+                                         </button>
+                                         <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               @endforeach
+            </div>
+         </div>
+      </div>
       <script>
+        function eliminarAvance(datos) {
+            //alert(datos.id);
+            //alert(datos.service_id);
+            $("#staticBackdrop").modal("show");
+            var deleteForm = document.querySelector('#deleteForm');
+            var string = datos.id+'/contrato/'+datos.contrato_id;
+            deleteForm.setAttribute("action", string);
+
+        }
         function eliminarComment(datos) {
             //alert(datos.id);
             //alert(datos.service_id);
             $("#staticBackdrop").modal("show");
             var deleteForm = document.querySelector('#deleteForm');
-            var string = datos.id+'/operation/'+datos.service_id+'/';
+            var string = datos.id+'/operation/'+datos.contrato_id;
             deleteForm.setAttribute("action", string);
 
         }
@@ -301,7 +385,7 @@
             //alert(datos.service_id);
             $("#staticBackdrop").modal("show");
             var deleteForm = document.querySelector('#deleteForm');
-            var string = datos.id+'/service/'+datos.service_id;
+            var string = datos.id+'/service/'+datos.contrato_id;
             deleteForm.setAttribute("action", string);
 
         }
