@@ -7,6 +7,7 @@ use App\Models\Contractual;
 use App\Models\Time;
 use App\Models\Advance;
 use App\Models\Service;
+use App\Models\Cobros;
 use Illuminate\Http\Request;
 use DateTime;
 use Illuminate\Validation\Rule;
@@ -20,13 +21,22 @@ class ContractualController extends Controller
     {
         DB::beginTransaction();
         try{
+            $proyectos = Contractual::where('coordinacion', '=', 'Proyectos')->count();
+            $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->count();
+            $supervision = Contractual::where('coordinacion', '=', 'Supervision')->count();
+            $construccion = Contractual::where('coordinacion', '=', 'Construccion')->count();
             $contratos = Contractual::all();
             DB::commit();
         } catch(\Exception $e){
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return view('contractuals.index', compact('contratos'));
+        return view('contractuals.index')
+        ->with(compact('proyectos'))
+        ->with(compact('ambiental'))
+        ->with(compact('supervision'))
+        ->with(compact('construccion'))
+        ->with(compact('contratos'));
     }
 
     /**
@@ -46,6 +56,7 @@ class ContractualController extends Controller
         $credentials = $request->validate([
             'nom_proyecto' => ['required'],
             'no_contrato' => ['required', 'unique:contractuals'],
+            'imp_contrato' => ['required', 'numeric'],
         ]);
         //Inserta en el modelo lo que le llego del request
         //$dependencias = Dependence::create($request->input());
@@ -70,7 +81,7 @@ class ContractualController extends Controller
             $contrato->coordinacion = $request->input('coordinacion');
             $contrato->total_dias = $dias_diferencia;
             $contrato->emp_contratante = $request->input('emp_contratante');
-            $contrato->imp_contrato = $request->input('imp_contrato');
+            $contrato->imp_contrato = floatval($request->input('imp_contrato'));
             $contrato->descripcion = $request->input('descripcion');
             $contrato->save();
             
@@ -140,11 +151,22 @@ class ContractualController extends Controller
             $query->orderBy('created_at', 'desc');
         }])->get();
 
+        $cobros = Cobros::where('contractual_id', $contrato)
+        ->selectRaw('*, DATE_FORMAT(periodo, "%M %Y") as formatted_date')
+        ->get();
+        /*
+        $cobros = Cobros::whereNotNull('periodo')
+        ->where('contractual_id', '=', $contrato) // Agrega tu condición adicional aquí
+        ->selectRaw('*, MONTHNAME(periodo) as nombre_mes, YEAR(periodo) as anio')
+        ->get();*/
+
+
         //$operaciones = Service::with(['customers', 'comments'])->get();
 
         $contratos = Contractual::where('id', $contrato)->get();
         $convenios = Time::where('contractual_id', $contrato)->get();
         $avances = Advance::where('contractual_id', $contrato)->get();
+        //$cobros = Cobros::where('contractual_id', $contrato)->get();
         //$operaciones = Service::where('contractual_id', $contrato)->get();
         $id = $contrato;
         return view('contractuals.index2')
@@ -152,6 +174,7 @@ class ContractualController extends Controller
         ->with(compact('convenios'))
         ->with(compact('operaciones'))
         ->with(compact('avances'))
+        ->with(compact('cobros'))
         ->with(compact('id'));
     }
 

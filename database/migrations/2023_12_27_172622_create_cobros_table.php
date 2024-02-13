@@ -13,12 +13,24 @@ return new class extends Migration
     {
         Schema::create('cobros', function (Blueprint $table) {
             $table->id();
-            $table->string('estatus_est', 150);
-            $table->text('ajuste_costos');
-            $table->text('act_indirectos');
-            $table->string('num_contrato_c', 255);
+            $table->decimal('total_contrato', 15, 5);
+            $table->string('periodo', 100);
+            $table->date('fecha_ingreso');
+            $table->decimal('programado', 15, 5);
+            $table->integer('program_xcentaje');
+            $table->decimal('acum_promg', 15, 5);
+            $table->integer('acumpg_xcentaje');
+            $table->decimal('estimado', 15, 5);
+            $table->integer('estim_xcentaje');
+            $table->decimal('acum_esti', 15, 5);
+            $table->integer('acumest_xcentaje');
+            $table->decimal('cobrado', 15, 5);
+            $table->integer('cobra_xcentaje');
+            $table->decimal('acum_cobra', 15, 5);
+            $table->integer('acumcobra_xcentaje');
+            $table->text('comentario')->nullable();
+            $table->string('rsr', 150)->nullable();
             $table->timestamps();
-
 
             $table->unsignedBigInteger('contractual_id');
             $table->foreign('contractual_id')->references('id')->on('contractuals')

@@ -14,4 +14,7 @@ class Service extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+    public function contractuals() {
+        return $this->belongsTo(Contractual::class);
+    }
 }

@@ -99,12 +99,14 @@ Route::get('/clientes/insert/{service_id}/{id}', [CustomerController::class, 'in
 Route::get('/comentarios/insert/{service_id}/{id}', [CommentController::class, 'insert'])->name('comentarios.insert');
 Route::get('/servicios/insert/{id}', [ServiceController::class, 'insert'])->name('servicios.insert');
 Route::get('/avances/insert/{id}', [AdvanceController::class, 'insert'])->name('avances.insert');
+Route::get('/cobros/insert/{id}', [CobrosController::class, 'insert'])->name('cobros.insert');
 
 Route::delete('/contratos/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
 Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
 Route::delete('/contratos/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
 Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy']);
 Route::delete('/contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy']);
+Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, 'destroy']);
 
 
 Route::get('/', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');

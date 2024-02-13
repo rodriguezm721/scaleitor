@@ -12,8 +12,11 @@ class Contractual extends Model
     public function times() {
         return $this->hasMany(Time::class);
     }
-    public function amounts() {
-        return $this->hasMany(Amount::class);
+    public function cobros() {
+        return $this->hasMany(Cobros::class);
+    }
+    public function services() {
+        return $this->hasMany(Service::class);
     }
     public function advances() {
         return $this->hasMany(Advance::class);

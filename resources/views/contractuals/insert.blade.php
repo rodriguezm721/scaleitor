@@ -12,7 +12,7 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <textarea class="form-control" name="nom_proyecto" placeholder="Agrega comentarios aquí..."
-                                id="floatingTextarea"></textarea>
+                                id="floatingTextarea">{{old('nom_proyecto')}}</textarea>
                             <label for="floatingTextarea">Contrato</label>
                         </div>
                     </div>
@@ -43,14 +43,14 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input name="empresa_cont" type="text" class="form-control" id="floatingPassword"
-                                placeholder="">
+                                placeholder="" value="{{old('empresa_cont')}}">
                             <label for="floatingPassword">Empresa contratada</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input name="consorcio" type="text" class="form-control" id="floatingPassword"
-                                placeholder="">
+                                placeholder="" value="{{old('consorcio')}}">
                             <label for="floatingPassword">Participación en consorcio</label>
                         </div>
                     </div>
@@ -58,35 +58,48 @@
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
                             <input name="emp_contratante" type="text" class="form-control" id="floatingPassword"
-                                placeholder="">
+                                placeholder="" value="{{old('emp_contratante')}}">
                             <label for="floatingPassword">Empresa contratante</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input name="imp_contrato" type="number" class="form-control" id="floatingPassword"
-                                placeholder="">
+                            <input name="imp_contrato" type="text" class="form-control" id="floatingPassword"
+                                placeholder="" value="{{old('imp_contrato')}}">
                             <label for="floatingPassword">Importe de contrato</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
                             <select class="form-select" name="coordinacion" id="floatingSelect"
-                                aria-label="Floating label select example">
-                                <option selected>Elige una opción...</option>
+                                aria-label="Floating label select example"> 
+                                @if(old('coordinacion'))                             
+                                <option selected value="{{old('coordinacion')}}">{{old('coordinacion')}}</option>
+                                @else
+                                <option selected>Selecciona una opción...</option>
                                 <option value="Proyectos">Proyectos</option>
                                 <option value="Ambiental">Ambiental</option>
                                 <option value="Supervision">Supervisión</option>
                                 <option value="Construccion">Construcción</option>
+                                @endif
                             </select>
                             <label for="floatingSelect">Coodinación</label>
                         </div>
                     </div>
+                    @error('imp_contrato')
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                      </div>
+                    @enderror
                     <!----------------------ROW 4-------------------------->
                     <div class="col-md-12">
                         <div class="form-floating">
                             <textarea class="form-control" name="descripcion" placeholder="Agrega comentarios aquí..."
-                                id="floatingTextarea" style="height: 150px;"></textarea>
+                                id="floatingTextarea" style="height: 150px;">{{old('descripcion')}}</textarea>
                             <label for="floatingTextarea">Descripción</label>
                         </div>
                     </div>
@@ -94,14 +107,14 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input name="fecha_inicio" type="date" class="form-control" id="floatingPassword"
-                                placeholder="Ajuste Costos">
+                            value="{{old('fecha_inicio')}}">
                             <label for="floatingPassword">Fecha Inicio</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input name="fecha_fin" type="date" class="form-control" id="floatingPassword"
-                                placeholder="Ajuste Costos">
+                            value="{{old('fecha_fin')}}">
                             <label for="floatingPassword">Fecha Fin</label>
                         </div>
                     </div>

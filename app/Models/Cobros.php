@@ -9,8 +9,8 @@ class Cobros extends Model
 {
     protected $guarded = [];
     use HasFactory;
-    public function statuscobros(){
-        return $this->hasMany(StatusCobros::class);
+    public function contractuals() {
+        return $this->belongsTo(Contractual::class);
     }
 }
 

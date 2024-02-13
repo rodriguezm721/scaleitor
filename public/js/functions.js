@@ -9,7 +9,7 @@ function agregarFila() {
 
     nuevaFila.innerHTML = `
         <div class="col-md-12 mb-3">
-            <h5>Cliente ${contadorFilas}</h5>
+            <h5>Contacto ${contadorFilas}</h5>
         </div>
         <div class="col-md-4">
             <div class="form-floating mb-3">
@@ -50,7 +50,7 @@ function agregarFila() {
 
     // Agrega una línea horizontal con estilos notorios después de cada fila
     const lineaHorizontal = document.createElement('hr');
-    lineaHorizontal.style.borderTop = '4px solid #d9534f';  // Cambia el color y grosor según tus preferencias
+    lineaHorizontal.style.borderTop = '1px solid #d9534f';  // Cambia el color y grosor según tus preferencias
     filasContainer.appendChild(lineaHorizontal);
 
     contadorFilas++;

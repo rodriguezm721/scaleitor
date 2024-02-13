@@ -55,9 +55,9 @@
                     </div>
                     <!----------------------ROW 6-------------------------->
                     <div class="d-flex justify-content-between">
-                        <h3>Información Cliente</h3>
+                        <h3>Información Contacto</h3>
                         <div class="">
-                            <button type="button" class="btn btn-success" onclick="agregarFila()">Agregar Cliente</button>
+                            <button type="button" class="btn btn-success" onclick="agregarFila()">Agregar Contacto</button>
                         </div>
                     </div>
                     <div id="filas-container">

@@ -151,6 +151,7 @@ return [
 
         'nom_proyecto'             => 'contrato',
         'no_contrato'              => 'número de contrato',
+        'imp_contrato'              => 'importe de contrato',
 
         'address'                  => 'dirección',
         'affiliate_url'            => 'URL de afiliado',

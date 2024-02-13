@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('partidas', 255)->nullable();
             $table->string('num_contrato_a', 255)->nullable();
-            $table->text('fisico_obs');
+            $table->text('fisico_obs')->nullable();
             $table->decimal('pro_fisico', 10, 2);
             $table->decimal('real_fisico', 10, 2);
             $table->decimal('des_fisico', 10, 2);
-            $table->text('financiero_obs');
+            $table->text('financiero_obs')->nullable();
             $table->decimal('pro_fina', 10, 2);
             $table->decimal('real_fina', 10, 2);
             $table->decimal('des_fina', 10, 2);

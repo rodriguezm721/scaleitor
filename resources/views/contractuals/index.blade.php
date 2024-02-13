@@ -2,6 +2,47 @@
 @section('content')
 
 <div class="container-fluid pt-4 px-4">
+  <div class="row g-4">
+      <div class="col-sm-6 col-xl-3">
+          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-chart-line fa-3x text-primary"></i>
+              <div class="ms-3">
+                  <p class="mb-2">Proyectos</p>
+                  <h6 class="mb-0">{{ $proyectos }}</h6>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-tree fa-3x text-primary"></i>
+              <div class="ms-3">
+                  <p class="mb-2">Ambiental</p>
+                  <h6 class="mb-0">{{ $ambiental }}</h6>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-user fa-3x text-primary"></i>
+              <div class="ms-3">
+                  <p class="mb-2">Supervisión</p>
+                  <h6 class="mb-0">{{ $supervision }}</h6>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-hammer fa-3x text-primary"></i>
+              <div class="ms-3">
+                  <p class="mb-2">Construcción</p>
+                  <h6 class="mb-0">{{ $construccion }}</h6>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
       @if($errors->has('error'))
       <div class="alert alert-danger">
@@ -20,7 +61,6 @@
             <table class="table text-start align-middle table-bordered table-hover mb-0" id="example">
                 <thead>
                     <tr class="text-dark">
-                        <th scope="col">ID</th>
                         <th scope="col">Nombre contrato</th>
                         <th scope="col" style="display: none">No. contrato</th>
                         <th scope="col">Emp contratada</th>
@@ -35,7 +75,6 @@
                 <tbody>
                     @foreach($contratos as $contrato)
                     <tr>
-                        <td>{{$contrato->id}}</td>
                         <td>{{$contrato->nom_proyecto}}</td>
                         <td style="display: none">{{$contrato->no_contrato}}</td>
                         <td>{{$contrato->empresa_cont}}</td>
@@ -45,111 +84,13 @@
                         <td style="display: none">{{$contrato->descripcion}}</td>
                         <td>{{$contrato->total_dias}}</td>
                         <td>
-                          <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id +1}}" class="btn btn-primary btn-sm mt-2">Acciones</a>
+                          <a href="{{ route('contratos.edit', $contrato->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
+                              <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                              <a href="{{ route('contratos.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2"><i class="fa fa-eye"></i></a>
                         </td>
                     </tr>
-                    <div class="modal fade" id="modal-{{$contrato->id}}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Más información</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <div class="row">
-                                <div class="col-6 text-center">
-                                  <h6>Nombre del Contrato</h6>
-                                  <span>{{$contrato->nom_proyecto}}</span>
-                                </div>
-                                <div class="col-6 text-center">
-                                  <h6>Número de Contrato</h6>
-                                  <span>{{$contrato->no_contrato}}</span>
-                                </div>
-                              </div>
-                              <div class="row mt-3">
-                                <div class="col-6 text-center">
-                                  <h6>Empresa contratada</h6>
-                                  <span>{{$contrato->empresa_cont}}</span>
-                                </div>
-                                <div class="col-6 text-center">
-                                  <h6>Consorcio</h6>
-                                  @if(isset($contrato->consorcio))
-                                  <span>{{$contrato->consorcio}}</span>
-                                  @else
-                                  <span>Sin información de consorcio</span>
-                                  @endif
-                                </div>
-                              </div>
-                              <div class="row mt-3">
-                                <div class="col-6 text-center">
-                                  <h6>Empresa contratante</h6>
-                                  <span>{{$contrato->emp_contratante}}</span>
-                                </div>
-                                <div class="col-6 text-center">
-                                  <h6>Coordinación</h6>
-                                  <span>{{$contrato->coordinacion}}</span>
-                                </div>
-                              </div>
-                              <div class="row mt-3">
-                                <div class="col-6 text-center">
-                                  <h6>Importe de Contrato</h6>
-                                  <span>{{$contrato->imp_contrato}}</span>
-                                </div>
-                                <div class="col-6 text-center">
-                                  <h6>Total de días</h6>
-                                  <span>{{$contrato->total_dias}}</span>
-                                </div>
-                              </div>
-                              <div class="row mt-3">
-                                <div class="col-6 text-center">
-                                  <h6>Fecha de Inicio</h6>
-                                  <span>{{$contrato->fecha_inicio}}</span>
-                                </div>
-                                <div class="col-6 text-center">
-                                  <h6>Fecha de Fin</h6>
-                                  <span>{{$contrato->fecha_fin}}</span>
-                                </div>
-                              </div>
-                              <div class="row mt-3">
-                                <div class="col-6 text-center">
-                                  <h6>Descripción</h6>
-                                  @if(isset($contrato->descripcion))
-                                  <span>{{$contrato->descripcion}}</span>
-                                  @else
-                                  <span>Sin descripción</span>
-                                  @endif
-                                </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                Cerrar
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Modal -->
-                      <div class="modal fade" id="modal-{{$contrato->id +1}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Acciones</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <a href="{{ route('contratos.edit', $contrato->id)}}" class="btn btn-warning btn-sm mt-2">Actualizar</a>
-                              <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
-                              Eliminar
-                              </button>
-                              <a href="{{ route('convenios.show', $contrato->id)}}" class="btn btn-success btn-sm mt-2">Convenios</a>
-                              <a data-bs-toggle="modal" data-bs-target="#modal-{{$contrato->id}}" class="btn btn-primary btn-sm mt-2">Ver más</a>
-                              <a href="{{ route('servicios.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2">Operaciones</a>
-                              <a href="{{ route('contratos.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2">Ver Todo</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     @endforeach
                 </tbody>
             </table>
