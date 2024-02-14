@@ -34,6 +34,12 @@ class AdvanceController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'pro_fisico' => ['required', 'numeric'],
+            'real_fisico' => ['required', 'numeric'],
+            'pro_fina' => ['required', 'numeric'],
+            'real_fina' => ['required', 'numeric'],
+        ]);
         $avance = new Advance;
         $avance->fisico_obs = $request->input('fisico_obs');
         $avance->pro_fisico = $request->input('pro_fisico');
@@ -80,9 +86,21 @@ class AdvanceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $credentials = $request->validate([
+            'pro_fisico' => ['required', 'numeric'],
+            'real_fisico' => ['required', 'numeric'],
+        ]);
+
         DB::beginTransaction();
 
         try{
+            $total_contrato = floatval($request->input('total_contrato'));
+            $programado = floatval($request->input('programado'));
+            $acum_promg = floatval($request->input('acum_promg'));
+            $estimado = floatval($request->input('estimado'));
+            $acum_esti = floatval($request->input('acum_esti'));
+            $cobrado = floatval($request->input('cobrado'));
+            $acum_cobra = floatval($request->input('acum_cobra'));
             $avance = Advance::find($id);
             //Hace un update al registro con lo datos que llegaron del request
             $avance->fisico_obs = $request->input('fisico_obs');

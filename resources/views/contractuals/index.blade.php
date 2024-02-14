@@ -80,7 +80,7 @@
                         <td>{{$contrato->empresa_cont}}</td>
                         <td style="display: none">{{$contrato->consorcio}}</td>
                         <td>{{$contrato->emp_contratante}}</td>
-                        <td>${{$contrato->imp_contrato}}</td>
+                        <td>${{number_format($contrato->imp_contrato, 2, '.', ',')}}</td>
                         <td style="display: none">{{$contrato->descripcion}}</td>
                         <td>{{$contrato->total_dias}}</td>
                         <td>

@@ -31,6 +31,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        @error('total_contrato')
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('periodo')
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('fecha_ingreso')
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
@@ -43,9 +66,25 @@
                             <div class="form-floating mb-3">
                                 <input name="acum_promg" type="text" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
-                                <label for="floatingPassword">Acumulado</label>
+                                <label for="floatingPassword">Programado acumulado</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row mt-2">
+                        @error('programado')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('acum_promg')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -59,9 +98,25 @@
                             <div class="form-floating mb-3">
                                 <input name="acum_esti" type="text" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
-                                <label for="floatingPassword">Acumulado</label>
+                                <label for="floatingPassword">Estimado acumulado</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row mt-2">
+                        @error('estimado')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('acum_esti')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -75,9 +130,25 @@
                             <div class="form-floating mb-3">
                                 <input name="acum_cobra" type="text" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
-                                <label for="floatingPassword">Acumulado</label>
+                                <label for="floatingPassword">Cobrado acumulado</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row mt-2">
+                        @error('cobrado')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('acum_cobra')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
                     </div>
                     <div class="row">
                         <div class="col-md-12">

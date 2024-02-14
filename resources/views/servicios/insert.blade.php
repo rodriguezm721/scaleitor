@@ -5,7 +5,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
-                <h3 class="mb-4 text-center">Nueva Operación</h3>
+                <h3 class="mb-4 text-center">Nuevo Trabajo</h3>
                 <form class="row g-3" method="POST" action="{{ route('servicios.store')}}">
                     @csrf
                     <!----------------------ROW 1-------------------------->
@@ -13,7 +13,6 @@
                         <div class="form-floating mb-3">
                             <input name="id" type="text" value="{{$id}}" class="form-control" id="floatingPassword"
                                 placeholder="">
-                            <label for="floatingPassword">Lider de Proyecto</label>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -23,13 +22,27 @@
                             <label for="floatingTextarea">Descripción del Trabajo</label>
                         </div>
                     </div>
+                    @error('nom_corto')
+                    <div class="col-md-12">
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    </div>
+                    @enderror
                     <div class="col-md-12">
                         <div class="form-floating">
                             <textarea class="form-control" name="alcance" placeholder="Descripción del trabajo..."
                                 id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Alcance del trabajo</label>
+                            <label for="floatingTextarea">Alcance del Trabajo</label>
                         </div>
                     </div>
+                    @error('alcance')
+                    <div class="col-md-12">
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    </div>
+                    @enderror
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
                             <input name="lider" type="text" class="form-control" id="floatingPassword"
@@ -37,22 +50,13 @@
                             <label for="floatingPassword">Lider de Proyecto</label>
                         </div>
                     </div>
-                    <div class="row mt-3 justify-content-around">
-                        @error('nom_proyecto')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
+                    @error('lider')
+                    <div class="col-md-12">
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
                         </div>
-                        @enderror
-                        @error('no_contrato')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                        @enderror
                     </div>
+                    @enderror
                     <!----------------------ROW 6-------------------------->
                     <div class="d-flex justify-content-between">
                         <h3>Información Contacto</h3>

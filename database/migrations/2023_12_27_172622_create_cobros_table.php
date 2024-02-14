@@ -13,20 +13,20 @@ return new class extends Migration
     {
         Schema::create('cobros', function (Blueprint $table) {
             $table->id();
-            $table->decimal('total_contrato', 15, 5);
+            $table->decimal('total_contrato', 15, 2);
             $table->string('periodo', 100);
             $table->date('fecha_ingreso');
-            $table->decimal('programado', 15, 5);
+            $table->decimal('programado', 15, 2);
             $table->integer('program_xcentaje');
-            $table->decimal('acum_promg', 15, 5);
+            $table->decimal('acum_promg', 15, 2);
             $table->integer('acumpg_xcentaje');
-            $table->decimal('estimado', 15, 5);
+            $table->decimal('estimado', 15, 2);
             $table->integer('estim_xcentaje');
-            $table->decimal('acum_esti', 15, 5);
+            $table->decimal('acum_esti', 15, 2);
             $table->integer('acumest_xcentaje');
-            $table->decimal('cobrado', 15, 5);
+            $table->decimal('cobrado', 15, 2);
             $table->integer('cobra_xcentaje');
-            $table->decimal('acum_cobra', 15, 5);
+            $table->decimal('acum_cobra', 15, 2);
             $table->integer('acumcobra_xcentaje');
             $table->text('comentario')->nullable();
             $table->string('rsr', 150)->nullable();

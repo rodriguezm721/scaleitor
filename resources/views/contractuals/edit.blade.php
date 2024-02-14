@@ -102,6 +102,15 @@
                             <label for="floatingSelect">Coodinación</label>
                         </div>
                     </div>
+                    @error('imp_contrato')
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                      </div>
+                    @enderror
                     <!----------------------ROW 4-------------------------->
                     <div class="col-md-12">
                         <div class="form-floating">
@@ -110,6 +119,36 @@
                             <label for="floatingTextarea">Descripción</label>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input name="fecha_inicio" type="date" class="form-control" id="floatingPassword"
+                            value="{{$contrato->fecha_inicio}}">
+                            <label for="floatingPassword">Fecha Inicio</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input name="fecha_fin" type="date" class="form-control" id="floatingPassword"
+                            value="{{$contrato->fecha_fin}}">
+                            <label for="floatingPassword">Fecha Fin</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @error('fecha_inicio')
+                            <div class="col-md-6">
+                                <div class="alert alert-danger small-alert" role="alert">
+                                    <p>{{ $message }}</p>
+                                </div>
+                            </div>
+                        @enderror
+                        @error('fecha_fin')
+                            <div class="col-md-6">
+                                <div class="alert alert-danger small-alert" role="alert">
+                                    <p>{{ $message }}</p>
+                                </div>
+                            </div>
+                        @enderror
+                        </div>
                     <!----------------------ROW 5-------------------------->
                     <!--<div class="col-md-6">
                         <div class="form-floating mb-3">

@@ -11,10 +11,10 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">
                 <h3>
-                    Información de Operaciones
+                    Información de Trabajos 
                 </h3>
             </h6>
-            <a class="btn btn-primary" href="{{route('servicios.create')}}">Nueva Operación</a>
+            <a class="btn btn-primary" href="{{route('servicios.create')}}">Nuevo Trabajo</a>
         </div>
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0" id="example">

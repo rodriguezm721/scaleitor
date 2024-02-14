@@ -199,7 +199,7 @@
             <div class="card-header bg-primary text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
-                     Operaciones
+                     Trabajos
                   </h4>
                   <a class="btn btn-success" href="{{ route('servicios.insert', $id)}}"><i class="fa fa-plus"></i></a>
                </div>
@@ -386,6 +386,7 @@
                         <tr class="text-dark">
                            <th scope="col">No.</th>
                            <th scope="col">Periodo</th>
+                           <th scope="col">Total contrato</th>
                            <th scope="col">Fecha Ingreso</th>
                            <th scope="col">Programado</th>
                            <th scope="col">%</th>
@@ -408,6 +409,7 @@
                         <tr>
                            <td>{{$cobro->id}}</td>
                            <td>{{$cobro->periodo}}</td>
+                           <td>{{number_format($cobro->total_contrato, 2, '.', ',')}}</td>
                            <td>{{$cobro->fecha_ingreso}}</td>
                            <td>${{number_format($cobro->programado, 2, '.', ',')}}</td>
                            <td>{{$cobro->program_xcentaje}}%</td>
@@ -421,7 +423,7 @@
                            <td>{{$cobro->cobra_xcentaje}}%</td>
                            <td>${{number_format($cobro->acum_cobra, 2, '.', ',')}}</td>
                            <td>{{$cobro->acumcobra_xcentaje}}%</td>
-                           <td>{{$cobro->acumcobra_comentario}}</td>
+                           <td>{{$cobro->comentario}}</td>
                            <td>
                               <a href="{{ route('cobros.edit', $cobro->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
                               <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarCobro({{ json_encode(['id' => $cobro->id, 'contrato_id' => $id]) }})">

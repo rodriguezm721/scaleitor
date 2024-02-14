@@ -35,6 +35,10 @@ class TimeController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'monto' => ['nullable','numeric'],
+        ]);
+
         $datetime_inicio = new DateTime($request->input('fecha_inicio'));
         $datetime_fin = new DateTime($request->input('fecha_fin'));
         // Calcula la diferencia entre las fechas
@@ -48,7 +52,7 @@ class TimeController extends Controller
             // Asignar valores desde el formulario
             $time->fecha_inicio = $request->input('fecha_inicio');
             $time->fecha_fin = $request->input('fecha_fin');
-            $time->monto = $request->input('monto');
+            $time->monto = floatval($request->input('monto'));
             $time->dias = $dias_diferencia;
             $time->contractual_id = $request->input('id');
             $time->save();
@@ -72,7 +76,7 @@ class TimeController extends Controller
             // Asignar valores desde el formulario
             $time->fecha_inicio = $request->input('fecha_inicio');
             $time->fecha_fin = $request->input('fecha_fin');
-            $time->monto = $request->input('monto');
+            $time->monto = floatval($request->input('monto'));
             $time->dias = $dias_diferencia;
             $time->contractual_id = $request->input('id');
             $time->save();

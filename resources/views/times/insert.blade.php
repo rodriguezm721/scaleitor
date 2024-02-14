@@ -25,11 +25,20 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input name="monto" type="number" class="form-control" id="floatingPassword"
+                            <input name="monto" type="text" class="form-control" id="floatingPassword"
                                 placeholder="Monto">
                             <label for="floatingPassword">Monto</label>
                         </div>
                     </div>
+                    @error('monto')
+                    <div class="row justify-content-end">
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                      </div>
+                    @enderror
                     <div class="col-md-6" style="display: none">
                         <div class="form-floating mb-3">
                             <input name="id" value="{{$id}}" type="text" class="form-control" id="floatingPassword"

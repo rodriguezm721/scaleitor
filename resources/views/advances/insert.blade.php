@@ -30,6 +30,22 @@
                             <label for="floatingTextarea">Observaciones</label>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        @error('pro_fisico')
+                        <div class="col-md-3">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('real_fisico')
+                        <div class="col-md-3">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    </div>
                     <!----------------------------------ROW 2------------------------------------------------>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -52,30 +68,29 @@
                             <label for="floatingTextarea">Observaciones</label>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        @error('pro_fina')
+                        <div class="col-md-3">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('real_fina')
+                        <div class="col-md-3">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    </div>
                     <div class="col-md-3" style="display: none">
                         <div class="form-floating mb-3">
                             <input name="contrato_id" value="{{$id}}" type="text" class="form-control" id="floatingPassword"
                                 placeholder="">
-                            <label for="floatingPassword">Desviación Financiero</label>
                         </div>
                     </div>
                     <!-------------------------------------ROW 3------------------------------->
-                    <div class="row mt-3 justify-content-around">
-                        @error('nom_proyecto')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                        @enderror
-                        @error('no_contrato')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                        @enderror
-                    </div>
                     <!----------------------ROW 6-------------------------->
                     <div class="col-6">
                         <button type="submit" class="btn btn-primary">Guardar</button>

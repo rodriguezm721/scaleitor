@@ -57,6 +57,8 @@ class ContractualController extends Controller
             'nom_proyecto' => ['required'],
             'no_contrato' => ['required', 'unique:contractuals'],
             'imp_contrato' => ['required', 'numeric'],
+            'fecha_inicio' => ['required'],
+            'fecha_fin' => ['required'],
         ]);
         //Inserta en el modelo lo que le llego del request
         //$dependencias = Dependence::create($request->input());
@@ -204,6 +206,9 @@ class ContractualController extends Controller
         $credentials = $request->validate([
             'nom_proyecto' => ['required'],
             'no_contrato' => ['required', Rule::unique('contractuals')->ignore($id)],
+            'imp_contrato' => ['required', 'numeric'],
+            'fecha_inicio' => ['required'],
+            'fecha_fin' => ['required'],
         ]);
 
         DB::beginTransaction();

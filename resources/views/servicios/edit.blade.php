@@ -5,7 +5,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
-                <h3 class="mb-4 text-center">Nueva Operación</h3>
+                <h3 class="mb-4 text-center">Actualizar Trabajo</h3>
                 <form class="row g-3" method="POST" action="{{ route('servicios.update', $operacion)}}">
                     @csrf
                     @method('put')
@@ -17,6 +17,13 @@
                             <label for="floatingTextarea">Descripción del Trabajo</label>
                         </div>
                     </div>
+                    @error('nom_corto')
+                    <div class="col-md-12">
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    </div>
+                    @enderror
                     <div class="col-md-12">
                         <div class="form-floating">
                             <textarea class="form-control" name="alcance" placeholder="Descripción del trabajo..."
@@ -24,6 +31,13 @@
                             <label for="floatingTextarea">Alcance del trabajo</label>
                         </div>
                     </div>
+                    @error('alcance')
+                    <div class="col-md-12">
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    </div>
+                    @enderror
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
                             <input name="lider" value="{{ $operacion->lider}}" type="text" class="form-control" id="floatingPassword"
@@ -31,6 +45,13 @@
                             <label for="floatingPassword">Lider de Proyecto</label>
                         </div>
                     </div>
+                    @error('lider')
+                    <div class="col-md-12">
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                    </div>
+                    @enderror
                     <div class="col-md-12" style="display: none">
                         <div class="form-floating mb-3">
                             <input name="contractual_id" value="{{ $operacion->contractual_id}}" type="text" class="form-control" id="floatingPassword"

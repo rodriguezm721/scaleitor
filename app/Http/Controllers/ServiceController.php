@@ -38,6 +38,12 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'nom_corto' => ['required'],
+            'alcance' => ['required'],
+            'lider' => ['required'],
+        ]);
+
         $service = new Service;
         $service->nom_corto = $request->input('nom_corto');
         $service->alcance = $request->input('alcance');
@@ -105,6 +111,11 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $credentials = $request->validate([
+            'nom_corto' => ['required'],
+            'alcance' => ['required'],
+            'lider' => ['required'],
+        ]);
         DB::beginTransaction();
 
         try{

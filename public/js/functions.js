@@ -14,7 +14,7 @@ function agregarFila() {
         <div class="col-md-4">
             <div class="form-floating mb-3">
                 <input name="datos[${contadorFilas}][campo1]" type="text" class="form-control" placeholder="Nombre de cliente">
-                <label for="floatingPassword">Nombre de cliente</label>
+                <label for="floatingPassword">Nombre de contacto</label>
             </div>
         </div>
         <div class="col-md-4">

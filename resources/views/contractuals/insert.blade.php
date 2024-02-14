@@ -118,6 +118,22 @@
                             <label for="floatingPassword">Fecha Fin</label>
                         </div>
                     </div>
+                    <div class="row">
+                    @error('fecha_inicio')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('fecha_fin')
+                        <div class="col-md-6">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    </div>
                     <!----------------------ROW 6-------------------------->
                     <!---<div class="d-flex justify-content-between">
                         <h3>CONVENIOS</h3>

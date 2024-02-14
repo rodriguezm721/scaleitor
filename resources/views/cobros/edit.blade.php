@@ -6,8 +6,9 @@
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
                 <h3 class="mb-4 text-center">Nuevo Cobro</h3>
-                <form class="row g-3" method="POST" action="{{ route('cobros.store') }}">
+                <form class="row g-3" method="POST" action="{{ route('cobros.update', $cobro) }}">
                     @csrf
+                    @method('put')
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
