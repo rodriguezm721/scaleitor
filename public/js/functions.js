@@ -65,6 +65,9 @@ function eliminarFila(botonEliminar) {
     }
 }
 
+function goBack() {
+  window.history.back();
+}
 
 $(document).ready(function() {
     $('#example').DataTable( {

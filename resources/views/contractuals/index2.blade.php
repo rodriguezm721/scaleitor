@@ -199,7 +199,7 @@
             <div class="card-header bg-primary text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
-                     Trabajos
+                     Datos Generales
                   </h4>
                   <a class="btn btn-success" href="{{ route('servicios.insert', $id)}}"><i class="fa fa-plus"></i></a>
                </div>
@@ -303,7 +303,7 @@
             <div class="card-header bg-primary text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
-                     Avances
+                     Avance Supervisión
                   </h4>
                   <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
                </div>
@@ -336,17 +336,17 @@
                <div class="row mb-3">
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Programado Financiero</h6>
-                     <span>${{$avance->pro_fina}}</span>
+                     <span>{{$avance->pro_fina}}%</span>
                   </div>
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Real Financiero</h6>
-                     <span>${{$avance->real_fina}}</span>
+                     <span>{{$avance->real_fina}}%</span>
                   </div>
                </div>
                <div class="row mb-3">
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Desviación Financiera</h6>
-                     <span>${{$avance->des_fina}}</span>
+                     <span>{{$avance->des_fina}}%</span>
                   </div>
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Observaciones</h6>
@@ -384,7 +384,6 @@
                   <table class="table text-start align-middle table-striped table-hover table-hover mb-0">
                      <thead>
                         <tr class="text-dark">
-                           <th scope="col">No.</th>
                            <th scope="col">Periodo</th>
                            <th scope="col">Total contrato</th>
                            <th scope="col">Fecha Ingreso</th>
@@ -407,7 +406,6 @@
                      <tbody>
                         @foreach($cobros as $cobro)
                         <tr>
-                           <td>{{$cobro->id}}</td>
                            <td>{{$cobro->periodo}}</td>
                            <td>{{number_format($cobro->total_contrato, 2, '.', ',')}}</td>
                            <td>{{$cobro->fecha_ingreso}}</td>

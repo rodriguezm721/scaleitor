@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cobros', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_contrato', 15, 2);
-            $table->string('periodo', 100);
+            $table->string('periodo', 150);
             $table->date('fecha_ingreso');
             $table->decimal('programado', 15, 2);
             $table->integer('program_xcentaje');

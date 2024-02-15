@@ -148,7 +148,7 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                     <div class="col-6 text-end">
-                        <a href="{{route('contratos.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                        <a href="#" onclick="history.back();"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>

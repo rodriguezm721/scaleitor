@@ -25,13 +25,79 @@ class ContractualController extends Controller
             $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->count();
             $supervision = Contractual::where('coordinacion', '=', 'Supervision')->count();
             $construccion = Contractual::where('coordinacion', '=', 'Construccion')->count();
-            $contratos = Contractual::all();
+            $contratos = Contractual::where('coordinacion', '=', 'Proyectos')->get();
             DB::commit();
         } catch(\Exception $e){
             DB::rollback();
             return view('layouts.errorpage');
         }
         return view('contractuals.index')
+        ->with(compact('proyectos'))
+        ->with(compact('ambiental'))
+        ->with(compact('supervision'))
+        ->with(compact('construccion'))
+        ->with(compact('contratos'));
+    }
+
+    public function index2()
+    {
+        DB::beginTransaction();
+        try{
+            $proyectos = Contractual::where('coordinacion', '=', 'Proyectos')->count();
+            $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->count();
+            $supervision = Contractual::where('coordinacion', '=', 'Supervision')->count();
+            $construccion = Contractual::where('coordinacion', '=', 'Construccion')->count();
+            $contratos = Contractual::where('coordinacion', '=', 'Ambiental')->get();
+            DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
+        return view('contractuals.indexamb')
+        ->with(compact('proyectos'))
+        ->with(compact('ambiental'))
+        ->with(compact('supervision'))
+        ->with(compact('construccion'))
+        ->with(compact('contratos'));
+    }
+
+    public function index3()
+    {
+        DB::beginTransaction();
+        try{
+            $proyectos = Contractual::where('coordinacion', '=', 'Proyectos')->count();
+            $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->count();
+            $supervision = Contractual::where('coordinacion', '=', 'Supervision')->count();
+            $construccion = Contractual::where('coordinacion', '=', 'Construccion')->count();
+            $contratos = Contractual::where('coordinacion', '=', 'Supervision')->get();
+            DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
+        return view('contractuals.indexsup')
+        ->with(compact('proyectos'))
+        ->with(compact('ambiental'))
+        ->with(compact('supervision'))
+        ->with(compact('construccion'))
+        ->with(compact('contratos'));
+    }
+
+    public function index4()
+    {
+        DB::beginTransaction();
+        try{
+            $proyectos = Contractual::where('coordinacion', '=', 'Proyectos')->count();
+            $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->count();
+            $supervision = Contractual::where('coordinacion', '=', 'Supervision')->count();
+            $construccion = Contractual::where('coordinacion', '=', 'Construccion')->count();
+            $contratos = Contractual::where('coordinacion', '=', 'Construccion')->get();
+            DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            return view('layouts.errorpage');
+        }
+        return view('contractuals.indexcons')
         ->with(compact('proyectos'))
         ->with(compact('ambiental'))
         ->with(compact('supervision'))
@@ -86,6 +152,20 @@ class ContractualController extends Controller
             $contrato->imp_contrato = floatval($request->input('imp_contrato'));
             $contrato->descripcion = $request->input('descripcion');
             $contrato->save();
+
+            $registroId = $contrato->id;
+            $cobro = Contractual::find($registroId);
+            DB::commit();
+
+            if ($cobro->coordinacion == 'Proyectos') {
+                return redirect()->route('contratos.index');
+            }elseif ($cobro->coordinacion == 'Ambiental') {
+                return redirect()->route('contratos.index2');
+            }elseif ($cobro->coordinacion == 'Supervision'){
+                return redirect()->route('contratos.index3');
+            }elseif ($cobro->coordinacion == 'Construccion'){
+                return redirect()->route('contratos.index4');
+            }
             
             /*
             // Después de guardar, puedes acceder al ID así:
@@ -126,8 +206,6 @@ class ContractualController extends Controller
 
 
             // Si llegamos aquí sin excepciones, confirmamos la transacción
-            DB::commit();
-            return redirect()->route('contratos.index');
 
             // Puedes devolver una respuesta de éxito o hacer cualquier otra cosa que necesites
             //return response()->json(['mensaje' => 'Contrato guardado con éxito']);
@@ -151,12 +229,14 @@ class ContractualController extends Controller
     {
         $operaciones = Service::with(['customers', 'comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
-        }])->get();
+        }])
+        ->where('contractual_id', $contrato)
+        ->get();
 
-        $cobros = Cobros::where('contractual_id', $contrato)
+        /*$cobros = Cobros::where('contractual_id', $contrato)
         ->selectRaw('*, DATE_FORMAT(periodo, "%M %Y") as formatted_date')
         ->get();
-        /*
+        
         $cobros = Cobros::whereNotNull('periodo')
         ->where('contractual_id', '=', $contrato) // Agrega tu condición adicional aquí
         ->selectRaw('*, MONTHNAME(periodo) as nombre_mes, YEAR(periodo) as anio')
@@ -168,7 +248,7 @@ class ContractualController extends Controller
         $contratos = Contractual::where('id', $contrato)->get();
         $convenios = Time::where('contractual_id', $contrato)->get();
         $avances = Advance::where('contractual_id', $contrato)->get();
-        //$cobros = Cobros::where('contractual_id', $contrato)->get();
+        $cobros = Cobros::where('contractual_id', $contrato)->get();
         //$operaciones = Service::where('contractual_id', $contrato)->get();
         $id = $contrato;
         return view('contractuals.index2')
@@ -215,14 +295,23 @@ class ContractualController extends Controller
 
         try{
             $contratos = Contractual::find($id);
+            $coordinacion = $contratos->coordinacion;
             //Hace un update al registro con lo datos que llegaron del request
             $contratos->fill($request->input())->saveOrFail();
             DB::commit();
+            if ($coordinacion == 'Proyectos') {
+                return redirect()->route('contratos.index');
+            }elseif ($coordinacion == 'Ambiental') {
+                return redirect()->route('contratos.index2');
+            }elseif ($coordinacion == 'Supervision'){
+                return redirect()->route('contratos.index3');
+            }elseif ($coordinacion == 'Construccion'){
+                return redirect()->route('contratos.index4');
+            }
         } catch(\Exception $e){
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return redirect()->route('contratos.index');
     }
 
     /**
@@ -234,13 +323,23 @@ class ContractualController extends Controller
         try{
             $contractual = Contractual::find($contractual);
             //Ejecuta el metodo delete al registro con el id que llego como parametro
+            $coordinacion = $contractual->coordinacion;
             $contractual->delete();
             // Hace una redirecion a la ruta que devuelve una vista index
             DB::commit();
+
+            if ($coordinacion == 'Proyectos') {
+                return redirect()->route('contratos.index');
+            }elseif ($coordinacion == 'Ambiental') {
+                return redirect()->route('contratos.index2');
+            }elseif ($coordinacion == 'Supervision'){
+                return redirect()->route('contratos.index3');
+            }elseif ($coordinacion == 'Construccion'){
+                return redirect()->route('contratos.index4');
+            }
         } catch(\Exception $e){
             DB::rollback();
             return view('layouts.errorpage');
         }
-        return redirect()->route('contratos.index');
     }
 }

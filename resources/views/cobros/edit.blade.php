@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="periodo" type="date" value="{{ $cobro->periodo}}" class="form-control" id="floatingPassword"
+                                <input name="periodo" type="text" value="{{ $cobro->periodo}}" class="form-control" id="floatingPassword"
                                     placeholder="Ajuste Costos">
                                 <label for="floatingPassword">Periodo</label>
                             </div>

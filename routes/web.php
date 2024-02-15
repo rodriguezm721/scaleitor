@@ -74,6 +74,11 @@ Route::resource('/contratos', ContractualController::class)->names([
     'show' => 'contratos.show',
 ]);
 
+/*Route::get('/contratos', [ContractualController::class, 'index'])->name('contratos.index');*/
+Route::get('/contratosamb', [ContractualController::class, 'index2'])->name('contratos.index2');
+Route::get('/contratossup', [ContractualController::class, 'index3'])->name('contratos.index3');
+Route::get('/contratoscons', [ContractualController::class, 'index4'])->name('contratos.index4');
+
 //Rutas para CRUD de contratos
 Route::resource('/convenios', TimeController::class)->names([
     'store' => 'convenios.store',

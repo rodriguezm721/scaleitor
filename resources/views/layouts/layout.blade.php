@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Scaleitor App</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -66,7 +66,10 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="{{ route('layouts.dashboard')}}" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Dashboard</a>
-                    <a href="{{ route('contratos.index')}}" class="nav-item nav-link active"><i class="fa fa-folder-open me-2"></i>Contratos</a>
+                    <a href="{{ route('contratos.index')}}" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Proyectos</a>
+                    <a href="{{ route('contratos.index2')}}" class="nav-item nav-link"><i class="fa fa-tree me-2"></i>Ambiental</a>
+                    <a href="{{ route('contratos.index3')}}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Supervisión</a>
+                    <a href="{{ route('contratos.index4')}}" class="nav-item nav-link"><i class="fa fa-hammer me-2"></i>Construcción</a>
                     <!---<div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Operaciones</a>
                         <div class="dropdown-menu bg-transparent border-0">

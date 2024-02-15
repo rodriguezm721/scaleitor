@@ -52,7 +52,7 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">
                 <h3>
-                    INFORMACIÓN CONTRACTUAL PROYECTOS
+                    INFORMACIÓN CONTRACTUAL SUPERVISIÓN
                 </h3>
             </h6>
             <a class="btn btn-primary" href="{{route('contratos.create')}}">Nuevo Contrato</a>
