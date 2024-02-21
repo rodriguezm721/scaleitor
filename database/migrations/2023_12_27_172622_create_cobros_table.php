@@ -13,23 +13,19 @@ return new class extends Migration
     {
         Schema::create('cobros', function (Blueprint $table) {
             $table->id();
-            $table->decimal('total_contrato', 15, 2);
             $table->string('periodo', 150);
             $table->date('fecha_ingreso');
             $table->decimal('programado', 15, 2);
-            $table->integer('program_xcentaje');
-            $table->decimal('acum_promg', 15, 2);
-            $table->integer('acumpg_xcentaje');
+            $table->decimal('acum_promg', 15, 2)->nullable();
+            $table->integer('acumpg_xcentaje')->nullable();
             $table->decimal('estimado', 15, 2);
-            $table->integer('estim_xcentaje');
-            $table->decimal('acum_esti', 15, 2);
-            $table->integer('acumest_xcentaje');
+            $table->decimal('acum_esti', 15, 2)->nullable();
+            $table->integer('acumest_xcentaje')->nullable();
             $table->decimal('cobrado', 15, 2);
-            $table->integer('cobra_xcentaje');
-            $table->decimal('acum_cobra', 15, 2);
-            $table->integer('acumcobra_xcentaje');
+            $table->decimal('acum_cobra', 15, 2)->nullable();
+            $table->integer('acumcobra_xcentaje')->nullable();
+            $table->string('num_factura', 100);
             $table->text('comentario')->nullable();
-            $table->string('rsr', 150)->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('contractual_id');

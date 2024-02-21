@@ -75,6 +75,10 @@
                                 aria-label="Floating label select example"> 
                                 @if(old('coordinacion'))                             
                                 <option selected value="{{old('coordinacion')}}">{{old('coordinacion')}}</option>
+                                <option value="Proyectos">Proyectos</option>
+                                <option value="Ambiental">Ambiental</option>
+                                <option value="Supervision">Supervisión</option>
+                                <option value="Construccion">Construcción</option>
                                 @else
                                 <option selected>Selecciona una opción...</option>
                                 <option value="Proyectos">Proyectos</option>

@@ -247,17 +247,31 @@ class ContractualController extends Controller
 
         $contratos = Contractual::where('id', $contrato)->get();
         $convenios = Time::where('contractual_id', $contrato)->get();
-        $avances = Advance::where('contractual_id', $contrato)->get();
+        $avancesG = Advance::where('contractual_id', $contrato)
+        ->where('tipo', 'General')
+        ->get();
+        $avancesS = Advance::where('contractual_id', $contrato)
+        ->where('tipo', 'Supervision')
+        ->get();
+        $avancesC = Advance::where('contractual_id', $contrato)
+        ->where('tipo', 'Constructora')
+        ->get();
         $cobros = Cobros::where('contractual_id', $contrato)->get();
+
+        $total_contrato = Contractual::find($contrato);
+        $total_contrato = $total_contrato->imp_contrato;
         //$operaciones = Service::where('contractual_id', $contrato)->get();
         $id = $contrato;
         return view('contractuals.index2')
         ->with(compact('contratos'))
         ->with(compact('convenios'))
         ->with(compact('operaciones'))
-        ->with(compact('avances'))
+        ->with(compact('avancesG'))
+        ->with(compact('avancesS'))
+        ->with(compact('avancesC'))
         ->with(compact('cobros'))
-        ->with(compact('id'));
+        ->with(compact('id'))
+        ->with(compact('total_contrato'));
     }
 
     /**

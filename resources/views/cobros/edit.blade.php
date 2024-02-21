@@ -5,16 +5,16 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
-                <h3 class="mb-4 text-center">Nuevo Cobro</h3>
+                <h3 class="mb-4 text-center">Actualizar Cobro</h3>
                 <form class="row g-3" method="POST" action="{{ route('cobros.update', $cobro) }}">
                     @csrf
                     @method('put')
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="total_contrato" type="text" value="{{ number_format($cobro->total_contrato, 2, '.', ',')}}" class="form-control" id="floatingPassword"
+                                <input name="num_factura" type="text" value="{{ $cobro->num_factura}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
-                                <label for="floatingPassword">Total Contrato</label>
+                                <label for="floatingPassword"># Factura</label>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -33,50 +33,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3">
                                 <input name="programado" type="text" value="{{ number_format($cobro->programado, 2, '.', ',')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Programado</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input name="acum_promg" type="text" value="{{ number_format($cobro->acum_promg, 2, '.', ',')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Acumulado</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3">
                                 <input name="estimado" type="text" value="{{ number_format($cobro->estimado, 2, '.', ',')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Estimado</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input name="acum_esti" type="text" value="{{ number_format($cobro->acum_esti, 2, '.', ',')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Acumulado</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3">
                                 <input name="cobrado" type="text" value="{{ number_format($cobro->cobrado, 2, '.', ',')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Cobrado</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input name="acum_cobra" type="text" value="{{ number_format($cobro->acum_cobra, 2, '.', ',')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Acumulado</label>
                             </div>
                         </div>
                     </div>
@@ -99,7 +74,7 @@
                     </div>
                     <div class="col-6 text-end">
 
-                            <a href="{{route('cobros.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                            <a href="{{ route('contratos.show', $cobro->contractual_id)}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
 
                     </div>
                 </form>

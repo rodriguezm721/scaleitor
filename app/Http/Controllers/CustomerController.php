@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Service;
+use App\Models\Contractual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -60,17 +62,31 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit($customer)
     {
-        //
+        $contacto = Customer::find($customer);
+        $idService = $contacto->service_id;
+        $idContrato = Service::find($idService);
+        $id = $idContrato->contractual_id;
+        return view('customers.edit', compact('contacto', 'id'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $customer)
     {
-        //
+        
+        $customer = Customer::find($customer);
+        $customer->nom_cliente = $request->input('nom_cliente');
+        $customer->cargo = $request->input('cargo');
+        $customer->empresa = $request->input('empresa');
+        $customer->email = $request->input('email');
+        $customer->num_tel = $request->input('num_tel');
+        $customer->service_id = $request->input('service_id');
+        $customer->save();
+        return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
     }
 
     /**

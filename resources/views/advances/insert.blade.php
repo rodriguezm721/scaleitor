@@ -9,6 +9,34 @@
                 <form class="row g-3" method="POST" action="{{ route('avances.store')}}">
                     @csrf
                     <!----------------------ROW 1-------------------------->
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="tipo" id="floatingSelect"
+                                aria-label="Floating label select example"> 
+                                @if(old('tipo'))                             
+                                <option selected value="{{old('tipo')}}">{{old('tipo')}}</option>
+                                @if(old('tipo') == 'General')
+                                <option value="Supervision">Supervisión</option>
+                                <option value="Constructora">Constructora</option>
+                                @endif
+                                @if(old('tipo') == 'Supervision')
+                                <option value="General">General</option>
+                                <option value="Constructora">Constructora</option>
+                                @endif
+                                @if(old('tipo') == 'Constructora')
+                                <option value="General">General</option>
+                                <option value="Supervision">Supervisión</option>
+                                @endif
+                                @else
+                                <option selected>Selecciona una opción...</option>
+                                <option value="General">General</option>
+                                <option value="Supervision">Supervisión</option>
+                                <option value="Constructora">Constructora</option>
+                                @endif
+                            </select>
+                            <label for="floatingSelect">Tipo de Avance</label>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
                             <input name="pro_fisico" type="text" class="form-control" id="floatingPassword"
@@ -96,7 +124,7 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                     <div class="col-6 text-end">
-                        <a href="{{route('contratos.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                        <a href="{{ route('contratos.show', $id)}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>

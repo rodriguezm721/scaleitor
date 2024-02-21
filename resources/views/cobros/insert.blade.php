@@ -11,9 +11,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="total_contrato" type="text" value="{{old('total_contrato')}}" class="form-control" id="floatingPassword"
+                                <input name="num_factura" type="text" value="{{old('num_factura')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
-                                <label for="floatingPassword">Total Contrato</label>
+                                <label for="floatingPassword">Número de Factura</label>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        @error('total_contrato')
+                        @error('num_factura')
                         <div class="col-md-4">
                             <div class="alert alert-danger small-alert" role="alert">
                                 <p>{{ $message }}</p>
@@ -55,95 +55,45 @@
                     @enderror
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3">
                                 <input name="programado" type="text" value="{{old('programado')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Programado</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input name="acum_promg" type="text" value="{{old('acum_promg')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Programado acumulado</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        @error('programado')
-                        <div class="col-md-6">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('acum_promg')
-                        <div class="col-md-6">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3">
                                 <input name="estimado" type="text" value="{{old('estimado')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Estimado</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input name="acum_esti" type="text" value="{{old('acum_esti')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Estimado acumulado</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        @error('estimado')
-                        <div class="col-md-6">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('acum_esti')
-                        <div class="col-md-6">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3">
                                 <input name="cobrado" type="text" value="{{old('cobrado')}}" class="form-control" id="floatingPassword"
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Cobrado</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input name="acum_cobra" type="text" value="{{old('acum_cobra')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Cobrado acumulado</label>
-                            </div>
-                        </div>
                     </div>
                     <div class="row mt-2">
-                        @error('cobrado')
-                        <div class="col-md-6">
+                        @error('programado')
+                        <div class="col-md-4">
                             <div class="alert alert-danger small-alert" role="alert">
                                 <p>{{ $message }}</p>
                             </div>
                         </div>
                     @enderror
-                    @error('acum_cobra')
-                        <div class="col-md-6">
+                    @error('estimado')
+                        <div class="col-md-4">
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    @enderror
+                    @error('cobrado')
+                        <div class="col-md-4">
                             <div class="alert alert-danger small-alert" role="alert">
                                 <p>{{ $message }}</p>
                             </div>
@@ -168,9 +118,7 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                     <div class="col-6 text-end">
-
-                            <a href="{{route('cobros.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
-
+                            <a href="{{ route('contratos.show', $id)}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>

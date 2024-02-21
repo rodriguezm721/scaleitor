@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('pro_fina', 10, 2);
             $table->decimal('real_fina', 10, 2);
             $table->decimal('des_fina', 10, 2);
-            $table->string('tipo', 2)->nullable();
+            $table->string('tipo', 50)->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('contractual_id');

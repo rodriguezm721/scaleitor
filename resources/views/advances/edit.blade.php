@@ -9,6 +9,29 @@
                 <form class="row g-3" method="POST" action="{{ route('avances.update', $avance)}}">
                     @csrf
                     @method('put')
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="coordinacion" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                @if($avance->tipo == 'General')
+                                <option value="General" selected>General</option>
+                                <option value="Supervision">Supervisión</option>
+                                <option value="Constructora">Constructora</option>
+                                @endif
+                                @if($avance->tipo == 'Supervision')
+                                <option value="Supervision" selected>Supervisión</option>
+                                <option value="General">General</option>
+                                <option value="Constructora">Constructora</option>
+                                @endif
+                                @if($avance->tipo == 'Constructora')
+                                <option value="Constructora" selected>Constructora</option>
+                                <option value="Supervision">Supervisión</option>
+                                <option value="General">General</option>
+                                @endif
+                            </select>
+                            <label for="floatingSelect">Tipo de Avance</label>
+                        </div>
+                    </div>
                     <!----------------------ROW 1-------------------------->
                     <div class="col-md-3">
                         <div class="form-floating mb-3">

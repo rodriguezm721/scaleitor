@@ -101,11 +101,12 @@
             </div>
             @if(count($convenios) > 0)
             <div class="accordion accordion-flush" id="accordionFlushExample">
+               @php $contador = 1; @endphp
                @foreach($convenios as $convenio)
                <div class="accordion-item">
                   <h2 class="accordion-header" id="flush-heading{{$convenio->id}}">
                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{$convenio->id}}" aria-expanded="false" aria-controls="flush-collapse{{$convenio->id}}">
-                        <h6 class="mb-0">Convenio {{ $convenio->id }}</h6>
+                        <h6 class="mb-0">Convenio {{ $contador }}</h6>
                      </button>
                   </h2>
                   <div id="flush-{{$convenio->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$convenio->id}}" data-bs-parent="#accordionFlushExample">
@@ -139,7 +140,7 @@
                                     </td>
                                     <td>
                                        @if(isset($convenio->monto))
-                                       ${{$convenio->monto}}
+                                       ${{number_format($convenio->monto, 2, '.', ',')}}
                                        @else
                                        <h6>Sin extensión de monto</h6>
                                        @endif
@@ -157,6 +158,7 @@
                      </div>
                   </div>
                </div>
+               @php $contador++; @endphp
                @endforeach
             </div>
             @else
@@ -220,7 +222,7 @@
                               <thead>
                                  <tr class="text-dark">
                                     <th scope="col">Nombre Corto</th>
-                                    <th scope="col">Alcance del Servicio</th>
+                                    <th scope="col">Alcance del Trabajo</th>
                                     <th scope="col">Líder</th>
                                     <th scope="col"></th>
                                  </tr>
@@ -255,9 +257,10 @@
                                        <strong>Empresa:</strong> {{ $contacto->empresa }}<br>
                                        <strong>Correo:</strong> {{ $contacto->email }}<br>
                                        <strong>Tel/Cel:</strong> {{ $contacto->num_tel }}<br>
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $id]) }})">
+                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
+                                       <a href="{{ route('clientes.edit', $contacto->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                        <!-- Agrega más campos según sea necesario -->
                                     </li>
                                     @endforeach
@@ -303,14 +306,14 @@
             <div class="card-header bg-primary text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
-                     Avance Supervisión
+                     Avance
                   </h4>
                   <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             <div class="card-body">
-               @if(count($avances) > 0)
-               @foreach($avances as $avance)
+               @if(count($avancesG) > 0)
+               @foreach($avancesG as $avance)
                <div class="row mb-3">
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Programado Físico</h6>
@@ -354,6 +357,12 @@
                   </div>
                </div>
                <div class="row mb-3">
+                  <div class="col-md-12">
+                     <h6 class="font-weight-bold">Ultima actualización</h6>
+                     <span>{{$avance->updated_at}}</span>
+                  </div>
+               </div>
+               <div class="row mb-3">
                   <div class="col-md-6 offset-md-3">
                      <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
                      <i class="fa fa-trash"></i>
@@ -373,6 +382,188 @@
             <div class="card-header bg-primary text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
+                     Avance Supervisión
+                  </h4>
+                  <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
+               </div>
+            </div>
+            @if(count($avancesS) > 0)
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+               @php $contador = 1; @endphp
+               @foreach($avancesS as $avance)
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-heading{{$avance->id}}">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{$avance->id}}" aria-expanded="false" aria-controls="flush-collapse{{$avance->id}}">
+                        <h6 class="mb-0">{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</h6>
+                     </button>
+                  </h2>
+                  <div id="flush-{{$avance->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$avance->id}}" data-bs-parent="#accordionFlushExample">
+                     <div class="accordion-body">
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Programado Físico</h6>
+                              <span>{{$avance->pro_fisico}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Real Físico</h6>
+                              <span>{{$avance->real_fisico}}%</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Desviación Física</h6>
+                              <span>{{$avance->des_fisico}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Observaciones</h6>
+                              <span>{{$avance->fisico_obs}}</span>
+                           </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Programado Financiero</h6>
+                              <span>{{$avance->pro_fina}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Real Financiero</h6>
+                              <span>{{$avance->real_fina}}%</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Desviación Financiera</h6>
+                              <span>{{$avance->des_fina}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Observaciones</h6>
+                              <span>{{$avance->financiero_obs}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-12">
+                              <h6 class="font-weight-bold">Ultima actualización</h6>
+                              <span>{{$avance->updated_at}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6 offset-md-3">
+                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
+                              <i class="fa fa-trash"></i>
+                              </button>
+                              <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               @php $contador++; @endphp
+               @endforeach
+            </div>
+            @else
+            <div class="card-body">
+               <p>No hay datos disponibles.</p>
+            </div>
+            @endif
+         </div>
+      </div>
+      <div class="container mt-5">
+         <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+               <div class="d-flex align-items-center justify-content-between">
+                  <h4 class="mb-0">
+                     Avance Constructora
+                  </h4>
+                  <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
+               </div>
+            </div>
+            @if(count($avancesC) > 0)
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+               @php $contador = 1; @endphp
+               @foreach($avancesC as $avance)
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-heading{{$avance->id}}">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{$avance->id}}" aria-expanded="false" aria-controls="flush-collapse{{$avance->id}}">
+                        <h6 class="mb-0">{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</h6>
+                     </button>
+                  </h2>
+                  <div id="flush-{{$avance->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$avance->id}}" data-bs-parent="#accordionFlushExample">
+                     <div class="accordion-body">
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Programado Físico</h6>
+                              <span>{{$avance->pro_fisico}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Real Físico</h6>
+                              <span>{{$avance->real_fisico}}%</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Desviación Física</h6>
+                              <span>{{$avance->des_fisico}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Observaciones</h6>
+                              <span>{{$avance->fisico_obs}}</span>
+                           </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Programado Financiero</h6>
+                              <span>{{$avance->pro_fina}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Real Financiero</h6>
+                              <span>{{$avance->real_fina}}%</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Desviación Financiera</h6>
+                              <span>{{$avance->des_fina}}%</span>
+                           </div>
+                           <div class="col-md-6">
+                              <h6 class="font-weight-bold">Observaciones</h6>
+                              <span>{{$avance->financiero_obs}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-12">
+                              <h6 class="font-weight-bold">Ultima actualización</h6>
+                              <span>{{$avance->updated_at}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-md-6 offset-md-3">
+                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
+                              <i class="fa fa-trash"></i>
+                              </button>
+                              <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               @php $contador++; @endphp
+               @endforeach
+            </div>
+            @else
+            <div class="card-body">
+               <p>No hay datos disponibles.</p>
+            </div>
+            @endif
+         </div>
+      </div>
+      <div class="container mt-5">
+         <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+               <div class="d-flex align-items-center justify-content-between">
+                  <h4 class="mb-0">
                      Cobros
                   </h4>
                   <a class="btn btn-success" href="{{ route('cobros.insert', $id)}}"><i class="fa fa-plus"></i></a>
@@ -385,19 +576,13 @@
                      <thead>
                         <tr class="text-dark">
                            <th scope="col">Periodo</th>
-                           <th scope="col">Total contrato</th>
+                           <th scope="col"># Factura</th>
                            <th scope="col">Fecha Ingreso</th>
                            <th scope="col">Programado</th>
                            <th scope="col">%</th>
-                           <th scope="col">Acumulado</th>
-                           <th scope="col">%</th>
                            <th scope="col">Estimado</th>
                            <th scope="col">%</th>
-                           <th scope="col">Acumulado</th>
-                           <th scope="col">%</th>
                            <th scope="col">Cobrado</th>
-                           <th scope="col">%</th>
-                           <th scope="col">Acumulado</th>
                            <th scope="col">%</th>
                            <th scope="col">Comentarios</th>
                            <th scope="col">Acciones</th>
@@ -407,20 +592,14 @@
                         @foreach($cobros as $cobro)
                         <tr>
                            <td>{{$cobro->periodo}}</td>
-                           <td>{{number_format($cobro->total_contrato, 2, '.', ',')}}</td>
+                           <td>{{($cobro->num_factura)}}</td>
                            <td>{{$cobro->fecha_ingreso}}</td>
                            <td>${{number_format($cobro->programado, 2, '.', ',')}}</td>
-                           <td>{{$cobro->program_xcentaje}}%</td>
-                           <td>${{number_format($cobro->acum_promg, 2, '.', ',')}}</td>
-                           <td>{{$cobro->acumpg_xcentaje}}%</td>
+                           <td>{{ round(($cobro->programado / $total_contrato) * 100) }}%</td>
                            <td>${{number_format($cobro->estimado, 2, '.', ',')}}</td>
-                           <td>{{$cobro->estim_xcentaje}}%</td>
-                           <td>${{number_format($cobro->acum_esti, 2, '.', ',')}}</td>
-                           <td>{{$cobro->acumest_xcentaje}}%</td>
+                           <td>{{ round(($cobro->estimado / $total_contrato) * 100) }}%</td>
                            <td>${{number_format($cobro->cobrado, 2, '.', ',')}}</td>
-                           <td>{{$cobro->cobra_xcentaje}}%</td>
-                           <td>${{number_format($cobro->acum_cobra, 2, '.', ',')}}</td>
-                           <td>{{$cobro->acumcobra_xcentaje}}%</td>
+                           <td>{{ round(($cobro->cobrado / $total_contrato) * 100) }}%</td>
                            <td>{{$cobro->comentario}}</td>
                            <td>
                               <a href="{{ route('cobros.edit', $cobro->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
@@ -431,6 +610,22 @@
                         </tr>
                         @endforeach
                      </tbody>
+                     <tfoot>
+                        <tr>
+                           <td colspan="3"><strong>Total</strong></td>
+                           <td>${{ number_format($cobros->sum('programado'), 2, '.', ',') }}</td>
+                           <td>{{ round(($cobros->sum('programado') / $total_contrato) * 100) }}%</td>
+                           <td>${{ number_format($cobros->sum('estimado'), 2, '.', ',') }}</td>
+                           <td>{{ round(($cobros->sum('estimado') / $total_contrato) * 100) }}%</td>
+                           <td>${{ number_format($cobros->sum('cobrado'), 2, '.', ',') }}</td>
+                           <td>{{ round(($cobros->sum('cobrado') / $total_contrato) * 100) }}%</td>
+                           <td></td>
+                           <td></td>
+                        </tr>
+                        <tr>
+                           <td colspan="11"><strong>Ultima actualización</strong> {{ $cobro->updated_at }}</td>
+                        </tr>
+                     </tfoot>
                   </table>
                </div>
                @else

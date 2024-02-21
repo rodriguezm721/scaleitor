@@ -41,6 +41,7 @@ class AdvanceController extends Controller
             'real_fina' => ['required', 'numeric'],
         ]);
         $avance = new Advance;
+        $avance->tipo = $request->input('tipo');
         $avance->fisico_obs = $request->input('fisico_obs');
         $avance->pro_fisico = $request->input('pro_fisico');
         $avance->real_fisico = $request->input('real_fisico');

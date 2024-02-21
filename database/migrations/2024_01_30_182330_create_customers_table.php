@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_cliente', 255);
-            $table->string('cargo', 255);
-            $table->string('empresa', 255);
-            $table->string('email');
-            $table->string('num_tel');
+            $table->string('nom_cliente', 255)->nullable();
+            $table->string('cargo', 255)->nullable();
+            $table->string('empresa', 255)->nullable();
+            $table->string('email')->nullable();
+            $table->string('num_tel')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('service_id');
