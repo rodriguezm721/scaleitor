@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('fecha_inicio')->nullable();
             $table->bigInteger('dias')->nullable();
             $table->decimal('monto', 10, 2)->nullable();
+            $table->text('comentario')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('contractual_id');

@@ -28,6 +28,8 @@ return new class extends Migration
             $table->text('int_coord')->nullable();
             $table->decimal('int_monto', 10, 5)->nullable();
             $table->string('logo', 255)->nullable();
+            $table->string('c_costo', 255)->nullable();
+            $table->string('status', 2)->nullable();
             $table->timestamps();
         });
     }

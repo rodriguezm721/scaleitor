@@ -144,6 +144,7 @@ class ContractualController extends Controller
             $contrato->no_contrato = $request->input('no_contrato');
             $contrato->empresa_cont = $request->input('empresa_cont');
             $contrato->consorcio = $request->input('consorcio');
+            $contrato->c_costo = $request->input('c_costo');
             $contrato->fecha_inicio = $request->input('fecha_inicio');
             $contrato->fecha_fin = $request->input('fecha_fin');
             $contrato->coordinacion = $request->input('coordinacion');
@@ -151,6 +152,7 @@ class ContractualController extends Controller
             $contrato->emp_contratante = $request->input('emp_contratante');
             $contrato->imp_contrato = floatval($request->input('imp_contrato'));
             $contrato->descripcion = $request->input('descripcion');
+            $contrato->status = 1;
             $contrato->save();
 
             $registroId = $contrato->id;

@@ -41,18 +41,25 @@
                         @enderror
                     </div>
                     <!----------------------ROW 2-------------------------->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-floating mb-3">
                             <input name="empresa_cont" value="{{ $contrato->empresa_cont}}" type="text" class="form-control" id="floatingPassword"
                                 placeholder="Ajuste Costos">
                             <label for="floatingPassword">Empresa contratada</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-floating mb-3">
                             <input name="consorcio" value="{{ $contrato->consorcio}}" type="text" class="form-control" id="floatingPassword"
                                 placeholder="Ajuste Costos">
                             <label for="floatingPassword">Participación en consorcio</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input name="c_costo" value="{{ $contrato->c_costo}}" type="text" class="form-control" id="floatingPassword"
+                                placeholder="Ajuste Costos">
+                            <label for="floatingPassword">Centro de Costos</label>
                         </div>
                     </div>
                     <!----------------------ROW 3-------------------------->

@@ -14,6 +14,16 @@
    padding: 10px; /* agrega espacio interno */
    }
 </style>
+@php 
+$monto_total_convenios = 0; 
+$dias_totales = 0;
+@endphp
+@foreach($convenios as $convenio)
+@php 
+$monto_total_convenios += $convenio->monto; 
+$dias_totales += $convenio->dias; 
+@endphp
+@endforeach
 <div class="container-fluid pt-4 px-4">
    <div class="bg-light text-center rounded p-4">
       @if($errors->has('error'))
@@ -61,11 +71,11 @@
                <div class="row mb-3">
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Importe de contrato</h6>
-                     <span>${{number_format($contrato->imp_contrato, 2, '.', ',')}}</span>
+                     <span>${{ number_format($contrato->imp_contrato + $monto_total_convenios, 2, '.', ',') }}</span>
                   </div>
                   <div class="col-md-6">
                      <h6 class="font-weight-bold">Total días</h6>
-                     <span>{{$contrato->total_dias ?? 'Sin información de consorcio'}}</span>
+                     <span>{{$contrato->total_dias + $dias_totales ?? 'Sin información de consorcio'}}</span>
                   </div>
                </div>
                <div class="row mb-3">
@@ -79,12 +89,55 @@
                   </div>
                </div>
                <div class="row mb-3">
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                      <h6 class="font-weight-bold">Descripcion</h6>
                      <span>{{$contrato->descripcion}}</span>
                   </div>
+                  <div class="col-md-6">
+                     <h6 class="font-weight-bold">Centro de Costos</h6>
+                     <span>{{$contrato->c_costo}}</span>
+                  </div>
+               </div>
+               <div class="row mb-3">
+                  <div class="col-md-6">
+                     <h6 class="font-weight-bold">Status</h6>
+                        @if($contrato->status == 1)
+                        <a href="" data-bs-toggle="modal" data-bs-target="#modal2-{{$contrato->id}}"><span class="badge rounded-pill bg-success">Activo</span></a>
+                        @endif
+                  </div>
                </div>
                <!-- Repite el patrón para otras secciones -->
+               <div class="modal fade" id="modal2-{{$contrato->id}}" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Más información</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-center">
+                        <form class="row g-3" method="POST" action="">
+                          @csrf
+                          <div class="col-md-12">
+                            <input type="hidden" name="id" value="">
+                          </div>
+                          <div class="col-md-12">
+                            <label class="form-label">Estatus</label>
+                            <select class="form-select" name="dt_status">
+                              <option selected>Elije...</option>
+                              <option>ALMACEN</option>
+                              <option>EN PROCESO</option>
+                              <option>TERMINADO</option>
+                              <option>ENTREGADO</option>
+                            </select>
+                          </div>
+                          <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                @endforeach
             </div>
          </div>
@@ -119,6 +172,7 @@
                                     <th scope="col">Fecha Fin</th>
                                     <th scope="col">Monto</th>
                                     <th scope="col">Días</th>
+                                    <th scope="col">Comentarios</th>
                                     <th scope="col"></th>
                                  </tr>
                               </thead>
@@ -145,11 +199,24 @@
                                        <h6>Sin extensión de monto</h6>
                                        @endif
                                     </td>
-                                    <td>{{$convenio->dias}}</td>
+                                    <td>@if($convenio->dias == 0)
+                                       <h6>N/A</h6>
+                                       @else
+                                       {{$convenio->dias}}
+                                       @endif
+                                    </td>
                                     <td>
-                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar({{ json_encode(['id' => $convenio->id, 'contractual_id' => $convenio->contractual_id, 'dias' => $convenio->dias, 'monto' => $convenio->monto]) }})">
+                                       @if(isset($convenio->monto))
+                                       {{$convenio->comentario}}
+                                       @else
+                                       <h6>Sin comentarios</h6>
+                                       @endif
+                                    </td>
+                                    <td>
+                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar({{ json_encode(['id' => $convenio->id, 'contractual_id' => $convenio->contractual_id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
+                                       <a href="{{ route('convenios.edit', $convenio->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
                               </tbody>
@@ -191,7 +258,7 @@
          function eliminar(datos) {
            $("#staticBackdrop").modal("show");
            var deleteForm = document.querySelector('#deleteForm');
-           var string = datos.id+'/contractual/'+datos.contractual_id+'/dias/'+datos.dias+'/monto/'+datos.monto;
+           var string = datos.id+'/contractual/'+datos.contractual_id;
            deleteForm.setAttribute("action", string);
          
          }

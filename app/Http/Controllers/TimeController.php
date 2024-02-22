@@ -35,8 +35,12 @@ class TimeController extends Controller
      */
     public function store(Request $request)
     {
+        
         $credentials = $request->validate([
-            'monto' => ['nullable','numeric'],
+            'monto' => ['nullable', 'numeric'],
+            'fecha_inicio' => 'nullable|required_without:monto',
+            'fecha_fin' => 'nullable|required_with:fecha_inicio|date|after_or_equal:fecha_inicio',
+            // Agrega más campos y reglas según sea necesario
         ]);
 
         $datetime_inicio = new DateTime($request->input('fecha_inicio'));
@@ -53,20 +57,10 @@ class TimeController extends Controller
             $time->fecha_inicio = $request->input('fecha_inicio');
             $time->fecha_fin = $request->input('fecha_fin');
             $time->monto = floatval($request->input('monto'));
+            $time->comentario = $request->input('comentario');
             $time->dias = $dias_diferencia;
             $time->contractual_id = $request->input('id');
             $time->save();
-
-            $cobro = Contractual::find($request->input('id'));
-
-            // Verifica si el registro existe
-            if (!$cobro) {
-                abort(404, 'Registro no encontrado');
-            }
-            $monto = $request->input('monto');
-            $cobro->imp_contrato = $cobro->imp_contrato + $monto;
-            $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
-            $cobro->save();
 
             return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
         }else{
@@ -77,20 +71,11 @@ class TimeController extends Controller
             $time->fecha_inicio = $request->input('fecha_inicio');
             $time->fecha_fin = $request->input('fecha_fin');
             $time->monto = floatval($request->input('monto'));
+            $time->comentario = $request->input('comentario');
             $time->dias = $dias_diferencia;
             $time->contractual_id = $request->input('id');
             $time->save();
 
-            $cobro = Contractual::find($request->input('id'));
-
-            // Verifica si el registro existe
-            if (!$cobro) {
-                abort(404, 'Registro no encontrado');
-            }
-            $monto = $request->input('monto');
-            $cobro->imp_contrato = $cobro->imp_contrato + $monto;
-            $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
-            $cobro->save();
             return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
         }
 
@@ -109,33 +94,69 @@ class TimeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Time $time)
+    public function edit($time)
     {
-        //
+        $convenio = Time::find($time);
+        return view('times.edit', compact('convenio'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Time $time)
+    public function update(Request $request, $time)
     {
-        //
+        $credentials = $request->validate([
+            'monto' => ['nullable', 'numeric'],
+            'fecha_inicio' => 'nullable|required_without:monto',
+            'fecha_fin' => 'nullable|required_with:fecha_inicio|date|after_or_equal:fecha_inicio',
+            // Agrega más campos y reglas según sea necesario
+        ]);
+
+        $datetime_inicio = new DateTime($request->input('fecha_inicio'));
+        $datetime_fin = new DateTime($request->input('fecha_fin'));
+        // Calcula la diferencia entre las fechas
+        $interval = $datetime_inicio->diff($datetime_fin);
+    
+        // Obtén la diferencia en días
+        $dias_diferencia = $interval->days;
+        if($dias_diferencia == 0){
+            // Crear una nueva instancia de Time
+            $time = Time::find($time);
+            // Asignar valores desde el formulario
+            $time->fecha_inicio = $request->input('fecha_inicio');
+            $time->fecha_fin = $request->input('fecha_fin');
+            $time->monto = floatval($request->input('monto'));
+            $time->comentario = $request->input('comentario');
+            $time->dias = $dias_diferencia;
+            $time->contractual_id = $request->input('id');
+            $time->save();
+
+            return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
+        }else{
+            $dias_diferencia += 1;
+            // Crear una nueva instancia de Time
+            $time = Time::find($time);
+            // Asignar valores desde el formulario
+            $time->fecha_inicio = $request->input('fecha_inicio');
+            $time->fecha_fin = $request->input('fecha_fin');
+            $time->monto = floatval($request->input('monto'));
+            $time->comentario = $request->input('comentario');
+            $time->dias = $dias_diferencia;
+            $time->contractual_id = $request->input('id');
+            $time->save();
+
+            return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, $contractual_id, $dias, $monto)
+    public function destroy($id, $contractual_id)
     {
         //dump($id, $contractual_id, $dias);
         
         $time = Time::find($id);
-        $contractual = Contractual::find($contractual_id);
-        $contractual->total_dias = $contractual->total_dias - $dias;
-        if($monto ?? null){
-            $contractual->imp_contrato = floatval($contractual->imp_contrato) - floatval($monto);
-        }
-        $contractual->save();
         //Ejecuta el metodo delete al registro con el id que llego como parametro
         $time->delete();
         // Hace una redirecion a la ruta que devuelve una vista index

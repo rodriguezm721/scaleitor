@@ -106,7 +106,7 @@ Route::get('/servicios/insert/{id}', [ServiceController::class, 'insert'])->name
 Route::get('/avances/insert/{id}', [AdvanceController::class, 'insert'])->name('avances.insert');
 Route::get('/cobros/insert/{id}', [CobrosController::class, 'insert'])->name('cobros.insert');
 
-Route::delete('/contratos/{id}/contractual/{contractual_id}/dias/{dias}/monto/{monto}', [TimeController::class, 'destroy']);
+Route::delete('/contratos/{id}/contractual/{contractual_id}', [TimeController::class, 'destroy']);
 Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
 Route::delete('/contratos/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
 Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy']);
