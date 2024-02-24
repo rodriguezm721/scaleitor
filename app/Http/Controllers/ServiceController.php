@@ -115,7 +115,6 @@ class ServiceController extends Controller
             'nom_corto' => ['required'],
             'alcance' => ['required'],
             'lider' => ['required'],
-            'nom_cliente' => ['required'],
         ]);
         DB::beginTransaction();
 

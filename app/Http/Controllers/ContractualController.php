@@ -17,6 +17,13 @@ class ContractualController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function status(Request $request){
+
+        $contratos = Contractual::find($request->input('id'));
+        $contratos->status = $request->input('status');
+        $contratos->save();
+        return redirect()->route('contratos.show', ['contrato' => $request->input('id')]);
+    }
     public function index()
     {
         DB::beginTransaction();
@@ -123,8 +130,8 @@ class ContractualController extends Controller
             'nom_proyecto' => ['required'],
             'no_contrato' => ['required', 'unique:contractuals'],
             'imp_contrato' => ['required', 'numeric'],
-            'fecha_inicio' => ['required'],
-            'fecha_fin' => ['required'],
+            'fecha_inicio' => 'required',
+            'fecha_fin' => 'required|required_with:fecha_inicio|after_or_equal:fecha_inicio',
         ]);
         //Inserta en el modelo lo que le llego del request
         //$dependencias = Dependence::create($request->input());
@@ -235,37 +242,26 @@ class ContractualController extends Controller
         ->where('contractual_id', $contrato)
         ->get();
 
-        /*$cobros = Cobros::where('contractual_id', $contrato)
-        ->selectRaw('*, DATE_FORMAT(periodo, "%M %Y") as formatted_date')
-        ->get();
-        
-        $cobros = Cobros::whereNotNull('periodo')
-        ->where('contractual_id', '=', $contrato) // Agrega tu condición adicional aquí
-        ->selectRaw('*, MONTHNAME(periodo) as nombre_mes, YEAR(periodo) as anio')
-        ->get();*/
-
-
-        //$operaciones = Service::with(['customers', 'comments'])->get();
-
-        $contratos = Contractual::where('id', $contrato)->get();
         $convenios = Time::where('contractual_id', $contrato)->get();
+
         $avancesG = Advance::where('contractual_id', $contrato)
         ->where('tipo', 'General')
         ->get();
+
         $avancesS = Advance::where('contractual_id', $contrato)
         ->where('tipo', 'Supervision')
         ->get();
+
         $avancesC = Advance::where('contractual_id', $contrato)
         ->where('tipo', 'Constructora')
         ->get();
-        $cobros = Cobros::where('contractual_id', $contrato)->get();
 
-        $total_contrato = Contractual::find($contrato);
-        $total_contrato = $total_contrato->imp_contrato;
+        $cobros = Cobros::where('contractual_id', $contrato)->get();
+        
+        $contrato = Contractual::find($contrato);
         //$operaciones = Service::where('contractual_id', $contrato)->get();
         $id = $contrato;
         return view('contractuals.index2')
-        ->with(compact('contratos'))
         ->with(compact('convenios'))
         ->with(compact('operaciones'))
         ->with(compact('avancesG'))
@@ -273,7 +269,7 @@ class ContractualController extends Controller
         ->with(compact('avancesC'))
         ->with(compact('cobros'))
         ->with(compact('id'))
-        ->with(compact('total_contrato'));
+        ->with(compact('contrato'));
     }
 
     /**

@@ -129,7 +129,7 @@
                             <label for="floatingPassword">Fecha Fin</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row justify-content-end">
                     @error('fecha_inicio')
                         <div class="col-md-6">
                             <div class="alert alert-danger small-alert" role="alert">

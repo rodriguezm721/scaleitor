@@ -108,7 +108,7 @@ Route::get('/cobros/insert/{id}', [CobrosController::class, 'insert'])->name('co
 
 Route::delete('/contratos/{id}/contractual/{contractual_id}', [TimeController::class, 'destroy']);
 Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy']);
-Route::delete('/contratos/{service_id}/contractual/{id}', [ServiceController::class, 'destroy']);
+Route::delete('/contratos/{service_id}/contractuals/{id}', [ServiceController::class, 'destroy']);
 Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy']);
 Route::delete('/contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy']);
 Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, 'destroy']);
@@ -116,3 +116,5 @@ Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, '
 
 Route::get('/', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');
 Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries');
+
+Route::post('/status', [ContractualController::class, 'status'])->name('contratos.status');

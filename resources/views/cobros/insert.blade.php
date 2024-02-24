@@ -11,95 +11,79 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="num_factura" type="text" value="{{old('num_factura')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Número de Factura</label>
+                                <input name="num_factura" type="text" value="{{ old('num_factura') }}" class="form-control" id="numFacturaInput" placeholder="Act Indirectos">
+                                <label for="numFacturaInput">Número de Factura</label>
                             </div>
+                            @error('num_factura')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
+                    
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="periodo" type="text" value="{{old('periodo')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Ajuste Costos">
-                                <label for="floatingPassword">Periodo</label>
+                                <input name="periodo" type="text" value="{{ old('periodo') }}" class="form-control" id="periodoInput" placeholder="Ajuste Costos">
+                                <label for="periodoInput">Periodo</label>
                             </div>
+                            @error('periodo')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
+                    
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="fecha_ingreso" value="{{old('fecha_ingreso')}}" type="date" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Fecha Ingreso</label>
+                                <input name="fecha_ingreso" value="{{ old('fecha_ingreso') }}" type="date" class="form-control" id="fechaIngresoInput" placeholder="Act Indirectos">
+                                <label for="fechaIngresoInput">Fecha Ingreso</label>
                             </div>
+                            @error('fecha_ingreso')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        @error('num_factura')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('periodo')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('fecha_ingreso')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="programado" type="text" value="{{old('programado')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Programado</label>
+                                <input name="programado" type="text" value="{{ old('programado') }}" class="form-control" id="programadoInput" placeholder="Act Indirectos">
+                                <label for="programadoInput">Programado</label>
                             </div>
+                            @error('programado')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
+                    
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="estimado" type="text" value="{{old('estimado')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Estimado</label>
+                                <input name="estimado" type="text" value="{{ old('estimado') }}" class="form-control" id="estimadoInput" placeholder="Act Indirectos">
+                                <label for="estimadoInput">Estimado</label>
                             </div>
+                            @error('estimado')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
+                    
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
-                                <input name="cobrado" type="text" value="{{old('cobrado')}}" class="form-control" id="floatingPassword"
-                                    placeholder="Act Indirectos">
-                                <label for="floatingPassword">Cobrado</label>
+                                <input name="cobrado" type="text" value="{{ old('cobrado') }}" class="form-control" id="cobradoInput" placeholder="Act Indirectos">
+                                <label for="cobradoInput">Cobrado</label>
                             </div>
+                            @error('cobrado')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        @error('programado')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('estimado')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('cobrado')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating">

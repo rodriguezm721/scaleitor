@@ -37,10 +37,9 @@ $dias_totales += $convenio->dias;
                <h4 class="mb-0">Información Contractual</h4>
             </div>
             <div class="card-body">
-               @foreach($contratos as $contrato)
                <div class="row mb-3">
                   <div class="col-md-6">
-                     <h6 class="font-weight-bold">Nombre del Contrato</h6>
+                     <h6 class="font-weight-bold">Nombre corto</h6>
                      <span>{{$contrato->nom_proyecto}}</span>
                   </div>
                   <div class="col-md-6">
@@ -99,46 +98,45 @@ $dias_totales += $convenio->dias;
                   </div>
                </div>
                <div class="row mb-3">
-                  <div class="col-md-6">
-                     <h6 class="font-weight-bold">Status</h6>
-                        @if($contrato->status == 1)
-                        <a href="" data-bs-toggle="modal" data-bs-target="#modal2-{{$contrato->id}}"><span class="badge rounded-pill bg-success">Activo</span></a>
-                        @endif
+                  <div class="col-md-12">
+                     <h6 class="font-weight-bold">Estatus</h6>
+                     @if($contrato->status == 1)
+                     <a href="" data-bs-toggle="modal" data-bs-target="#modal2"><span class="badge rounded-pill bg-success">Abierto</span></a>
+                     @else
+                     <a href="" data-bs-toggle="modal" data-bs-target="#modal2"><span class="badge rounded-pill bg-danger">Cerrado</span></a>
+                     @endif
                   </div>
                </div>
                <!-- Repite el patrón para otras secciones -->
-               <div class="modal fade" id="modal2-{{$contrato->id}}" tabindex="-1" aria-hidden="true">
+               <div class="modal fade" id="modal2" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">Más información</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body text-center">
-                        <form class="row g-3" method="POST" action="">
-                          @csrf
-                          <div class="col-md-12">
-                            <input type="hidden" name="id" value="">
-                          </div>
-                          <div class="col-md-12">
-                            <label class="form-label">Estatus</label>
-                            <select class="form-select" name="dt_status">
-                              <option selected>Elije...</option>
-                              <option>ALMACEN</option>
-                              <option>EN PROCESO</option>
-                              <option>TERMINADO</option>
-                              <option>ENTREGADO</option>
-                            </select>
-                          </div>
-                          <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                           <form class="row g-3" method="POST" action=" {{ route('contratos.status')}}">
+                              @csrf
+                              <div class="col-md-12">
+                                 <input type="hidden" name="id" value="">
+                              </div>
+                              <input type="text" name="id" value="{{$contrato->id}}" style="display: none">
+                              <div class="col-md-12">
+                                 <label class="form-label">Contrato</label>
+                                 <select class="form-select" name="status">
+                                    <option selected>Elije...</option>
+                                    <option value="0">Cerrado</option>
+                                    <option value="1">Abierto</option>
+                                 </select>
+                              </div>
+                              <div class="col-12 mt-4">
+                                 <button type="submit" class="btn btn-primary">Guardar</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
                   </div>
-                </div>
-               @endforeach
+               </div>
             </div>
          </div>
       </div>
@@ -149,7 +147,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Convenios
                   </h4>
-                  <a class="btn btn-success" href="{{ route('convenios.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                  <a class="btn btn-success" href="{{ route('convenios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             @if(count($convenios) > 0)
@@ -199,7 +197,8 @@ $dias_totales += $convenio->dias;
                                        <h6>Sin extensión de monto</h6>
                                        @endif
                                     </td>
-                                    <td>@if($convenio->dias == 0)
+                                    <td>
+                                       @if($convenio->dias == 0)
                                        <h6>N/A</h6>
                                        @else
                                        {{$convenio->dias}}
@@ -270,7 +269,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Datos Generales
                   </h4>
-                  <a class="btn btn-success" href="{{ route('servicios.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                  <a class="btn btn-success" href="{{ route('servicios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             @if(count($operaciones) > 0)
@@ -300,7 +299,7 @@ $dias_totales += $convenio->dias;
                                     <td>{{$operacion->alcance}}</td>
                                     <td>{{$operacion->lider}}</td>
                                     <td>
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar2({{ json_encode(['id' => $operacion->id, 'contractual_id' => $id]) }})">
+                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar2({{ json_encode(['id' => $operacion->id, 'contractual_id' => $contrato->id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
                                        <a href="{{ route('servicios.edit', $operacion->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
@@ -313,7 +312,7 @@ $dias_totales += $convenio->dias;
                            <div class="col-md-6">
                               <div class="d-flex align-items-center justify-content-between mb-4">
                                  <h4>Contactos</h4>
-                                 <a class="btn btn-primary" href="{{route('clientes.insert', ['service_id' => $operacion->id, 'id' => $id])}}"><i class="fa fa-plus"></i></a>
+                                 <a class="btn btn-primary" href="{{route('clientes.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
                               </div>
                               <div class="scrollable-container">
                                  <ul class="list-group list-group-flush">
@@ -324,7 +323,7 @@ $dias_totales += $convenio->dias;
                                        <strong>Empresa:</strong> {{ $contacto->empresa }}<br>
                                        <strong>Correo:</strong> {{ $contacto->email }}<br>
                                        <strong>Tel/Cel:</strong> {{ $contacto->num_tel }}<br>
-                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $id]) }})">
+                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $contrato->id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
                                        <a href="{{ route('clientes.edit', $contacto->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
@@ -337,7 +336,7 @@ $dias_totales += $convenio->dias;
                            <div class="col-md-6">
                               <div class="d-flex align-items-center justify-content-between mb-4">
                                  <h4>Comentarios</h4>
-                                 <a class="btn btn-primary" href="{{route('comentarios.insert', ['service_id' => $operacion->id, 'id' => $id])}}"><i class="fa fa-plus"></i></a>
+                                 <a class="btn btn-primary" href="{{route('comentarios.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
                               </div>
                               <div class="scrollable-container">
                                  <ul class="list-group list-group-flush">
@@ -346,7 +345,7 @@ $dias_totales += $convenio->dias;
                                        <strong>Comentario:</strong> {{ $comment->comment }}<br>
                                        <strong>Tipo:</strong> {{ $comment->tipo }}<br>
                                        <strong>Fecha:</strong> {{ $comment->created_at->format('Y-m-d') }}<br>
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'contrato_id' => $id]) }})">
+                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'contrato_id' => $contrato->id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
                                        <!-- Agrega más campos según sea necesario -->
@@ -375,7 +374,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Avance
                   </h4>
-                  <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                  <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             <div class="card-body">
@@ -431,7 +430,7 @@ $dias_totales += $convenio->dias;
                </div>
                <div class="row mb-3">
                   <div class="col-md-6 offset-md-3">
-                     <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
+                     <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                      <i class="fa fa-trash"></i>
                      </button>
                      <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
@@ -451,7 +450,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Avance Supervisión
                   </h4>
-                  <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                  <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             @if(count($avancesS) > 0)
@@ -516,7 +515,7 @@ $dias_totales += $convenio->dias;
                         </div>
                         <div class="row mb-3">
                            <div class="col-md-6 offset-md-3">
-                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
+                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
                               <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
@@ -542,7 +541,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Avance Constructora
                   </h4>
-                  <a class="btn btn-success" href="{{ route('avances.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                  <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             @if(count($avancesC) > 0)
@@ -607,7 +606,7 @@ $dias_totales += $convenio->dias;
                         </div>
                         <div class="row mb-3">
                            <div class="col-md-6 offset-md-3">
-                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $id]) }})">
+                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
                               <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
@@ -633,7 +632,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Cobros
                   </h4>
-                  <a class="btn btn-success" href="{{ route('cobros.insert', $id)}}"><i class="fa fa-plus"></i></a>
+                  <a class="btn btn-success" href="{{ route('cobros.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                </div>
             </div>
             <div class="card-body">
@@ -662,15 +661,15 @@ $dias_totales += $convenio->dias;
                            <td>{{($cobro->num_factura)}}</td>
                            <td>{{$cobro->fecha_ingreso}}</td>
                            <td>${{number_format($cobro->programado, 2, '.', ',')}}</td>
-                           <td>{{ round(($cobro->programado / $total_contrato) * 100) }}%</td>
+                           <td>{{ round(($cobro->programado / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{number_format($cobro->estimado, 2, '.', ',')}}</td>
-                           <td>{{ round(($cobro->estimado / $total_contrato) * 100) }}%</td>
+                           <td>{{ round(($cobro->estimado / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{number_format($cobro->cobrado, 2, '.', ',')}}</td>
-                           <td>{{ round(($cobro->cobrado / $total_contrato) * 100) }}%</td>
+                           <td>{{ round(($cobro->cobrado / $contrato->imp_contrato) * 100) }}%</td>
                            <td>{{$cobro->comentario}}</td>
                            <td>
                               <a href="{{ route('cobros.edit', $cobro->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
-                              <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarCobro({{ json_encode(['id' => $cobro->id, 'contrato_id' => $id]) }})">
+                              <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarCobro({{ json_encode(['id' => $cobro->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
                            </td>
@@ -681,16 +680,16 @@ $dias_totales += $convenio->dias;
                         <tr>
                            <td colspan="3"><strong>Total</strong></td>
                            <td>${{ number_format($cobros->sum('programado'), 2, '.', ',') }}</td>
-                           <td>{{ round(($cobros->sum('programado') / $total_contrato) * 100) }}%</td>
+                           <td>{{ round(($cobros->sum('programado') / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{ number_format($cobros->sum('estimado'), 2, '.', ',') }}</td>
-                           <td>{{ round(($cobros->sum('estimado') / $total_contrato) * 100) }}%</td>
+                           <td>{{ round(($cobros->sum('estimado') / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{ number_format($cobros->sum('cobrado'), 2, '.', ',') }}</td>
-                           <td>{{ round(($cobros->sum('cobrado') / $total_contrato) * 100) }}%</td>
+                           <td>{{ round(($cobros->sum('cobrado') / $contrato->imp_contrato) * 100) }}%</td>
                            <td></td>
                            <td></td>
                         </tr>
                         <tr>
-                           <td colspan="11"><strong>Ultima actualización</strong> {{ $cobro->updated_at }}</td>
+                           <td colspan="11"><strong>Ultima actualización </strong> {{ \Carbon\Carbon::parse($cobro->updated_at)->format('Y-m-d h:i:s A') }} </td>
                         </tr>
                      </tfoot>
                   </table>
@@ -741,7 +740,7 @@ $dias_totales += $convenio->dias;
          function eliminar2(datos) {
            $("#staticBackdrop").modal("show");
            var deleteForm = document.querySelector('#deleteForm');
-           var string = datos.id+'/contractual/'+datos.contractual_id;
+           var string = datos.id+'/contractuals/'+datos.contractual_id;
            deleteForm.setAttribute("action", string);
          
          }
