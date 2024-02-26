@@ -16,47 +16,41 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="form-floating">
+                        <div class="form-floating mb-3">
                             <textarea class="form-control" name="nom_corto" placeholder="Descripción del trabajo..."
                                 id="floatingTextarea"></textarea>
                             <label for="floatingTextarea">Descripción del Trabajo</label>
                         </div>
-                    </div>
-                    @error('nom_corto')
-                    <div class="col-md-12">
+                        @error('nom_corto')
                         <div class="alert alert-danger small-alert" role="alert">
                             <p>{{ $message }}</p>
                         </div>
+                        @enderror
                     </div>
-                    @enderror
                     <div class="col-md-12">
-                        <div class="form-floating">
+                        <div class="form-floating mb-3">
                             <textarea class="form-control" name="alcance" placeholder="Descripción del trabajo..."
                                 id="floatingTextarea"></textarea>
                             <label for="floatingTextarea">Alcance del Trabajo</label>
                         </div>
-                    </div>
-                    @error('alcance')
-                    <div class="col-md-12">
+                        @error('alcance')
                         <div class="alert alert-danger small-alert" role="alert">
                             <p>{{ $message }}</p>
                         </div>
-                    </div>
                     @enderror
+                    </div>
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
                             <input name="lider" type="text" class="form-control" id="floatingPassword"
                                 placeholder="">
                             <label for="floatingPassword">Lider de Proyecto</label>
                         </div>
-                    </div>
-                    @error('lider')
-                    <div class="col-md-12">
+                        @error('lider')
                         <div class="alert alert-danger small-alert" role="alert">
                             <p>{{ $message }}</p>
                         </div>
-                    </div>
                     @enderror
+                    </div>
                     <!----------------------ROW 6-------------------------->
                     <div class="d-flex justify-content-between">
                         <h3>Información Contacto</h3>

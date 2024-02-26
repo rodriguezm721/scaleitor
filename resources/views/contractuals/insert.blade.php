@@ -78,23 +78,18 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <select class="form-select" name="coordinacion" id="floatingSelect"
-                                aria-label="Floating label select example"> 
-                                @if(old('coordinacion'))                             
-                                <option selected value="{{old('coordinacion')}}">{{old('coordinacion')}}</option>
-                                <option value="Proyectos">Proyectos</option>
-                                <option value="Ambiental">Ambiental</option>
-                                <option value="Supervision">Supervisión</option>
-                                <option value="Construccion">Construcción</option>
+                            <select class="form-select" name="coordinacion" id="floatingSelect" aria-label="Floating label select example"> 
+                                @if(old('coordinacion'))
+                                    <option selected value="{{ old('coordinacion') }}">{{ old('coordinacion') }}</option>
                                 @else
-                                <option selected>Selecciona una opción...</option>
-                                <option value="Proyectos">Proyectos</option>
-                                <option value="Ambiental">Ambiental</option>
-                                <option value="Supervision">Supervisión</option>
-                                <option value="Construccion">Construcción</option>
+                                    <option selected disabled>Selecciona una opción...</option>
                                 @endif
+                                <option value="Proyectos" @if(old('coordinacion') == 'Proyectos') disabled @endif>Proyectos</option>
+                                <option value="Ambiental" @if(old('coordinacion') == 'Ambiental') disabled @endif>Ambiental</option>
+                                <option value="Supervision" @if(old('coordinacion') == 'Supervision') disabled @endif>Supervisión</option>
+                                <option value="Construccion" @if(old('coordinacion') == 'Construccion') disabled @endif>Construcción</option>
                             </select>
-                            <label for="floatingSelect">Coodinación</label>
+                            <label for="floatingSelect">Coordinación</label>
                         </div>
                     </div>
                     @error('imp_contrato')

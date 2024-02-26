@@ -97,6 +97,15 @@ class CobrosController extends Controller
         //dd($request->input('programado'), floatval($request->input('programado')), floatval(str_replace(',', '', $request->input('programado'))));
         //dd(floatval($request->input('programado')));
         //dd(floatval(str_replace(',', '.', $request->input('programado'))));
+        $credentials = $request->validate([
+            'num_factura' => ['required'],
+            'periodo' => ['required'],
+            'fecha_ingreso' => ['required'],
+            'programado' => ['required', 'numeric'],
+            'estimado' => ['required', 'numeric'],
+            'cobrado' => ['required', 'numeric'],
+        ]); 
+        
         $programado = floatval(str_replace(',', '', $request->input('programado')));
         $estimado = floatval(str_replace(',', '', $request->input('estimado')));
         $cobrado = floatval(str_replace(',', '', $request->input('cobrado')));

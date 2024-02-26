@@ -37,8 +37,9 @@ function agregarFila() {
         </div>
         <div class="col-md-5">
             <div class="form-floating mb-3">
-                <input name="datos[${contadorFilas}][campo5]" type="number" class="form-control" placeholder="Tel/Cel">
-                <label for="floatingPassword">Tel/Cel</label>
+            <input name="datos[${contadorFilas}][campo5]" type="tel" class="form-control" placeholder="Tel/Cel"
+            pattern="[0-9]{10}" maxlength="10">
+            <label for="floatingPassword">Tel/Cel</label>     
             </div>
         </div>
         <div class="col-md-2 text-center">

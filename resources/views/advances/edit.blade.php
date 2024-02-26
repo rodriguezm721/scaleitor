@@ -17,13 +17,11 @@
                                 <option value="General" selected>General</option>
                                 <option value="Supervision">Supervisión</option>
                                 <option value="Constructora">Constructora</option>
-                                @endif
-                                @if($avance->tipo == 'Supervision')
+                                @elseif($avance->tipo == 'Supervision')
                                 <option value="Supervision" selected>Supervisión</option>
                                 <option value="General">General</option>
                                 <option value="Constructora">Constructora</option>
-                                @endif
-                                @if($avance->tipo == 'Constructora')
+                                @elseif($avance->tipo == 'Constructora')
                                 <option value="Constructora" selected>Constructora</option>
                                 <option value="Supervision">Supervisión</option>
                                 <option value="General">General</option>
@@ -39,6 +37,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Programado Físico</label>
                         </div>
+                        @error('pro_fisico')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -46,6 +49,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Real Físico</label>
                         </div>
+                        @error('real_fisico')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
@@ -61,6 +69,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Programado Financiero</label>
                         </div>
+                        @error('pro_fina')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -68,6 +81,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Real Financiero</label>
                         </div>
+                        @error('real_fina')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
@@ -83,29 +101,11 @@
                             <label for="floatingPassword">Desviación Financiero</label>
                         </div>
                     </div>
-                    <!-------------------------------------ROW 3------------------------------->
-                    <div class="row mt-3 justify-content-around">
-                        @error('nom_proyecto')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                        @enderror
-                        @error('no_contrato')
-                        <div class="col-md-4">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                        @enderror
-                    </div>
-                    <!----------------------ROW 6-------------------------->
                     <div class="col-6">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                     <div class="col-6 text-end">
-                        <a href="{{route('contratos.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                            <a href="{{ route('contratos.show', $avance->contractual_id)}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>

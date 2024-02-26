@@ -35,6 +35,7 @@ class AdvanceController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
+            'tipo' => ['required'],
             'pro_fisico' => ['required', 'numeric'],
             'real_fisico' => ['required', 'numeric'],
             'pro_fina' => ['required', 'numeric'],
@@ -90,8 +91,9 @@ class AdvanceController extends Controller
         $credentials = $request->validate([
             'pro_fisico' => ['required', 'numeric'],
             'real_fisico' => ['required', 'numeric'],
+            'pro_fina' => ['required', 'numeric'],
+            'real_fina' => ['required', 'numeric'],
         ]);
-
         DB::beginTransaction();
 
         try{

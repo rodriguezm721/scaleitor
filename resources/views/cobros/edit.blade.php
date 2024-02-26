@@ -16,6 +16,11 @@
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword"># Factura</label>
                             </div>
+                            @error('num_factura')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
@@ -23,6 +28,11 @@
                                     placeholder="Ajuste Costos">
                                 <label for="floatingPassword">Periodo</label>
                             </div>
+                            @error('periodo')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
@@ -30,6 +40,11 @@
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Fecha Ingreso</label>
                             </div>
+                            @error('fecha_ingreso')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
@@ -39,6 +54,11 @@
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Programado</label>
                             </div>
+                            @error('programado')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
@@ -46,6 +66,11 @@
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Estimado</label>
                             </div>
+                            @error('estimado')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-3">
@@ -53,6 +78,11 @@
                                     placeholder="Act Indirectos">
                                 <label for="floatingPassword">Cobrado</label>
                             </div>
+                            @error('cobrado')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
@@ -73,9 +103,7 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                     <div class="col-6 text-end">
-
-                            <a href="{{ route('contratos.show', $cobro->contractual_id)}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
-
+                        <a href="{{ route('contratos.show', $cobro->contractual_id)}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>

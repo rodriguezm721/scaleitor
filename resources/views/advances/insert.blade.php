@@ -11,31 +11,23 @@
                     <!----------------------ROW 1-------------------------->
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
-                            <select class="form-select" name="tipo" id="floatingSelect"
-                                aria-label="Floating label select example"> 
-                                @if(old('tipo'))                             
-                                <option selected value="{{old('tipo')}}">{{old('tipo')}}</option>
-                                @if(old('tipo') == 'General')
-                                <option value="Supervision">Supervisión</option>
-                                <option value="Constructora">Constructora</option>
-                                @endif
-                                @if(old('tipo') == 'Supervision')
-                                <option value="General">General</option>
-                                <option value="Constructora">Constructora</option>
-                                @endif
-                                @if(old('tipo') == 'Constructora')
-                                <option value="General">General</option>
-                                <option value="Supervision">Supervisión</option>
-                                @endif
+                            <select class="form-select" name="tipo" id="floatingSelect" aria-label="Floating label select example"> 
+                                @if(old('tipo'))
+                                    <option selected value="{{ old('tipo') }}">{{ old('tipo') }}</option>
                                 @else
-                                <option selected>Selecciona una opción...</option>
-                                <option value="General">General</option>
-                                <option value="Supervision">Supervisión</option>
-                                <option value="Constructora">Constructora</option>
+                                    <option selected disabled>Selecciona una opción...</option>
                                 @endif
+                                <option value="General" @if(old('tipo') == 'General') disabled @endif>General</option>
+                                <option value="Supervision" @if(old('tipo') == 'Supervision') disabled @endif>Supervisión</option>
+                                <option value="Constructora" @if(old('tipo') == 'Constructora') disabled @endif>Constructora</option>
                             </select>
                             <label for="floatingSelect">Tipo de Avance</label>
+                        </div>                        
+                        @error('tipo')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
                         </div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -43,6 +35,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Programado Físico</label>
                         </div>
+                        @error('pro_fisico')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -50,6 +47,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Real Físico</label>
                         </div>
+                        @error('real_fisico')
+                            <div class="alert alert-danger small-alert" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
@@ -58,22 +60,6 @@
                             <label for="floatingTextarea">Observaciones</label>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        @error('pro_fisico')
-                        <div class="col-md-3">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('real_fisico')
-                        <div class="col-md-3">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    </div>
                     <!----------------------------------ROW 2------------------------------------------------>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -81,6 +67,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Programado Financiero</label>
                         </div>
+                        @error('pro_fina')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
@@ -88,6 +79,11 @@
                                 placeholder="">
                             <label for="floatingPassword">Real Financiero</label>
                         </div>
+                        @error('real_fina')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
@@ -95,22 +91,6 @@
                                 id="floatingTextarea"></textarea>
                             <label for="floatingTextarea">Observaciones</label>
                         </div>
-                    </div>
-                    <div class="row mt-2">
-                        @error('pro_fina')
-                        <div class="col-md-3">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
-                    @error('real_fina')
-                        <div class="col-md-3">
-                            <div class="alert alert-danger small-alert" role="alert">
-                                <p>{{ $message }}</p>
-                            </div>
-                        </div>
-                    @enderror
                     </div>
                     <div class="col-md-3" style="display: none">
                         <div class="form-floating mb-3">
