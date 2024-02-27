@@ -21,6 +21,10 @@ class QueriesController extends Controller
         ->with(compact('supervision'))
         ->with(compact('construccion'));
     }
+
+    public function signin(){
+        return view('auth.signin');
+    }
     public function queries(Request $request)
     {
         

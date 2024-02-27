@@ -48,95 +48,43 @@
         <!-- Spinner End -->
 
 
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a href="" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SCALA</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="{{asset('img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Carlos Perez</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Dashboard</a>
-                    <a href="{{ route('contratos.index')}}" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Proyectos</a>
-                    <a href="{{ route('contratos.index2')}}" class="nav-item nav-link"><i class="fa fa-tree me-2"></i>Ambiental</a>
-                    <a href="{{ route('contratos.index3')}}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Supervisión</a>
-                    <a href="{{ route('contratos.index4')}}" class="nav-item nav-link"><i class="fa fa-hammer me-2"></i>Construcción</a>
-                    <!---<div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Operaciones</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="" class="dropdown-item">Opcion 1</a>
-                            <a href="" class="dropdown-item">Opcion 2</a>
-                            <a href="" class="dropdown-item">Opcion 3</a>
+        <!-- Sign In Start -->
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="index.html" class="">
+                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Scaleitor</h3>
+                            </a>
+                            <!---<h3>Iniciar Sesión</h3>--->
                         </div>
-                    </div>--->
-                </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
-
-
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{asset('img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Carlos Perez</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <!--<a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>-->
-                            <a href="#" class="dropdown-item">Salir</a>
+                        
+                        <form class="row g-3" method="POST" action="{{ route('comentarios.store') }}">
+                            @csrf
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" value="{{old('email')}}" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Correo electrónico</label>
                         </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
-            <!-- Recent Sales Start -->
-            @yield('content')
-
-            <!-- Widgets End -->
-
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="">SCALEITOR APP</a>, Todos los derechos reservados.
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Contraseña</label>
                         </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Diseñado por <a href="http://scalapc.com">Administracíon de Conocimiento</a>
-                        </div>
+                        <!--<div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <a href="">Forgot Password</a>
+                        </div>--->
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Iniciar Sesión</button>
+                        <p class="text-center mb-0">No tienes una cuenta? <a href="">Registrate</a></p>
+                    </form>
                     </div>
                 </div>
             </div>
-            <!-- Footer End -->
         </div>
-        <!-- Content End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
+        <!-- Sign In End -->
 
 
     <!-- JavaScript Libraries -->
@@ -178,3 +126,4 @@
 </body>
 
 </html>
+

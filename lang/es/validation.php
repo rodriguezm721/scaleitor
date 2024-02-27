@@ -163,6 +163,7 @@ return [
         'acum_esti'                 => 'estimado acumulado',
         'acum_cobra'                => 'cobrado acumulado',
         'num_factura'               => 'factura',
+        'num_tel'                   => 'Cel/Tel',
 
         'address'                  => 'dirección',
         'affiliate_url'            => 'URL de afiliado',

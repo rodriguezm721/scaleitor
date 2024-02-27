@@ -32,10 +32,15 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input name="email" type="email" class="form-control" id="floatingPassword"
+                            <input name="email" type="text" class="form-control" id="floatingPassword"
                                 placeholder="Monto">
                             <label for="floatingPassword">Email</label>
                         </div>
+                        @error('email')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -43,6 +48,11 @@
                                 placeholder="Monto">
                             <label for="floatingPassword">Cel/Tel</label>
                         </div>
+                        @error('num_tel')
+                        <div class="alert alert-danger small-alert" role="alert">
+                            <p>{{ $message }}</p>
+                        </div>
+                        @enderror 
                     </div>
                     <div class="col-md-6" style="display: none">
                         <div class="form-floating mb-3">

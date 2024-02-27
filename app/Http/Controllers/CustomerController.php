@@ -36,6 +36,10 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'num_tel' => ['numeric','digits:10'],
+            'email' => ['email']
+        ]);
         $id = $request->input('id');
         $service_id = $request->input('service_id');
         $customer = new Customer;
@@ -77,6 +81,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $customer)
     {
+        $credentials = $request->validate([
+            'num_tel' => ['numeric','digits:10'],
+            'email' => ['email']
+        ]);
         
         $customer = Customer::find($customer);
         $customer->nom_cliente = $request->input('nom_cliente');

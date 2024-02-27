@@ -114,7 +114,7 @@ Route::delete('/contratos/{avance_id}/contrato/{id}', [AdvanceController::class,
 Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, 'destroy']);
 
 
-Route::get('/', [QueriesController::class, 'dashboard'])->name('layouts.dashboard');
+Route::get('/', [QueriesController::class, 'signin'])->name('auth.signin');
 Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries');
 
 Route::post('/status', [ContractualController::class, 'status'])->name('contratos.status');
