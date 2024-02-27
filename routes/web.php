@@ -8,6 +8,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdvanceController;
+use App\Http\Controllers\SessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,9 @@ use App\Http\Controllers\AdvanceController;
 */
 
 
-Route::get('/cobros', [CobrosController::class, 'index'])->name('cobros.index');
+Route::post('/login', [SessionController::class, 'authenticate'])->name('login.authenticate');
+Route::post('/logout', [SessionController::class, 'logout'])->name('session.logout');
+
 Route::get('/insert', [CobrosController::class, 'create'])->name('cobros.create');
 Route::post('/envio', [CobrosController::class, 'store'])->name('cobros.store');
 
