@@ -147,7 +147,9 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Convenios
                   </h4>
+                  @can('create roles')
                   <a class="btn btn-success" href="{{ route('convenios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
                </div>
             </div>
             @if(count($convenios) > 0)
@@ -425,7 +427,7 @@ $dias_totales += $convenio->dias;
                <div class="row mb-3">
                   <div class="col-md-12">
                      <h6 class="font-weight-bold">Ultima actualización</h6>
-                     <span>{{$avance->updated_at}}</span>
+                     <span>{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</span>
                   </div>
                </div>
                <div class="row mb-3">
@@ -510,7 +512,7 @@ $dias_totales += $convenio->dias;
                         <div class="row mb-3">
                            <div class="col-md-12">
                               <h6 class="font-weight-bold">Ultima actualización</h6>
-                              <span>{{$avance->updated_at}}</span>
+                              <span>{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</span>
                            </div>
                         </div>
                         <div class="row mb-3">
@@ -601,7 +603,7 @@ $dias_totales += $convenio->dias;
                         <div class="row mb-3">
                            <div class="col-md-12">
                               <h6 class="font-weight-bold">Ultima actualización</h6>
-                              <span>{{$avance->updated_at}}</span>
+                              <span>{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</span>
                            </div>
                         </div>
                         <div class="row mb-3">
