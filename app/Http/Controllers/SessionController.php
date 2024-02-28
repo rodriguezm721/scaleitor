@@ -20,12 +20,12 @@ class SessionController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect()->route('contratos.index');
+            return redirect()->route('dashboard');
         }
  
         return back()->withErrors([
-            'email' => 'Las credenciales no son correctas, intenta de nuevo!!',
-        ])->onlyInput('email');
+            'error' => 'Las credenciales no son correctas, intenta de nuevo!!',
+        ]);
     }
 
     public function logout(Request $request): RedirectResponse

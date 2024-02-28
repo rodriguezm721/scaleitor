@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdvanceController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,13 @@ Route::get('/register', [QueriesController::class, 'register'])->name('auth.regi
 Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries')->middleware('auth');
 
 Route::get('/dashboard', [QueriesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+
+
+//Recuperacion de contraseña
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
 
 
 //Rutas para CRUD de cobros
