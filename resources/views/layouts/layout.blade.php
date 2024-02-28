@@ -61,11 +61,11 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                        <span>Admin</span>
+                        <span>{{ Auth::user()->role }}</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Dashboard</a>
+                    <a href="{{ route('dashboard')}}" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Dashboard</a>
                     <a href="{{ route('contratos.index')}}" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Proyectos</a>
                     <a href="{{ route('contratos.index2')}}" class="nav-item nav-link"><i class="fa fa-tree me-2"></i>Ambiental</a>
                     <a href="{{ route('contratos.index3')}}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Supervisión</a>
@@ -127,7 +127,7 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="">SCALEITOR APP</a>, Todos los derechos reservados.
+                            &copy; <a href="{{ route('dashboard')}}">SCALEITOR APP</a>, Todos los derechos reservados.
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->

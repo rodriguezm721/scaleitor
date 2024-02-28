@@ -57,27 +57,52 @@
                             <a href="index.html" class="">
                                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Scaleitor</h3>
                             </a>
-                            <!---<h3>Iniciar Sesión</h3>--->
+                            <!--<h3>Sign Up</h3>-->
                         </div>
-                        
-                        <form class="row g-3" method="POST" action="{{ route('login.authenticate') }}">
+                        @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+                        <form class="row g-3" method="POST" action="{{ route('login.register') }}">
                             @csrf
-                            <div class="form-floating mb-3">
-                                <input type="email" name="email" class="form-control" value="{{old('email')}}" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Correo electrónico</label>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="name" value="{{ old('name')}}" class="form-control" id="floatingText" placeholder="jhondoe">
+                            <label for="floatingText">Nombre</label>
+                            @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="email" value="{{ old('email')}}" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Correo electrónico</label>
+                            @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Contraseña</label>
+                            @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" name="password_confirmation" class="form-control" id="floatingPasswordConfirm" placeholder="Confirmar Contraseña">
+                            <label for="floatingPasswordConfirm">Confirmar Contraseña</label>
+                            @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <!--<div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Contraseña</label>
-                                @if ($errors->has('email'))
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                                @endif
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <a href="">Olvidaste tu contraseña?</a>
-                            </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Iniciar Sesión</button>
-                            <p class="text-center mb-0">No tienes una cuenta? <a href="{{ route('auth.register') }}">Registrate</a></p>
+                            <a href="">Forgot Password</a>
+                        </div>--->
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Registrarse</button>
+                        <p class="text-center mb-0">Ya tienes una cuenta? <a href="{{ route('auth.signin') }}">Iniciar Sesión</a></p>
                         </form>
                     </div>
                 </div>

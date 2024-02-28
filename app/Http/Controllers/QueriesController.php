@@ -25,6 +25,11 @@ class QueriesController extends Controller
     public function signin(){
         return view('auth.signin');
     }
+
+    public function register(){
+        return view('auth.register');
+    }
+    
     public function queries(Request $request)
     {
         
