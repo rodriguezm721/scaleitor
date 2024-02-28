@@ -100,11 +100,13 @@ $dias_totales += $convenio->dias;
                <div class="row mb-3">
                   <div class="col-md-12">
                      <h6 class="font-weight-bold">Estatus</h6>
-                     @if($contrato->status == 1)
-                     <a href="" data-bs-toggle="modal" data-bs-target="#modal2"><span class="badge rounded-pill bg-success">Abierto</span></a>
-                     @else
-                     <a href="" data-bs-toggle="modal" data-bs-target="#modal2"><span class="badge rounded-pill bg-danger">Cerrado</span></a>
-                     @endif
+                        @if($contrato->status == 1)
+                        <a @can('create contratos') href="" data-bs-toggle="modal" data-bs-target="#modal2" @endcan>
+                           <span class="badge rounded-pill bg-success">Abierto</span>
+                        </a>
+                        @else
+                           <a @can('create contratos') href="" data-bs-toggle="modal" data-bs-target="#modal2" @endcan><span class="badge rounded-pill bg-danger">Cerrado</span></a>
+                        @endif
                   </div>
                </div>
                <!-- Repite el patrón para otras secciones -->
@@ -147,7 +149,7 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Convenios
                   </h4>
-                  @can('create roles')
+                  @can('create convenios')
                   <a class="btn btn-success" href="{{ route('convenios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
                   @endcan
                </div>
@@ -214,10 +216,14 @@ $dias_totales += $convenio->dias;
                                        @endif
                                     </td>
                                     <td>
+                                       @can('delete convenios')
                                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminar({{ json_encode(['id' => $convenio->id, 'contractual_id' => $convenio->contractual_id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
+                                       @endcan
+                                       @can('update convenios')
                                        <a href="{{ route('convenios.edit', $convenio->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                       @endcan
                                     </td>
                                  </tr>
                               </tbody>

@@ -32,7 +32,7 @@ Route::get('/register', [QueriesController::class, 'register'])->name('auth.regi
 Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries')->middleware('auth');
 
 //--------------------------------
-Route::get('/dashboard', [QueriesController::class, 'dashboard'])->name('dashboard')->middleware(['auth','role:admin|editor']);
+Route::get('/dashboard', [QueriesController::class, 'dashboard'])->name('dashboard')->middleware(['auth','role:admin|editor|lector']);
 
 
 //Recuperacion de contraseña

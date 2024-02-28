@@ -49,14 +49,16 @@
           {{ $errors->first('error') }}
       </div>
       @endif
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">
-                <h3>
-                    INFORMACIÓN CONTRACTUAL PROYECTOS
-                </h3>
-            </h6>
-            <a class="btn btn-primary" href="{{route('contratos.create')}}">Nuevo Contrato</a>
-        </div>
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h6 class="mb-0">
+            <h3>
+                INFORMACIÓN CONTRACTUAL PROYECTOS
+            </h3>
+        </h6>
+        @can('create contratos')
+            <a class="btn btn-primary" href="{{ route('contratos.create') }}">Nuevo Contrato</a>
+        @endcan
+        </div>    
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0" id="example">
                 <thead>
@@ -84,11 +86,17 @@
                         <td style="display: none">{{$contrato->descripcion}}</td>
                         <td>{{$contrato->fecha_inicio}}</td>
                         <td>
+                            @can('update contratos')
                           <a href="{{ route('contratos.edit', $contrato->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
-                              <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
+                          @endcan
+                          @can('delete contratos')
+                            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar({{$contrato->id}})">
                                 <i class="fa fa-trash"></i>
-                              </button>
-                              <a href="{{ route('contratos.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2"><i class="fa fa-eye"></i></a>
+                            </button>
+                            @endcan
+                            @can('read contratos')
+                            <a href="{{ route('contratos.show', $contrato->id)}}" class="btn btn-info btn-sm mt-2"><i class="fa fa-eye"></i></a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
