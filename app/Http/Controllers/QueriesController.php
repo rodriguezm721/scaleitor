@@ -6,15 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Contractual;
 use App\Models\Cobros;
 use App\Models\Time;
+use App\Models\Advance;
+use App\Models\Service;
 
 class QueriesController extends Controller
 {
     public function dashboard()
     {
-        $proyectos = Contractual::where('coordinacion', '=', 'Proyectos')->count();
-        $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->count();
-        $supervision = Contractual::where('coordinacion', '=', 'Supervision')->count();
-        $construccion = Contractual::where('coordinacion', '=', 'Construccion')->count();
+        $proyectos = Contractual::where('coordinacion', '=', 'Proyectos')->get();
+        $ambiental = Contractual::where('coordinacion', '=', 'Ambiental')->get();
+        $supervision = Contractual::where('coordinacion', '=', 'Supervision')->get();
+        $construccion = Contractual::where('coordinacion', '=', 'Construccion')->get();
         return view('layouts/dashboard')
         ->with(compact('proyectos'))
         ->with(compact('ambiental'))
@@ -59,5 +61,44 @@ class QueriesController extends Controller
         } else {
             return redirect()->route('layouts.dashboard')->withErrors(['error' => 'El contrato no existe']);
         }
+    }
+    
+    public function show(Request $request)
+    {
+        $contrato = $request->input('contrato');
+        $operaciones = Service::with(['customers', 'comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])
+        ->where('contractual_id', $contrato)
+        ->get();
+
+        $convenios = Time::where('contractual_id', $contrato)->get();
+
+        $avancesG = Advance::where('contractual_id', $contrato)
+        ->where('tipo', 'General')
+        ->get();
+
+        $avancesS = Advance::where('contractual_id', $contrato)
+        ->where('tipo', 'Supervision')
+        ->get();
+
+        $avancesC = Advance::where('contractual_id', $contrato)
+        ->where('tipo', 'Constructora')
+        ->get();
+
+        $cobros = Cobros::where('contractual_id', $contrato)->get();
+        
+        $contrato = Contractual::find($contrato);
+        //$operaciones = Service::where('contractual_id', $contrato)->get();
+        $id = $contrato;
+        return view('contractuals.index2')
+        ->with(compact('convenios'))
+        ->with(compact('operaciones'))
+        ->with(compact('avancesG'))
+        ->with(compact('avancesS'))
+        ->with(compact('avancesC'))
+        ->with(compact('cobros'))
+        ->with(compact('id'))
+        ->with(compact('contrato'));
     }
 }

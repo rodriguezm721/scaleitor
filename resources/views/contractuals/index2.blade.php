@@ -17,11 +17,14 @@
 @php 
 $monto_total_convenios = 0; 
 $dias_totales = 0;
+$monto_contrato = 0;
 @endphp
 @foreach($convenios as $convenio)
 @php 
+
 $monto_total_convenios += $convenio->monto; 
 $dias_totales += $convenio->dias; 
+$monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
 @endphp
 @endforeach
 <div class="container-fluid pt-4 px-4">
@@ -175,7 +178,9 @@ $dias_totales += $convenio->dias;
                                     <th scope="col">Monto</th>
                                     <th scope="col">Días</th>
                                     <th scope="col">Comentarios</th>
-                                    <th scope="col"></th>
+                                    @if (Gate::check('delete convenios') || Gate::check('update convenios'))
+                                       <th scope="col"></th>
+                                    @endif
                                  </tr>
                               </thead>
                               <tbody>
@@ -215,6 +220,7 @@ $dias_totales += $convenio->dias;
                                        <h6>Sin comentarios</h6>
                                        @endif
                                     </td>
+                                    @if (Gate::check('delete convenios') || Gate::check('update convenios'))
                                     <td>
                                        @can('delete convenios')
                                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminar({{ json_encode(['id' => $convenio->id, 'contractual_id' => $convenio->contractual_id]) }})">
@@ -225,6 +231,7 @@ $dias_totales += $convenio->dias;
                                        <a href="{{ route('convenios.edit', $convenio->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                        @endcan
                                     </td>
+                                    @endif
                                  </tr>
                               </tbody>
                            </table>
@@ -277,7 +284,9 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Datos Generales
                   </h4>
+                  @can('create servicios')
                   <a class="btn btn-success" href="{{ route('servicios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
                </div>
             </div>
             @if(count($operaciones) > 0)
@@ -298,7 +307,9 @@ $dias_totales += $convenio->dias;
                                     <th scope="col">Nombre Corto</th>
                                     <th scope="col">Alcance del Trabajo</th>
                                     <th scope="col">Líder</th>
+                                    @if (Gate::check('delete servicios') || Gate::check('update servicios'))
                                     <th scope="col"></th>
+                                    @endif
                                  </tr>
                               </thead>
                               <tbody>
@@ -306,12 +317,18 @@ $dias_totales += $convenio->dias;
                                     <td>{{$operacion->nom_corto}}</td>
                                     <td>{{$operacion->alcance}}</td>
                                     <td>{{$operacion->lider}}</td>
+                                    @if (Gate::check('delete servicios') || Gate::check('update servicios'))
                                     <td>
+                                       @can('delete servicios')
                                        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar2({{ json_encode(['id' => $operacion->id, 'contractual_id' => $contrato->id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
+                                       @endcan
+                                       @can('update servicios')
                                        <a href="{{ route('servicios.edit', $operacion->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
+                                       @endcan
                                     </td>
+                                    @endif
                                  </tr>
                               </tbody>
                            </table>
@@ -320,7 +337,9 @@ $dias_totales += $convenio->dias;
                            <div class="col-md-6">
                               <div class="d-flex align-items-center justify-content-between mb-4">
                                  <h4>Contactos</h4>
+                                 @can('create contactos')
                                  <a class="btn btn-primary" href="{{route('clientes.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
+                                 @endcan
                               </div>
                               <div class="scrollable-container">
                                  <ul class="list-group list-group-flush">
@@ -331,10 +350,16 @@ $dias_totales += $convenio->dias;
                                        <strong>Empresa:</strong> {{ $contacto->empresa }}<br>
                                        <strong>Correo:</strong> {{ $contacto->email }}<br>
                                        <strong>Tel/Cel:</strong> {{ $contacto->num_tel }}<br>
+                                       @if (Gate::check('delete contactos') || Gate::check('update contactos'))
+                                       @can('delete contactos')
                                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $contrato->id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
+                                       @endcan
+                                       @can('update contactos')
                                        <a href="{{ route('clientes.edit', $contacto->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                       @endcan
+                                       @endif
                                        <!-- Agrega más campos según sea necesario -->
                                     </li>
                                     @endforeach
@@ -344,7 +369,9 @@ $dias_totales += $convenio->dias;
                            <div class="col-md-6">
                               <div class="d-flex align-items-center justify-content-between mb-4">
                                  <h4>Comentarios</h4>
+                                 @can('create comentarios')
                                  <a class="btn btn-primary" href="{{route('comentarios.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
+                                 @endcan
                               </div>
                               <div class="scrollable-container">
                                  <ul class="list-group list-group-flush">
@@ -353,9 +380,11 @@ $dias_totales += $convenio->dias;
                                        <strong>Comentario:</strong> {{ $comment->comment }}<br>
                                        <strong>Tipo:</strong> {{ $comment->tipo }}<br>
                                        <strong>Fecha:</strong> {{ $comment->created_at->format('Y-m-d') }}<br>
+                                       @can('delete comentarios')
                                        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'contrato_id' => $contrato->id]) }})">
                                        <i class="fa fa-trash"></i>
                                        </button>
+                                       @endcan
                                        <!-- Agrega más campos según sea necesario -->
                                     </li>
                                     @endforeach
@@ -382,7 +411,15 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Avance
                   </h4>
+                  @if(count($avancesG) == 1)
+                  @can('create avances')
+                  <a class="btn btn-success"><i class="fa fa-plus"></i></a>
+                  @endcan
+                  @else
+                  @can('create avances')
                   <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
+                  @endif
                </div>
             </div>
             <div class="card-body">
@@ -438,10 +475,14 @@ $dias_totales += $convenio->dias;
                </div>
                <div class="row mb-3">
                   <div class="col-md-6 offset-md-3">
+                     @can('delete avances')
                      <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                      <i class="fa fa-trash"></i>
                      </button>
+                     @endcan
+                     @can('update avances')
                      <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                     @endcan
                   </div>
                </div>
                @endforeach
@@ -451,6 +492,7 @@ $dias_totales += $convenio->dias;
             </div>
          </div>
       </div>
+      @if($contrato->coordinacion == 'Supervision')
       <div class="container mt-5">
          <div class="card shadow">
             <div class="card-header bg-primary text-white">
@@ -458,7 +500,9 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Avance Supervisión
                   </h4>
+                  @can('create avances')
                   <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
                </div>
             </div>
             @if(count($avancesS) > 0)
@@ -523,10 +567,14 @@ $dias_totales += $convenio->dias;
                         </div>
                         <div class="row mb-3">
                            <div class="col-md-6 offset-md-3">
+                              @can('delete avances')
                               <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
+                              @endcan
+                              @can('update avances')
                               <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                              @endcan
                            </div>
                         </div>
                      </div>
@@ -542,6 +590,8 @@ $dias_totales += $convenio->dias;
             @endif
          </div>
       </div>
+      @endif
+      @if($contrato->coordinacion == 'Construccion')
       <div class="container mt-5">
          <div class="card shadow">
             <div class="card-header bg-primary text-white">
@@ -549,7 +599,9 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Avance Constructora
                   </h4>
+                  @can('create avances')
                   <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
                </div>
             </div>
             @if(count($avancesC) > 0)
@@ -614,10 +666,14 @@ $dias_totales += $convenio->dias;
                         </div>
                         <div class="row mb-3">
                            <div class="col-md-6 offset-md-3">
+                              @can('create avances')
                               <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
+                              @endcan
+                              @can('update avances')
                               <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                              @endcan
                            </div>
                         </div>
                      </div>
@@ -633,6 +689,7 @@ $dias_totales += $convenio->dias;
             @endif
          </div>
       </div>
+      @endif
       <div class="container mt-5">
          <div class="card shadow">
             <div class="card-header bg-primary text-white">
@@ -640,7 +697,9 @@ $dias_totales += $convenio->dias;
                   <h4 class="mb-0">
                      Cobros
                   </h4>
+                  @can('create cobros')
                   <a class="btn btn-success" href="{{ route('cobros.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
                </div>
             </div>
             <div class="card-body">
@@ -659,7 +718,9 @@ $dias_totales += $convenio->dias;
                            <th scope="col">Cobrado</th>
                            <th scope="col">%</th>
                            <th scope="col">Comentarios</th>
+                           @if (Gate::check('delete cobros') || Gate::check('update cobros'))
                            <th scope="col">Acciones</th>
+                           @endif
                         </tr>
                      </thead>
                      <tbody>
@@ -668,25 +729,41 @@ $dias_totales += $convenio->dias;
                            <td>{{$cobro->periodo}}</td>
                            <td>{{($cobro->num_factura)}}</td>
                            <td>{{$cobro->fecha_ingreso}}</td>
+                           @if($monto_contrato == 0)
                            <td>${{number_format($cobro->programado, 2, '.', ',')}}</td>
                            <td>{{ round(($cobro->programado / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{number_format($cobro->estimado, 2, '.', ',')}}</td>
                            <td>{{ round(($cobro->estimado / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{number_format($cobro->cobrado, 2, '.', ',')}}</td>
                            <td>{{ round(($cobro->cobrado / $contrato->imp_contrato) * 100) }}%</td>
+                           @else
+                           <td>${{number_format($cobro->programado, 2, '.', ',')}}</td>
+                           <td>{{ round(($cobro->programado / $monto_contrato) * 100) }}%</td>
+                           <td>${{number_format($cobro->estimado, 2, '.', ',')}}</td>
+                           <td>{{ round(($cobro->estimado / $monto_contrato) * 100) }}%</td>
+                           <td>${{number_format($cobro->cobrado, 2, '.', ',')}}</td>
+                           <td>{{ round(($cobro->cobrado / $monto_contrato) * 100) }}%</td>
+                           @endif
                            <td>{{$cobro->comentario}}</td>
+                           @if (Gate::check('delete cobros') || Gate::check('update cobros'))
                            <td>
+                              @can('update cobros')
                               <a href="{{ route('cobros.edit', $cobro->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
+                              @endcan
+                              @can('delete cobros')
                               <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarCobro({{ json_encode(['id' => $cobro->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
+                              @endcan
                            </td>
+                           @endif
                         </tr>
                         @endforeach
                      </tbody>
                      <tfoot>
                         <tr>
                            <td colspan="3"><strong>Total</strong></td>
+                           @if($monto_contrato == 0)
                            <td>${{ number_format($cobros->sum('programado'), 2, '.', ',') }}</td>
                            <td>{{ round(($cobros->sum('programado') / $contrato->imp_contrato) * 100) }}%</td>
                            <td>${{ number_format($cobros->sum('estimado'), 2, '.', ',') }}</td>
@@ -695,6 +772,16 @@ $dias_totales += $convenio->dias;
                            <td>{{ round(($cobros->sum('cobrado') / $contrato->imp_contrato) * 100) }}%</td>
                            <td></td>
                            <td></td>
+                           @else
+                           <td>${{ number_format($cobros->sum('programado'), 2, '.', ',') }}</td>
+                           <td>{{ round(($cobros->sum('programado') / $monto_contrato) * 100) }}%</td>
+                           <td>${{ number_format($cobros->sum('estimado'), 2, '.', ',') }}</td>
+                           <td>{{ round(($cobros->sum('estimado') / $monto_contrato) * 100) }}%</td>
+                           <td>${{ number_format($cobros->sum('cobrado'), 2, '.', ',') }}</td>
+                           <td>{{ round(($cobros->sum('cobrado') / $monto_contrato) * 100) }}%</td>
+                           <td></td>
+                           <td></td>
+                           @endif
                         </tr>
                         <tr>
                            <td colspan="11"><strong>Ultima actualización </strong> {{ \Carbon\Carbon::parse($cobro->updated_at)->format('Y-m-d h:i:s A') }} </td>

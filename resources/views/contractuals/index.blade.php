@@ -2,47 +2,6 @@
 @section('content')
 
 <div class="container-fluid pt-4 px-4">
-  <div class="row g-4">
-      <div class="col-sm-6 col-xl-3">
-          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-              <i class="fa fa-chart-line fa-3x text-primary"></i>
-              <div class="ms-3">
-                  <p class="mb-2">Proyectos</p>
-                  <h6 class="mb-0">{{ $proyectos }}</h6>
-              </div>
-          </div>
-      </div>
-      <div class="col-sm-6 col-xl-3">
-          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-              <i class="fa fa-tree fa-3x text-primary"></i>
-              <div class="ms-3">
-                  <p class="mb-2">Ambiental</p>
-                  <h6 class="mb-0">{{ $ambiental }}</h6>
-              </div>
-          </div>
-      </div>
-      <div class="col-sm-6 col-xl-3">
-          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-              <i class="fa fa-user fa-3x text-primary"></i>
-              <div class="ms-3">
-                  <p class="mb-2">Supervisión</p>
-                  <h6 class="mb-0">{{ $supervision }}</h6>
-              </div>
-          </div>
-      </div>
-      <div class="col-sm-6 col-xl-3">
-          <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-              <i class="fa fa-hammer fa-3x text-primary"></i>
-              <div class="ms-3">
-                  <p class="mb-2">Construcción</p>
-                  <h6 class="mb-0">{{ $construccion }}</h6>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-
-<div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
       @if($errors->has('error'))
       <div class="alert alert-danger">
@@ -50,14 +9,16 @@
       </div>
       @endif
       <div class="d-flex align-items-center justify-content-between mb-4">
-        <h6 class="mb-0">
+        <div class="mb-0">
             <h3>
                 INFORMACIÓN CONTRACTUAL PROYECTOS
             </h3>
-        </h6>
-        @can('create contratos')
+        </div>
+        <div class="">
+            @can('create contratos')
             <a class="btn btn-primary" href="{{ route('contratos.create') }}">Nuevo Contrato</a>
-        @endcan
+            @endcan
+        </div>
         </div>    
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0" id="example">

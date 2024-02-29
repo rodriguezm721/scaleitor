@@ -21,25 +21,23 @@ use App\Http\Controllers\ForgotPasswordController;
 |
 */
 
-
+//Inicio de sesion
 Route::post('/login', [SessionController::class, 'authenticate'])->name('login.authenticate')->middleware('guest');
 Route::post('/register-data', [SessionController::class, 'register'])->name('login.register')->middleware('guest');
+//Cierre de sesion
 Route::post('/logout', [SessionController::class, 'logout'])->name('session.logout')->middleware('auth');
-
+//Inicio de aplicacion
 Route::get('/', [QueriesController::class, 'signin'])->name('auth.signin')->middleware('guest');
 Route::get('/register', [QueriesController::class, 'register'])->name('auth.register')->middleware('guest');
-
-Route::post('/envio', [QueriesController::class, 'queries'])->name('data.queries')->middleware('auth');
-
-//--------------------------------
-Route::get('/dashboard', [QueriesController::class, 'dashboard'])->name('dashboard')->middleware(['auth','role:admin|editor|lector']);
-
-
+//Consulta del dashboard que muestra modal y resultado de consulta
+Route::post('/consulta', [QueriesController::class, 'show'])->name('consulta.show')->middleware('auth');
+//Vista del dashboard
+Route::get('/dashboard', [QueriesController::class, 'dashboard'])->name('dashboard')->middleware(['auth','check.role:admin|editor|lector']);
 //Recuperacion de contraseña
-
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-
+//Ruta para cambio de estatus del contrato
+Route::post('/status', [ContractualController::class, 'status'])->name('contratos.status')->middleware('auth');
 
 
 //Rutas para CRUD de cobros
@@ -129,6 +127,3 @@ Route::delete('/contratos/{service_id}/contractuals/{id}', [ServiceController::c
 Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy'])->middleware('auth');
 Route::delete('/contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy'])->middleware('auth');
 Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, 'destroy'])->middleware('auth');
-
-
-Route::post('/status', [ContractualController::class, 'status'])->name('contratos.status')->middleware('auth');
