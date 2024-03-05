@@ -18,22 +18,13 @@
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')}}" rel="stylesheet" />
+ 
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
-
-    <!----DATA TABLES---->
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
-      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 
 </head>
 
@@ -52,10 +43,10 @@
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
-                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Scaleitor</h3>
+                    <div class="rounded p-4 p-sm-5 my-4 mx-3 color-panel">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <a href="" class="">
+                                <img src="{{ asset('img\logos\scalabn.png')}}" alt="" width="150px" height="50px">
                             </a>
                             <!---<h3>Iniciar Sesión</h3>--->
                         </div>
@@ -63,27 +54,27 @@
                         <form class="row g-3" method="POST" action="{{ route('login.authenticate') }}">
                             @csrf
                             @if ($errors->has('error'))
-                                <span class="text-danger">{{ $errors->first('error') }}</span>
+                                <span class="text-light">{{ $errors->first('error') }}</span>
                                 @endif
                             <div class="form-floating mb-3">
                                 <input type="text" name="email" class="form-control" value="{{old('email')}}" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Correo electrónico</label>
                                 @error('email')
-                                <span class="text-danger">{{ $message }}</span>
+                                <span class="text-light">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-floating mb-4">
                                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                                 <label for="floatingPassword">Contraseña</label>
                                 @error('password')
-                                <span class="text-danger">{{ $message }}</span>
+                                <span class="text-light">{{ $message }}</span>
                                 @enderror
                             </div>
                             <!--<div class="d-flex align-items-center justify-content-between mb-4">
                                 <a href="">Olvidaste tu contraseña?</a>
                             </div>--->
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Iniciar Sesión</button>
-                            <p class="text-center mb-0">No tienes una cuenta? <a href="{{ route('auth.register') }}">Registrate</a></p>
+                            <p class="text-center text-white mb-0">No tienes una cuenta? <a href="{{ route('auth.register') }}">Registrate</a></p>
                         </form>
                     </div>
                 </div>
@@ -91,42 +82,12 @@
         </div>
         <!-- Sign In End -->
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="{{asset('js/main.js')}}"></script>
+        <!-- Template Javascript -->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('lib/chart/chart.min.js')}}"></script>
-    <script src="{{asset('lib/easing/easing.min.js')}}"></script>
-    <script src="{{asset('lib/waypoints/waypoints.min.js')}}"></script>
-    <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('lib/tempusdominus/js/moment.min.js')}}"></script>
-    <script src="{{asset('lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
-    <script src="{{asset('lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-
-    <script src="{{asset('js/main.js')}}"></script>
-    <!-- Template Javascript -->
-
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-
-    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js"></script>
-
-    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
-
-    <script src="{{asset('js/functions.js')}}"></script>
+        <script src="{{asset('js/functions.js')}}"></script>
 
 </body>
 

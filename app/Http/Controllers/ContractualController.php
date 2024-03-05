@@ -176,48 +176,6 @@ class ContractualController extends Controller
                 return redirect()->route('contratos.index4');
             }
             
-            /*
-            // Después de guardar, puedes acceder al ID así:
-            $registroId = $cobro->id;
-            $cobro = Contractual::find($registroId);
-
-            // Verifica si el registro existe
-            if (!$cobro) {
-                abort(404, 'Registro no encontrado');
-            }
-
-            $datos = $request->input('datos');
-
-            if ($request->filled('datos')) {
-                foreach ($datos as $dato) {
-                    // Crea objetos DateTime a partir de las fechas
-                    $datetime_inicio = new DateTime($dato['campo1']);
-                    $datetime_fin = new DateTime($dato['campo2']);
-                    // Calcula la diferencia entre las fechas
-                    $interval = $datetime_inicio->diff($datetime_fin);
-        
-                    // Obtén la diferencia en días
-                    $dias_diferencia = $interval->days;
-                    $dias_diferencia += 1;
-                    // Crear una nueva instancia de Time
-                    $time = new Time;
-                    // Asignar valores desde el formulario
-                    $time->fecha_inicio = $dato['campo1'];
-                    $time->fecha_fin = $dato['campo2'];
-                    $time->dias = $dias_diferencia;
-                    // Asociar con Contractual y guardar en la base de datos
-                    $cobro->times()->save($time);
-                    //Dias acumulados
-                    $cobro->total_dias = $cobro->total_dias + $dias_diferencia;
-                    $cobro->save();
-                }
-            }*/
-
-
-            // Si llegamos aquí sin excepciones, confirmamos la transacción
-
-            // Puedes devolver una respuesta de éxito o hacer cualquier otra cosa que necesites
-            //return response()->json(['mensaje' => 'Contrato guardado con éxito']);
         } catch (\Exception $e) {
             // Si ocurre alguna excepción, realiza el rollback para deshacer todas las operaciones
             DB::rollback();

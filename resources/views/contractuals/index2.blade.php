@@ -36,7 +36,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       @endif
       <div class="container mt-5 mb-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <h4 class="mb-0">Información Contractual</h4>
             </div>
             <div class="card-body">
@@ -147,7 +147,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       </div>
       <div class="container mt-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
                      Convenios
@@ -279,7 +279,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       </script>
       <div class="container mt-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
                      Datos Generales
@@ -406,7 +406,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       </div>
       <div class="container mt-5 mb-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
                      Avance
@@ -495,7 +495,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       @if($contrato->coordinacion == 'Supervision')
       <div class="container mt-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
                      Avance Supervisión
@@ -594,7 +594,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       @if($contrato->coordinacion == 'Construccion')
       <div class="container mt-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
                      Avance Constructora
@@ -692,7 +692,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
       @endif
       <div class="container mt-5">
          <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
                      Cobros

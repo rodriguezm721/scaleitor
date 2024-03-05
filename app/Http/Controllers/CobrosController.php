@@ -16,8 +16,8 @@ class CobrosController extends Controller
     {
         //define('NUMBER_OF_ITEMS_PER_PAGE', 10);
         //$cobros = Cobros::paginate(NUMBER_OF_ITEMS_PER_PAGE);
-        $cobros = Cobros::all();
-        return view('cobros.index', compact('cobros'));
+        //$cobros = Cobros::all();
+        //return view('cobros.index', compact('cobros'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CobrosController extends Controller
      */
     public function create()
     {
-        return view('cobros.insert');
+        //return view('cobros.insert');
     }
 
     public function insert($id)

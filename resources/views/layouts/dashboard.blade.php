@@ -22,38 +22,38 @@
 <div class="container-fluid pt-4 px-4">
    <div class="row g-4">
       <div class="col-sm-6 col-xl-3">
-         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-            <i class="fa fa-chart-line fa-3x text-primary"></i>
+         <div class="rounded d-flex align-items-center justify-content-between p-4 color-card">
+            <img src="{{ asset('img\icons\arquitecto.png')}}" alt="">
             <div class="ms-3">
                <p class="mb-2">Proyectos</p>
-               <h6 class="mb-0">{{ $proyectos->count() }}</h6>
+               <span class="mb-0">{{ $proyectos->count() }}</span>
             </div>
          </div>
       </div>
       <div class="col-sm-6 col-xl-3">
-         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-            <i class="fa fa-chart-bar fa-3x text-primary"></i>
+         <div class="color-card rounded d-flex align-items-center justify-content-between p-4">
+            <img src="{{ asset('img\icons\ambiental.png')}}" alt="">
             <div class="ms-3">
                <p class="mb-2">Ambiental</p>
-               <h6 class="mb-0">{{ $ambiental->count() }}</h6>
+               <span class="mb-0">{{ $ambiental->count() }}</span>
             </div>
          </div>
       </div>
       <div class="col-sm-6 col-xl-3">
-         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-            <i class="fa fa-chart-area fa-3x text-primary"></i>
+         <div class="color-card rounded d-flex align-items-center justify-content-between p-4">
+            <img src="{{ asset('img\icons\supervision.png')}}" alt="">
             <div class="ms-3">
                <p class="mb-2">Supervisión</p>
-               <h6 class="mb-0">{{ $supervision->count() }}</h6>
+               <span class="mb-0">{{ $supervision->count() }}</span>
             </div>
          </div>
       </div>
       <div class="col-sm-6 col-xl-3">
-         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+         <div class="color-card rounded d-flex align-items-center justify-content-between p-4">
+            <img src="{{ asset('img\icons\trabajador.png')}}" alt="">
             <div class="ms-3">
                <p class="mb-2">Construcción</p>
-               <h6 class="mb-0">{{ $construccion->count() }}</h6>
+               <span class="mb-0">{{ $construccion->count() }}</span>
             </div>
          </div>
       </div>

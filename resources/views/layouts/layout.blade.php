@@ -49,10 +49,10 @@
 
 
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
+        <div class="sidebar pe-4 pb-3 color-nav">
+            <nav class="navbar navbar-light">
                 <a href="" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SCALA</h3>
+                    <img src="{{ asset('img\logos\scalabn.png')}}" alt="" width="150px" height="50px">
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{ route('dashboard')}}" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Dashboard</a>
+                    <a href="{{ route('dashboard')}}" class="nav-item nav-link"><i class="fa fa-home me-2"></i>Dashboard</a>
                     @can('create contratos')
                     <a href="{{ route('contratos.index')}}" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Proyectos</a>
                     <a href="{{ route('contratos.index2')}}" class="nav-item nav-link"><i class="fa fa-tree me-2"></i>Ambiental</a>
@@ -183,7 +183,19 @@
     <script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
 
     <script src="{{asset('js/functions.js')}}"></script>
-
+    <script>
+        $(document).ready(function() {
+            // Obtén la URL actual
+            var currentUrl = window.location.href;
+    
+            // Encuentra el enlace que coincide con la URL actual y agrega la clase "active"
+            $('.navbar-nav .nav-link').each(function() {
+                if ($(this).attr('href') === currentUrl) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
