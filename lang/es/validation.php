@@ -164,6 +164,7 @@ return [
         'acum_cobra'                => 'cobrado acumulado',
         'num_factura'               => 'factura',
         'num_tel'                   => 'Cel/Tel',
+        'c_costo'                   => 'centro de costos',
 
         'address'                  => 'dirección',
         'affiliate_url'            => 'URL de afiliado',

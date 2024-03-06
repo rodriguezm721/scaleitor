@@ -398,23 +398,17 @@
 
 .color-nav {
 /*background-image: linear-gradient(232deg, rgb(246,191,22),rgb(252, 152, 51));*/
-background-color: #F6BF16;
+background-color: #FFBF00;
 }
 
 .color-panel{
-    background-image: linear-gradient(
-  0deg,
-  hsl(228deg 49% 29%) 0%,
-  hsl(229deg 48% 27%) 7%,
-  hsl(230deg 46% 26%) 21%,
-  hsl(230deg 44% 24%) 74%,
-  hsl(231deg 43% 23%) 95%,
-  hsl(232deg 41% 21%) 100%
-);
+    background-color: #FFBF00;
 }
 
 .text-white{
-    color: #FFFFFF;
+    color: #9FE2BF;
+    /*color: #D97706;
+    color: #1E293B;*/
 }
 
 .fondo-login {

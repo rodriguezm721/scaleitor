@@ -34,6 +34,10 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'tipo' => ['required'],
+        ]);
+
         $id = $request->input('id');
         $service_id = $request->input('service_id');
         $comentario = new Comment;

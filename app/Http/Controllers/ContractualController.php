@@ -128,6 +128,8 @@ class ContractualController extends Controller
         //Hace una validacion de los input en la vista 
         $credentials = $request->validate([
             'nom_proyecto' => ['required'],
+            'coordinacion' => ['required'],
+            'c_costo' => ['required'],
             'no_contrato' => ['required', 'unique:contractuals'],
             'imp_contrato' => ['required', 'numeric'],
             'fecha_inicio' => 'required',
@@ -253,12 +255,15 @@ class ContractualController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $credentials = $request->validate([
             'nom_proyecto' => ['required'],
+            'coordinacion' => ['required'],
+            'c_costo' => ['required'],
             'no_contrato' => ['required', Rule::unique('contractuals')->ignore($id)],
             'imp_contrato' => ['required', 'numeric'],
-            'fecha_inicio' => ['required'],
-            'fecha_fin' => ['required'],
+            'fecha_inicio' => 'required',
+            'fecha_fin' => 'required|required_with:fecha_inicio|after_or_equal:fecha_inicio',
         ]);
 
         DB::beginTransaction();

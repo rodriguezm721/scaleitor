@@ -37,8 +37,8 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            'num_tel' => ['numeric','digits:10'],
-            'email' => ['email']
+            'num_tel' => ['nullable','numeric','digits:10'],
+            'email' => ['nullable','email']
         ]);
         $id = $request->input('id');
         $service_id = $request->input('service_id');

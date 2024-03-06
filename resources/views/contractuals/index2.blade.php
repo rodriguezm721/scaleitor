@@ -21,7 +21,6 @@ $monto_contrato = 0;
 @endphp
 @foreach($convenios as $convenio)
 @php 
-
 $monto_total_convenios += $convenio->monto; 
 $dias_totales += $convenio->dias; 
 $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
@@ -103,13 +102,13 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
                <div class="row mb-3">
                   <div class="col-md-12">
                      <h6 class="font-weight-bold">Estatus</h6>
-                        @if($contrato->status == 1)
-                        <a @can('create contratos') href="" data-bs-toggle="modal" data-bs-target="#modal2" @endcan>
-                           <span class="badge rounded-pill bg-success">Abierto</span>
-                        </a>
-                        @else
-                           <a @can('create contratos') href="" data-bs-toggle="modal" data-bs-target="#modal2" @endcan><span class="badge rounded-pill bg-danger">Cerrado</span></a>
-                        @endif
+                     @if($contrato->status == 1)
+                     <a @can('create contratos') href="" data-bs-toggle="modal" data-bs-target="#modal2" @endcan>
+                     <span class="badge rounded-pill bg-success">Abierto</span>
+                     </a>
+                     @else
+                     <a @can('create contratos') href="" data-bs-toggle="modal" data-bs-target="#modal2" @endcan><span class="badge rounded-pill bg-danger">Cerrado</span></a>
+                     @endif
                   </div>
                </div>
                <!-- Repite el patrón para otras secciones -->
@@ -179,7 +178,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
                                     <th scope="col">Días</th>
                                     <th scope="col">Comentarios</th>
                                     @if (Gate::check('delete convenios') || Gate::check('update convenios'))
-                                       <th scope="col"></th>
+                                    <th scope="col"></th>
                                     @endif
                                  </tr>
                               </thead>
