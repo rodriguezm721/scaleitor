@@ -48,8 +48,8 @@
                      <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                   </div>
                   <div class="ms-3">
-                     <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                     <span>{{ Auth::user()->role }}</span>
+                     <h6 class="mb-0 text-light">{{ Auth::user()->name }}</h6>
+                     <span class="text-light">{{ Auth::user()->role }}</span>
                   </div>
                </div>
                <div class="navbar-nav w-100">
