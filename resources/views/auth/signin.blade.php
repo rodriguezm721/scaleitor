@@ -42,20 +42,20 @@
                   <form class="row g-3" method="POST" action="{{ route('login.authenticate') }}">
                      @csrf
                      @if ($errors->has('error'))
-                     <span class="text-light">{{ $errors->first('error') }}</span>
+                     <span class="text-danger">{{ $errors->first('error') }}</span>
                      @endif
                      <div class="form-floating mb-3">
                         <input type="text" name="email" class="form-control" value="{{old('email')}}" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Correo electrónico</label>
                         @error('email')
-                        <span class="text-light">{{ $message }}</span>
+                        <span class="text-danger">{{ $message }}</span>
                         @enderror
                      </div>
                      <div class="form-floating mb-4">
                         <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Contraseña</label>
                         @error('password')
-                        <span class="text-light">{{ $message }}</span>
+                        <span class="text-danger">{{ $message }}</span>
                         @enderror
                      </div>
                      <!--<div class="d-flex align-items-center justify-content-between mb-4">
