@@ -81,7 +81,9 @@ class RoleSeeder extends Seeder
             $permission_read_contacto, 
             $permission_read_comentario,
             $permission_read_avance, 
-            $permission_read_cobro
+            $permission_read_cobro,
+            $permission_create_comentario,
+            $permission_delete_comentario
         ];
 
         //$role_editor->givePermissionTo($permission_create_contrato);

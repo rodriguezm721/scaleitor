@@ -17,8 +17,10 @@
                         <option selected disabled>Selecciona una opción...</option>
                         @endif
                         <option value="General" @if(old('tipo') == 'General') disabled @endif>General</option>
+                        @if($contrato->coordinacion == 'Supervision' || $contrato->coordinacion == 'Ambiental')
                         <option value="Supervision" @if(old('tipo') == 'Supervision') disabled @endif>Supervisión</option>
-                        <option value="Constructora" @if(old('tipo') == 'Constructora') disabled @endif>Constructora</option>
+                        @endif
+                        {{ $contrato->coordinacion}}
                      </select>
                      <label for="floatingSelect">Tipo de Avance</label>
                   </div>

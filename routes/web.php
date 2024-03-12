@@ -114,5 +114,5 @@ Route::delete('/contratos/{id}/contractual/{contractual_id}', [TimeController::c
 Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
 Route::delete('/contratos/{service_id}/contractuals/{id}', [ServiceController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
 Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
-Route::delete('/contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
+Route::delete('contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
 Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, 'destroy'])->middleware(['auth','role:admin|editor']);

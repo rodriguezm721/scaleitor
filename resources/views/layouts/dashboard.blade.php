@@ -2,21 +2,11 @@
 @section('content')
 <style>
    .card{
-   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+   box-shadow: #5DADE2 0px 20px 30px -10px;
    }
-   /*
-   .card:hover{
-   color: white;
-   background: #2193b0;  
-   background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  
-   background: linear-gradient(to right, #6dd5ed, #2193b0); 
-   h5 {
-   color: white;
-   }
-   }
-   .card:hover::after{
-   transition: width 3s ease;
-   }*/
+   .card:hover {
+        transform: translateY(-5px);
+    }
 </style>
 <!-- Sale & Revenue Start -->
 <div class="container-fluid pt-4 px-4">
@@ -72,46 +62,50 @@
                </div>
             </div>
             @endif
-            <div class="row justify-content-around">
+            <div class="row justify-content-evenly">
                <div class="col-md-4">
-                  <div class="card text-center" style="width: 18rem;">
-                     <div class="card-body">
-                        <h5 class="card-title">Proyectos</h5>
-                        <p class="card-text">Aquí podrás consultar los contratos relacionados a proyectos.</p>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Consultar</a>
+                  <div class="card" style="width: 18rem;">
+                     <img src="{{ asset('img\proyectos.jpg')}}" class="card-img-top" alt="...">
+                     <div class="card-body text-center">
+                       <h5 class="card-title">Proyectos</h5>
+                       <p class="card-text">Consulta proyectos de proyectos.</p>
+                       <a href="#" class="btn color-card" data-bs-toggle="modal" data-bs-target="#exampleModal">Consultar</a>
                      </div>
-                  </div>
+                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="card text-center" style="width: 18rem;">
-                     <div class="card-body">
-                        <h5 class="card-title">Supervisión</h5>
-                        <p class="card-text">Aquí podrás consultar los contratos relacionados a supervisión.</p>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalSup">Consultar</a>
+                  <div class="card" style="width: 18rem;">
+                     <img src="{{ asset('img\supervision.jpg')}}" class="card-img-top" alt="...">
+                     <div class="card-body text-center">
+                       <h5 class="card-title">Supervisión</h5>
+                       <p class="card-text">Consulta proyectos de supervisión.</p>
+                       <a href="#" class="btn color-card" data-bs-toggle="modal" data-bs-target="#exampleModalSup">Consultar</a>
                      </div>
-                  </div>
+                   </div>
                </div>
+           </div>
+           <div class="row justify-content-evenly mt-5">
+            <div class="col-md-4">
+               <div class="card" style="width: 18rem;">
+                  <img src="{{ asset('img\ambiental.jpg')}}" class="card-img-top" alt="...">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Ambiental</h5>
+                    <p class="card-text">Consulta proyectos de ambiental.</p>
+                    <a href="#" class="btn color-card" data-bs-toggle="modal" data-bs-target="#exampleModalAmb">Consultar</a>
+                  </div>
+                </div>
             </div>
-            <div class="row justify-content-around mt-3">
-               <div class="col-md-4">
-                  <div class="card text-center" style="width: 18rem;">
-                     <div class="card-body">
-                        <h5 class="card-title">Ambiental</h5>
-                        <p class="card-text">Aquí podrás consultar los contratos relacionados a ambiental.</p>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalAmb">Consultar</a>
-                     </div>
+            <div class="col-md-4">
+               <div class="card" style="width: 18rem;">
+                  <img src="{{ asset('img\construccion.jpeg')}}" class="card-img-top" alt="...">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Construcción</h5>
+                    <p class="card-text">Consulta proyectos de construcción.</p>
+                    <a href="#" class="btn color-card" data-bs-toggle="modal" data-bs-target="#exampleModalCons">Consultar</a>
                   </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="card text-center" style="width: 18rem;">
-                     <div class="card-body">
-                        <h5 class="card-title">Construcción</h5>
-                        <p class="card-text">Aquí podrás consultar los contratos relacionados a construcción.</p>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCons">Consultar</a>
-                     </div>
-                  </div>
-               </div>
+                </div>
             </div>
+           </div>
          </div>
       </div>
    </div>

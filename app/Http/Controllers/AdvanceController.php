@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advance;
+use App\Models\Constractual;
+use App\Models\Contractual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +28,8 @@ class AdvanceController extends Controller
 
     public function insert($id)
     {
-        return view('advances.insert', compact('id'));
+        $contrato = Contractual::find($id);
+        return view('advances.insert', compact('id', 'contrato'));
     }
 
     /**

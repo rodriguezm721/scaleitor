@@ -66,7 +66,8 @@ class QueriesController extends Controller
     public function show(Request $request)
     {
         $contrato = $request->input('contrato');
-        $operaciones = Service::with(['customers', 'comments' => function ($query) {
+        return redirect()->route('contratos.show', ['contrato' => $contrato]);
+        /*$operaciones = Service::with(['customers', 'comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }])
         ->where('contractual_id', $contrato)
@@ -99,6 +100,6 @@ class QueriesController extends Controller
         ->with(compact('avancesC'))
         ->with(compact('cobros'))
         ->with(compact('id'))
-        ->with(compact('contrato'));
+        ->with(compact('contrato'));*/
     }
 }

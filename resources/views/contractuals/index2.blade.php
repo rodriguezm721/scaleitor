@@ -33,6 +33,133 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
          {{ $errors->first('error') }}
       </div>
       @endif
+      <div class="container mt-5">
+         <div class="card shadow">
+            <div class="card-header color-nav text-white">
+               <div class="d-flex align-items-center justify-content-between">
+                  <h4 class="mb-0">
+                     Datos Generales
+                  </h4>
+                  @can('create servicios')
+                  <a class="btn btn-success" href="{{ route('servicios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
+                  @endcan
+               </div>
+            </div>
+            @if(count($operaciones) > 0)
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+               @foreach($operaciones as $operacion)
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-heading{{$operacion->id}}">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flushop-{{$operacion->id}}" aria-expanded="false" aria-controls="flushop-{{$operacion->id}}">
+                        <h6 class="mb-0">{{ $operacion->nom_corto}}</h6>
+                     </button>
+                  </h2>
+                  <div id="flushop-{{$operacion->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$operacion->id}}" data-bs-parent="#accordionFlushExample">
+                     <div class="accordion-body">
+                        <div class="table-responsive mt-4">
+                           <table class="table text-start align-middle table-borderless table-hover mb-4">
+                              <thead>
+                                 <tr class="text-dark">
+                                    <th scope="col">Nombre Corto</th>
+                                    <th scope="col">Alcance del Trabajo</th>
+                                    <th scope="col">Líder</th>
+                                    @if (Gate::check('delete servicios') || Gate::check('update servicios'))
+                                    <th scope="col"></th>
+                                    @endif
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>{{$operacion->nom_corto}}</td>
+                                    <td>{{$operacion->alcance}}</td>
+                                    <td>{{$operacion->lider}}</td>
+                                    @if (Gate::check('delete servicios') || Gate::check('update servicios'))
+                                    <td>
+                                       @can('delete servicios')
+                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar2({{ json_encode(['id' => $operacion->id, 'contractual_id' => $contrato->id]) }})">
+                                       <i class="fa fa-trash"></i>
+                                       </button>
+                                       @endcan
+                                       @can('update servicios')
+                                       <a href="{{ route('servicios.edit', $operacion->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
+                                       @endcan
+                                    </td>
+                                    @endif
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="d-flex align-items-center justify-content-between mb-4">
+                                 <h4>Contactos</h4>
+                                 @can('create contactos')
+                                 <a class="btn btn-primary" href="{{route('clientes.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
+                                 @endcan
+                              </div>
+                              <div class="scrollable-container">
+                                 <ul class="list-group list-group-flush">
+                                    @foreach($operacion->customers as $contacto)
+                                    <li class="list-group-item">
+                                       <strong>Nombre:</strong> {{ $contacto->nom_cliente }}<br>
+                                       <strong>Cargo:</strong> {{ $contacto->cargo }}<br>
+                                       <strong>Empresa:</strong> {{ $contacto->empresa }}<br>
+                                       <strong>Correo:</strong> {{ $contacto->email }}<br>
+                                       <strong>Tel/Cel:</strong> {{ $contacto->num_tel }}<br>
+                                       @if (Gate::check('delete contactos') || Gate::check('update contactos'))
+                                       @can('delete contactos')
+                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $contrato->id]) }})">
+                                       <i class="fa fa-trash"></i>
+                                       </button>
+                                       @endcan
+                                       @can('update contactos')
+                                       <a href="{{ route('clientes.edit', $contacto->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                       @endcan
+                                       @endif
+                                       <!-- Agrega más campos según sea necesario -->
+                                    </li>
+                                    @endforeach
+                                 </ul>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="d-flex align-items-center justify-content-between mb-4">
+                                 <h4>Comentarios</h4>
+                                 @can('create comentarios')
+                                 <a class="btn btn-primary" href="{{route('comentarios.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
+                                 @endcan
+                              </div>
+                              <div class="scrollable-container">
+                                 <ul class="list-group list-group-flush">
+                                    @foreach($operacion->comments as $comment)
+                                    <li class="list-group-item">
+                                       <strong>Comentario:</strong> {{ $comment->comment }}<br>
+                                       <strong>Tipo:</strong> {{ $comment->tipo }}<br>
+                                       <strong>Fecha:</strong> {{ $comment->created_at->format('Y-m-d') }}<br>
+                                       @can('delete comentarios')
+                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'contrato_id' => $contrato->id]) }})">
+                                       <i class="fa fa-trash"></i>
+                                       </button>
+                                       @endcan
+                                       <!-- Agrega más campos según sea necesario -->
+                                    </li>
+                                    @endforeach
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               @endforeach
+            </div>
+            @else
+            <div class="card-body">
+               <p>No hay datos disponibles.</p>
+            </div>
+            @endif
+         </div>
+      </div>
       <div class="container mt-5 mb-5">
          <div class="card shadow">
             <div class="card-header color-nav text-white">
@@ -267,142 +394,6 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
             </div>
          </div>
       </div>
-      <script>
-         function eliminar(datos) {
-           $("#staticBackdrop").modal("show");
-           var deleteForm = document.querySelector('#deleteForm');
-           var string = datos.id+'/contractual/'+datos.contractual_id;
-           deleteForm.setAttribute("action", string);
-         
-         }
-      </script>
-      <div class="container mt-5">
-         <div class="card shadow">
-            <div class="card-header color-nav text-white">
-               <div class="d-flex align-items-center justify-content-between">
-                  <h4 class="mb-0">
-                     Datos Generales
-                  </h4>
-                  @can('create servicios')
-                  <a class="btn btn-success" href="{{ route('servicios.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
-                  @endcan
-               </div>
-            </div>
-            @if(count($operaciones) > 0)
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-               @foreach($operaciones as $operacion)
-               <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-heading{{$operacion->id}}">
-                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flushop-{{$operacion->id}}" aria-expanded="false" aria-controls="flushop-{{$operacion->id}}">
-                        <h6 class="mb-0">{{ $operacion->nom_corto}}</h6>
-                     </button>
-                  </h2>
-                  <div id="flushop-{{$operacion->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$operacion->id}}" data-bs-parent="#accordionFlushExample">
-                     <div class="accordion-body">
-                        <div class="table-responsive mt-4">
-                           <table class="table text-start align-middle table-borderless table-hover mb-4">
-                              <thead>
-                                 <tr class="text-dark">
-                                    <th scope="col">Nombre Corto</th>
-                                    <th scope="col">Alcance del Trabajo</th>
-                                    <th scope="col">Líder</th>
-                                    @if (Gate::check('delete servicios') || Gate::check('update servicios'))
-                                    <th scope="col"></th>
-                                    @endif
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>{{$operacion->nom_corto}}</td>
-                                    <td>{{$operacion->alcance}}</td>
-                                    <td>{{$operacion->lider}}</td>
-                                    @if (Gate::check('delete servicios') || Gate::check('update servicios'))
-                                    <td>
-                                       @can('delete servicios')
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminar2({{ json_encode(['id' => $operacion->id, 'contractual_id' => $contrato->id]) }})">
-                                       <i class="fa fa-trash"></i>
-                                       </button>
-                                       @endcan
-                                       @can('update servicios')
-                                       <a href="{{ route('servicios.edit', $operacion->id)}}" class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i></a>
-                                       @endcan
-                                    </td>
-                                    @endif
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-6">
-                              <div class="d-flex align-items-center justify-content-between mb-4">
-                                 <h4>Contactos</h4>
-                                 @can('create contactos')
-                                 <a class="btn btn-primary" href="{{route('clientes.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
-                                 @endcan
-                              </div>
-                              <div class="scrollable-container">
-                                 <ul class="list-group list-group-flush">
-                                    @foreach($operacion->customers as $contacto)
-                                    <li class="list-group-item">
-                                       <strong>Nombre:</strong> {{ $contacto->nom_cliente }}<br>
-                                       <strong>Cargo:</strong> {{ $contacto->cargo }}<br>
-                                       <strong>Empresa:</strong> {{ $contacto->empresa }}<br>
-                                       <strong>Correo:</strong> {{ $contacto->email }}<br>
-                                       <strong>Tel/Cel:</strong> {{ $contacto->num_tel }}<br>
-                                       @if (Gate::check('delete contactos') || Gate::check('update contactos'))
-                                       @can('delete contactos')
-                                       <button type="button" class="btn btn-danger btn-sm" onclick="eliminar3({{ json_encode(['id' => $contacto->id, 'contrato_id' => $contrato->id]) }})">
-                                       <i class="fa fa-trash"></i>
-                                       </button>
-                                       @endcan
-                                       @can('update contactos')
-                                       <a href="{{ route('clientes.edit', $contacto->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                       @endcan
-                                       @endif
-                                       <!-- Agrega más campos según sea necesario -->
-                                    </li>
-                                    @endforeach
-                                 </ul>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="d-flex align-items-center justify-content-between mb-4">
-                                 <h4>Comentarios</h4>
-                                 @can('create comentarios')
-                                 <a class="btn btn-primary" href="{{route('comentarios.insert', ['service_id' => $operacion->id, 'id' => $contrato->id])}}"><i class="fa fa-plus"></i></a>
-                                 @endcan
-                              </div>
-                              <div class="scrollable-container">
-                                 <ul class="list-group list-group-flush">
-                                    @foreach($operacion->comments as $comment)
-                                    <li class="list-group-item">
-                                       <strong>Comentario:</strong> {{ $comment->comment }}<br>
-                                       <strong>Tipo:</strong> {{ $comment->tipo }}<br>
-                                       <strong>Fecha:</strong> {{ $comment->created_at->format('Y-m-d') }}<br>
-                                       @can('delete comentarios')
-                                       <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarComment({{ json_encode(['id' => $comment->id, 'contrato_id' => $contrato->id]) }})">
-                                       <i class="fa fa-trash"></i>
-                                       </button>
-                                       @endcan
-                                       <!-- Agrega más campos según sea necesario -->
-                                    </li>
-                                    @endforeach
-                                 </ul>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               @endforeach
-            </div>
-            @else
-            <div class="card-body">
-               <p>No hay datos disponibles.</p>
-            </div>
-            @endif
-         </div>
-      </div>
       <div class="container mt-5 mb-5">
          <div class="card shadow">
             <div class="card-header color-nav text-white">
@@ -491,13 +482,13 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
             </div>
          </div>
       </div>
-      @if($contrato->coordinacion == 'Supervision')
+      @if($contrato->coordinacion == 'Supervision' || $contrato->coordinacion == 'Ambiental')
       <div class="container mt-5">
          <div class="card shadow">
             <div class="card-header color-nav text-white">
                <div class="d-flex align-items-center justify-content-between">
                   <h4 class="mb-0">
-                     Avance Supervisión
+                     Avance Ejecutora
                   </h4>
                   @can('create avances')
                   <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
@@ -511,7 +502,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
                <div class="accordion-item">
                   <h2 class="accordion-header" id="flush-heading{{$avance->id}}">
                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{$avance->id}}" aria-expanded="false" aria-controls="flush-collapse{{$avance->id}}">
-                        <h6 class="mb-0">{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</h6>
+                        <h6 class="mb-0">Ejecutora {{ $contador }}</h6>
                      </button>
                   </h2>
                   <div id="flush-{{$avance->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$avance->id}}" data-bs-parent="#accordionFlushExample">
@@ -567,105 +558,6 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
                         <div class="row mb-3">
                            <div class="col-md-6 offset-md-3">
                               @can('delete avances')
-                              <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
-                              <i class="fa fa-trash"></i>
-                              </button>
-                              @endcan
-                              @can('update avances')
-                              <a href="{{ route('avances.edit', $avance->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                              @endcan
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               @php $contador++; @endphp
-               @endforeach
-            </div>
-            @else
-            <div class="card-body">
-               <p>No hay datos disponibles.</p>
-            </div>
-            @endif
-         </div>
-      </div>
-      @endif
-      @if($contrato->coordinacion == 'Construccion')
-      <div class="container mt-5">
-         <div class="card shadow">
-            <div class="card-header color-nav text-white">
-               <div class="d-flex align-items-center justify-content-between">
-                  <h4 class="mb-0">
-                     Avance Constructora
-                  </h4>
-                  @can('create avances')
-                  <a class="btn btn-success" href="{{ route('avances.insert', $contrato->id)}}"><i class="fa fa-plus"></i></a>
-                  @endcan
-               </div>
-            </div>
-            @if(count($avancesC) > 0)
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-               @php $contador = 1; @endphp
-               @foreach($avancesC as $avance)
-               <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-heading{{$avance->id}}">
-                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{$avance->id}}" aria-expanded="false" aria-controls="flush-collapse{{$avance->id}}">
-                        <h6 class="mb-0">{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</h6>
-                     </button>
-                  </h2>
-                  <div id="flush-{{$avance->id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$avance->id}}" data-bs-parent="#accordionFlushExample">
-                     <div class="accordion-body">
-                        <div class="row mb-3">
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Programado Físico</h6>
-                              <span>{{$avance->pro_fisico}}%</span>
-                           </div>
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Real Físico</h6>
-                              <span>{{$avance->real_fisico}}%</span>
-                           </div>
-                        </div>
-                        <div class="row mb-3">
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Desviación Física</h6>
-                              <span>{{$avance->des_fisico}}%</span>
-                           </div>
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Observaciones</h6>
-                              <span>{{$avance->fisico_obs}}</span>
-                           </div>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="row mb-3">
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Programado Financiero</h6>
-                              <span>{{$avance->pro_fina}}%</span>
-                           </div>
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Real Financiero</h6>
-                              <span>{{$avance->real_fina}}%</span>
-                           </div>
-                        </div>
-                        <div class="row mb-3">
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Desviación Financiera</h6>
-                              <span>{{$avance->des_fina}}%</span>
-                           </div>
-                           <div class="col-md-6">
-                              <h6 class="font-weight-bold">Observaciones</h6>
-                              <span>{{$avance->financiero_obs}}</span>
-                           </div>
-                        </div>
-                        <div class="row mb-3">
-                           <div class="col-md-12">
-                              <h6 class="font-weight-bold">Ultima actualización</h6>
-                              <span>{{ \Carbon\Carbon::parse($avance->updated_at)->format('Y-m-d h:i:s A') }}</span>
-                           </div>
-                        </div>
-                        <div class="row mb-3">
-                           <div class="col-md-6 offset-md-3">
-                              @can('create avances')
                               <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAvance({{ json_encode(['id' => $avance->id, 'contrato_id' => $contrato->id]) }})">
                               <i class="fa fa-trash"></i>
                               </button>
@@ -835,6 +727,13 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
            $("#staticBackdrop").modal("show");
            var deleteForm = document.querySelector('#deleteForm');
            var string = datos.id+'/contractuals/'+datos.contractual_id;
+           deleteForm.setAttribute("action", string);
+         
+         }
+         function eliminar(datos) {
+           $("#staticBackdrop").modal("show");
+           var deleteForm = document.querySelector('#deleteForm');
+           var string = datos.id+'/contractual/'+datos.contractual_id;
            deleteForm.setAttribute("action", string);
          
          }
