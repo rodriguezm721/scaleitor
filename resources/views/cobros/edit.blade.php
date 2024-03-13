@@ -13,7 +13,7 @@
                      <div class="form-floating mb-3">
                         <input name="num_factura" type="text" value="{{ $cobro->num_factura}}" class="form-control" id="floatingPassword"
                            placeholder="Act Indirectos">
-                        <label for="floatingPassword"># Factura</label>
+                        <label for="floatingPassword"># Estimación</label>
                      </div>
                      @error('num_factura')
                         <p class="text-danger">{{ $message }}</p>

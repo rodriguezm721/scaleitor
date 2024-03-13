@@ -600,7 +600,7 @@ $monto_contrato = $contrato->imp_contrato + $monto_total_convenios;
                      <thead>
                         <tr class="text-dark">
                            <th scope="col">Periodo</th>
-                           <th scope="col"># Factura</th>
+                           <th scope="col"># Estimación</th>
                            <th scope="col">Fecha Ingreso</th>
                            <th scope="col">Programado</th>
                            <th scope="col">%</th>

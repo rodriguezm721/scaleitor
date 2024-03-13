@@ -162,7 +162,7 @@ return [
         'acum_promg'                => 'programado acumulado',
         'acum_esti'                 => 'estimado acumulado',
         'acum_cobra'                => 'cobrado acumulado',
-        'num_factura'               => 'factura',
+        'num_factura'               => 'estimación',
         'num_tel'                   => 'Cel/Tel',
         'c_costo'                   => 'centro de costos',
 

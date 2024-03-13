@@ -209,11 +209,7 @@ class ContractualController extends Controller
         ->get();
 
         $avancesS = Advance::where('contractual_id', $contrato)
-        ->where('tipo', 'Supervision')
-        ->get();
-
-        $avancesC = Advance::where('contractual_id', $contrato)
-        ->where('tipo', 'Constructora')
+        ->where('tipo', 'Ejecutora')
         ->get();
 
         $cobros = Cobros::where('contractual_id', $contrato)->get();
@@ -226,7 +222,6 @@ class ContractualController extends Controller
         ->with(compact('operaciones'))
         ->with(compact('avancesG'))
         ->with(compact('avancesS'))
-        ->with(compact('avancesC'))
         ->with(compact('cobros'))
         ->with(compact('id'))
         ->with(compact('contrato'));

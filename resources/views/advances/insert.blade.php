@@ -18,7 +18,7 @@
                         @endif
                         <option value="General" @if(old('tipo') == 'General') disabled @endif>General</option>
                         @if($contrato->coordinacion == 'Supervision' || $contrato->coordinacion == 'Ambiental')
-                        <option value="Supervision" @if(old('tipo') == 'Supervision') disabled @endif>Supervisión</option>
+                        <option value="Ejecutora" @if(old('tipo') == 'Ejecutora') disabled @endif>Ejecutora</option>
                         @endif
                         {{ $contrato->coordinacion}}
                      </select>

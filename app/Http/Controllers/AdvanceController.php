@@ -77,13 +77,14 @@ class AdvanceController extends Controller
         try{
             //Hace un select al modelo de estado por medio de un id que llega como parametro
             $avance = Advance::find($advance);
+            $contrato = Contractual::find($avance->contractual_id);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             return view('layouts.errorpage');
         }
         //Retorna una vista con la consulta que hizo al modelo
-        return view('advances.edit', compact('avance'));
+        return view('advances.edit', compact('avance', 'contrato'));
     }
 
     /**

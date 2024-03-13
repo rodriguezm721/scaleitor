@@ -5,6 +5,7 @@
       <div class="col-sm-12 col-xl-12">
          <div class="bg-light rounded h-100 p-4">
             <h3 class="mb-4 text-center">Actualizar Avance</h3>
+            {{ $contrato->coordinacion}}
             <form class="row g-3" method="POST" action="{{ route('avances.update', $avance)}}">
                @csrf
                @method('put')
@@ -12,18 +13,18 @@
                   <div class="form-floating mb-3">
                      <select class="form-select" name="coordinacion" id="floatingSelect"
                         aria-label="Floating label select example">
-                        @if($avance->tipo == 'General')
-                        <option value="General" selected>General</option>
-                        <option value="Supervision">Supervisión</option>
-                        <option value="Constructora">Constructora</option>
-                        @elseif($avance->tipo == 'Supervision')
-                        <option value="Supervision" selected>Supervisión</option>
-                        <option value="General">General</option>
-                        <option value="Constructora">Constructora</option>
-                        @elseif($avance->tipo == 'Constructora')
-                        <option value="Constructora" selected>Constructora</option>
-                        <option value="Supervision">Supervisión</option>
-                        <option value="General">General</option>
+                        @if($contrato->coordinacion == 'Supervision' || $contrato->coordinacion == 'Ambiental')
+                           @if($avance->tipo == 'General')
+                              <option value="General" selected>General</option>
+                              <option value="Ejecutora">Ejecutora</option>
+                           @elseif($avance->tipo == 'Ejecutora')
+                              <option value="Ejecutora" selected>Ejecutora</option>
+                              <option value="General">General</option>
+                           @endif
+                        @else
+                           @if($avance->tipo == 'General')
+                              <option value="General" selected>General</option>
+                           @endif
                         @endif
                      </select>
                      <label for="floatingSelect">Tipo de Avance</label>

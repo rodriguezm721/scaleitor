@@ -11,7 +11,7 @@
                   <div class="col-md-4">
                      <div class="form-floating mb-3">
                         <input name="num_factura" type="text" value="{{ old('num_factura') }}" class="form-control" id="numFacturaInput" placeholder="Act Indirectos">
-                        <label for="numFacturaInput">Número de Factura</label>
+                        <label for="numFacturaInput">Número de Estimación</label>
                      </div>
                      @error('num_factura')
                         <p class="text-danger">{{ $message }}</p>
