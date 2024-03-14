@@ -53,7 +53,9 @@
                   </div>
                </div>
                <div class="navbar-nav w-100">
+                  @can('read contratos')
                   <a href="{{ route('dashboard')}}" class="nav-item nav-link"><i class="fa fa-home me-2"></i>Dashboard</a>
+                  @endcan
                   @can('create contratos')
                   <a href="{{ route('contratos.index')}}" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Proyectos</a>
                   <a href="{{ route('contratos.index2')}}" class="nav-item nav-link"><i class="fa fa-tree me-2"></i>Ambiental</a>
