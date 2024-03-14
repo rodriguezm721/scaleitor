@@ -70,17 +70,54 @@ Route::resource('/clientes', CustomerController::class)->names([
 Route::resource('/comentarios', CommentController::class)->names([
     'store' => 'comentarios.store',
     'show' => 'comentarios.show',
-])->middleware(['auth','role:admin|editor']);
+])->middleware(['auth','role:admin|editor|lector']);
 
 //Rutas para CRUD de contratos
-Route::resource('/contratos', ContractualController::class)->names([
+/*Route::resource('/contratos', ContractualController::class)->names([
     'store' => 'contratos.store',
     'index' => 'contratos.index',
     'create' => 'contratos.create',
     'edit' => 'contratos.edit',
     'update' => 'contratos.update',
-    'show' => 'contratos.show',
-])->middleware(['auth','role:admin|editor']);
+])->middleware(['auth','role:admin|editor|lector']);
+
+Route::get('/contratos', [ContractualController::class, 'show'])->name('contratos.show')->middleware(['auth','role:admin|editor|lector']);
+*/
+
+Route::middleware(['auth'])->group(function () {
+    // Ruta para mostrar el formulario de creación
+    Route::get('/contratos/create', [ContractualController::class, 'create'])
+        ->name('contratos.create')
+        ->middleware('role:admin|editor|');
+
+    // Ruta para almacenar un nuevo contrato
+    Route::post('/contratos', [ContractualController::class, 'store'])
+        ->name('contratos.store')
+        ->middleware('role:admin|editor|');
+
+    // Ruta para mostrar todos los contratos
+    Route::get('/contratos', [ContractualController::class, 'index'])
+        ->name('contratos.index')
+        ->middleware('role:admin|editor|');
+
+    // Ruta para mostrar un contrato específico
+    Route::get('/contratos/{contrato}', [ContractualController::class, 'show'])
+        ->name('contratos.show')
+        ->middleware('role:admin|editor|lector');
+
+    // Ruta para mostrar el formulario de edición de un contrato
+    Route::get('/contratos/{contrato}/edit', [ContractualController::class, 'edit'])
+        ->name('contratos.edit')
+        ->middleware('role:admin|editor');
+
+    // Ruta para actualizar un contrato existente
+    Route::put('/contratos/{contrato}', [ContractualController::class, 'update'])
+        ->name('contratos.update')
+        ->middleware('role:admin|editor');
+
+    // Puedes agregar más rutas aquí con middleware personalizado si es necesario
+});
+
 
 /*Route::get('/contratos', [ContractualController::class, 'index'])->name('contratos.index');*/
 Route::get('/contratosamb', [ContractualController::class, 'index2'])->name('contratos.index2')->middleware(['auth','role:admin|editor']);
@@ -105,7 +142,7 @@ Route::resource('/avances', AdvanceController::class)->names([
 //Route::post('/convenios/insert', [TimeController::class, 'insert'])->name('convenios.insert');
 Route::get('/convenios/insert/{id}', [TimeController::class, 'insert'])->name('convenios.insert')->middleware(['auth','role:admin|editor']);
 Route::get('/clientes/insert/{service_id}/{id}', [CustomerController::class, 'insert'])->name('clientes.insert')->middleware(['auth','role:admin|editor']);
-Route::get('/comentarios/insert/{service_id}/{id}', [CommentController::class, 'insert'])->name('comentarios.insert')->middleware(['auth','role:admin|editor']);
+Route::get('/comentarios/insert/{service_id}/comment_id/{id}', [CommentController::class, 'insert'])->name('comentarios.insert')->middleware(['auth','role:admin|editor|lector']);
 Route::get('/servicios/insert/{id}', [ServiceController::class, 'insert'])->name('servicios.insert')->middleware(['auth','role:admin|editor']);
 Route::get('/avances/insert/{id}', [AdvanceController::class, 'insert'])->name('avances.insert')->middleware(['auth','role:admin|editor']);
 Route::get('/cobros/insert/{id}', [CobrosController::class, 'insert'])->name('cobros.insert')->middleware(['auth','role:admin|editor']);
@@ -113,6 +150,7 @@ Route::get('/cobros/insert/{id}', [CobrosController::class, 'insert'])->name('co
 Route::delete('/contratos/{id}/contractual/{contractual_id}', [TimeController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
 Route::delete('/contratos/{customer_id}/service/{id}', [CustomerController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
 Route::delete('/contratos/{service_id}/contractuals/{id}', [ServiceController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
-Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
+Route::delete('/contratos/{comment_id}/operation/{id}', [CommentController::class, 'destroy'])->middleware(['auth','role:admin|editor|lector']);
 Route::delete('contratos/{avance_id}/contrato/{id}', [AdvanceController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
 Route::delete('/contratos/{cobro_id}/contract/{id}', [CobrosController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
+Route::delete('/contratos/{contrato_id}', [ContractualController::class, 'destroy'])->middleware(['auth','role:admin|editor']);
